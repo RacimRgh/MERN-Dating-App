@@ -57,7 +57,7 @@ const LoginScreen = (props) => {
           <View style={styles.blackoverlay}>
             <SafeAreaView style={styles.safeAreaViewStyle}>
               <View style={styles.loginContainer}>
-                <Logo logoText="LoveAttraction" />
+                <Logo logoText="OurApp" />
               </View>
               <BottomContainer
                 cardState={cardState}

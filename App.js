@@ -24,7 +24,6 @@ const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
 
 const Home = ({ navigation }) => {
-  const [isActive, setIsActive] = useState(false);
   return (
     <Tab.Navigator
       initialRouteName="Profile"
@@ -59,9 +58,10 @@ const Home = ({ navigation }) => {
         },
       })}
       tabBarOptions={{
-        showLabel: false,
+        showLabel: true,
         style: {
           backgroundColor: '#5dbcd2',
+          height: 60,
         },
       }}>
       <Drawer.Screen name="Drawer" component={DrawerScreen} />

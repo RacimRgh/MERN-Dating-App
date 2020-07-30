@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Text, View, TouchableOpacity } from 'react-native';
+import { Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import Icon from 'react-native-dynamic-vector-icons';
 import Card from './Card';
 import DateHourPicker from './DateHourPicker';
@@ -12,7 +12,6 @@ const BottomContainer = (props) => {
     onPressSignup,
     backgroundColor,
     onPressSettings,
-    contentComponent,
     emailOnChangeText,
     fullnameOnChangeText,
     passwordOnChangeText,
@@ -49,7 +48,7 @@ const BottomContainer = (props) => {
 
   renderSignupCards = () => {
     return (
-      <View>
+      <ScrollView>
         <Card
           nameIcon="envelope-open"
           title="E-mail"
@@ -59,9 +58,16 @@ const BottomContainer = (props) => {
         />
         <Card
           nameIcon="user"
-          title="Full name"
+          title="First name"
           value={fullnameTextInputValue}
-          placeholder="Your fullname"
+          placeholder="Your first name"
+          onChangeText={fullnameOnChangeText}
+        />
+        <Card
+          nameIcon="user"
+          title="Last name"
+          value={fullnameTextInputValue}
+          placeholder="Your last name"
           onChangeText={fullnameOnChangeText}
         />
         <Card
@@ -80,7 +86,7 @@ const BottomContainer = (props) => {
           placeholder="Re-enter your password"
           onChangeText={(text) => repasswordOnChangeText(text)}
         />
-      </View>
+      </ScrollView>
     );
   };
 
@@ -89,7 +95,7 @@ const BottomContainer = (props) => {
   };
 
   return (
-    <View style={container(backgroundColor, cardState)}>
+    <ScrollView style={container(backgroundColor, cardState)}>
       <View style={styles.containerGlue}>{renderCardContent()}</View>
       {cardState ? undefined : <DateHourPicker />}
       <View style={styles.footerContainer}>
@@ -115,7 +121,7 @@ const BottomContainer = (props) => {
           </View>
         )}
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
