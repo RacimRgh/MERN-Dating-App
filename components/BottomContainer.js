@@ -12,14 +12,18 @@ const BottomContainer = (props) => {
     onPressSignup,
     backgroundColor,
     onPressSettings,
+    disableSignupButton,
+
     emailOnChangeText,
-    fullnameOnChangeText,
+    firstnameOnChangeText,
+    lastnameOnChangeText,
     passwordOnChangeText,
     repasswordOnChangeText,
-    disableSignupButton,
-    passwordTextInputValue,
+
     emailTextInputValue,
-    fullnameTextInputValue,
+    firstnameTextInputValue,
+    lastnameTextInputValue,
+    passwordTextInputValue,
     repasswordTextInputValue,
   } = props;
 
@@ -40,7 +44,7 @@ const BottomContainer = (props) => {
           title="Password"
           value={passwordTextInputValue}
           placeholder="Enter your password"
-          onChangeText={(text) => passwordOnChangeText(text)}
+          onChangeText={passwordOnChangeText}
         />
       </View>
     );
@@ -59,16 +63,16 @@ const BottomContainer = (props) => {
         <Card
           nameIcon="user"
           title="First name"
-          value={fullnameTextInputValue}
+          value={firstnameTextInputValue}
           placeholder="Your first name"
-          onChangeText={fullnameOnChangeText}
+          onChangeText={firstnameOnChangeText}
         />
         <Card
           nameIcon="user"
           title="Last name"
-          value={fullnameTextInputValue}
+          value={lastnameTextInputValue}
           placeholder="Your last name"
-          onChangeText={fullnameOnChangeText}
+          onChangeText={lastnameOnChangeText}
         />
         <Card
           nameIcon="lock"
@@ -76,7 +80,7 @@ const BottomContainer = (props) => {
           title="Password"
           value={passwordTextInputValue}
           placeholder="Enter your password"
-          onChangeText={(text) => passwordOnChangeText(text)}
+          onChangeText={passwordOnChangeText}
         />
         <Card
           nameIcon="lock"
@@ -84,7 +88,7 @@ const BottomContainer = (props) => {
           title="Password confirmation"
           value={repasswordTextInputValue}
           placeholder="Re-enter your password"
-          onChangeText={(text) => repasswordOnChangeText(text)}
+          onChangeText={repasswordOnChangeText}
         />
       </ScrollView>
     );

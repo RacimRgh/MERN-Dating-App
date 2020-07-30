@@ -1,13 +1,16 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import DrawerHeader from '../components/DrawerHeader';
+import React, { useContext } from 'react';
+import { View, StyleSheet } from 'react-native';
 import {
   DrawerContentScrollView,
   DrawerItemList,
   DrawerItem,
 } from '@react-navigation/drawer';
+import DrawerHeader from '../components/DrawerHeader';
+import { store } from '../components/store';
 
 const DrawerScreen = (props) => {
+  const globalState = useContext(store);
+  const { dispatch } = globalState;
   return (
     <DrawerContentScrollView {...props}>
       <DrawerHeader {...props} />
@@ -20,6 +23,13 @@ const DrawerScreen = (props) => {
         <DrawerItem
           label="Edit my profile"
           onPress={() => props.navigation.navigate('Edit profile')}
+        />
+        <DrawerItem
+          label="Sign out"
+          onPress={() => {
+            dispatch({ type: 'logout' });
+            props.navigation.navigate('Main');
+          }}
         />
       </View>
     </DrawerContentScrollView>

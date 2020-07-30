@@ -13,7 +13,7 @@ import { isAndroid, isIPhoneXFamily } from '@freakycoder/react-native-helpers';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 const DateHourPicker = () => {
-  const [date, setDate] = useState(new Date(1598051730000));
+  const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
 
@@ -24,8 +24,8 @@ const DateHourPicker = () => {
   };
 
   const showMode = (currentMode) => {
-    setShow(true);
     setMode(currentMode);
+    setShow(true);
   };
 
   const showDatepicker = () => {
@@ -37,41 +37,68 @@ const DateHourPicker = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <TouchableOpacity onPress={showDatepicker}>
-        <View style={styles.containerGlue}>
-          <View style={{ width: 35, justifyContent: 'center' }}>
-            <Icon
-              size={25}
-              name="calendar"
-              color="black"
-              type="SimpleLineIcons"
-            />
+    <>
+      <View style={styles.container}>
+        <TouchableOpacity onPress={showDatepicker}>
+          <View style={styles.containerGlue}>
+            <View style={{ width: 35, justifyContent: 'center' }}>
+              <Icon
+                size={25}
+                name="calendar"
+                color="black"
+                type="SimpleLineIcons"
+              />
+            </View>
+            <View style={styles.textContainer}>
+              <Text style={styles.textStyle}>Date of birth</Text>
+              <Text style={styles.textTime}>
+                {date.toISOString().slice(0, 10)}
+              </Text>
+            </View>
           </View>
-          <View style={styles.textContainer}>
-            <Text style={styles.textStyle}>Date of birth</Text>
-            <TextInput
-              value={date}
-              placeholder="Date of birth"
-              placeholderTextColor="#ccc"
-              selectionColor="#757575"
-              onChangeText={onChange}
-              style={styles.textInputStyle}
-            />
+        </TouchableOpacity>
+        {show && (
+          <DateTimePicker
+            testID="dateTimePicker"
+            value={date}
+            mode={mode}
+            is24Hour={true}
+            display="default"
+            onChange={onChange}
+          />
+        )}
+      </View>
+      <View style={styles.container}>
+        <TouchableOpacity onPress={showTimepicker}>
+          <View style={styles.containerGlue}>
+            <View style={{ width: 35, justifyContent: 'center' }}>
+              <Icon
+                size={25}
+                name="clock"
+                color="black"
+                type="SimpleLineIcons"
+              />
+            </View>
+            <View style={styles.textContainer}>
+              <Text style={styles.textStyle}>Hour of birth</Text>
+              <Text style={styles.textTime}>
+                {date.toISOString().slice(11, 16)}
+              </Text>
+            </View>
           </View>
-        </View>
-      </TouchableOpacity>
-      {show && (
-        <DateTimePicker
-          testID="dateTimePicker"
-          value={date}
-          mode={mode}
-          is24Hour={true}
-          display="default"
-          onChange={onChange}
-        />
-      )}
-    </View>
+        </TouchableOpacity>
+        {show && (
+          <DateTimePicker
+            testID="dateTimePicker"
+            value={date}
+            mode={mode}
+            is24Hour={true}
+            display="default"
+            onChange={onChange}
+          />
+        )}
+      </View>
+    </>
   );
 };
 
@@ -121,6 +148,10 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     marginTop: isAndroid ? 10 : null,
+  },
+  textTime: {
+    marginVertical: 7,
+    color: 'grey',
   },
 });
 

@@ -9,7 +9,7 @@ export const container = (backgroundColor, cardState) => {
     alignSelf: 'center',
     position: 'absolute',
     bottom: cardState ? height * 0.25 : height * 0.14,
-    height: cardState ? 250 : 550,
+    height: cardState ? 300 : 550,
   };
 };
 
