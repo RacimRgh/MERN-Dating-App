@@ -6,11 +6,9 @@ import {
   DrawerItem,
 } from '@react-navigation/drawer';
 import DrawerHeader from '../components/DrawerHeader';
-import { store } from '../components/store';
 
 const DrawerScreen = (props) => {
-  const globalState = useContext(store);
-  const { dispatch } = globalState;
+  const { onPressLogout } = props;
   return (
     <DrawerContentScrollView {...props}>
       <DrawerHeader {...props} />
@@ -24,13 +22,7 @@ const DrawerScreen = (props) => {
           label="Edit my profile"
           onPress={() => props.navigation.navigate('Edit profile')}
         />
-        <DrawerItem
-          label="Sign out"
-          onPress={() => {
-            dispatch({ type: 'logout' });
-            props.navigation.navigate('Main');
-          }}
-        />
+        <DrawerItem label="Sign out" onPress={onPressLogout} />
       </View>
     </DrawerContentScrollView>
   );

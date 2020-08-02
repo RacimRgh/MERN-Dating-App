@@ -10,15 +10,16 @@ const BottomContainer = (props) => {
   const {
     cardState,
     onPressSignup,
+    onPressLogin,
     backgroundColor,
     onPressSettings,
     disableSignupButton,
 
-    emailOnChangeText,
-    firstnameOnChangeText,
-    lastnameOnChangeText,
-    passwordOnChangeText,
-    repasswordOnChangeText,
+    emailOnChange,
+    firstnameOnChange,
+    lastnameOnChange,
+    passwordOnChange,
+    repasswordOnChange,
 
     emailTextInputValue,
     firstnameTextInputValue,
@@ -35,7 +36,7 @@ const BottomContainer = (props) => {
           title="E-mail"
           value={emailTextInputValue}
           placeholder="john@doe.com"
-          onChangeText={emailOnChangeText}
+          onChangeText={emailOnChange}
         />
         <Card
           nameIcon="lock"
@@ -44,7 +45,7 @@ const BottomContainer = (props) => {
           title="Password"
           value={passwordTextInputValue}
           placeholder="Enter your password"
-          onChangeText={passwordOnChangeText}
+          onChangeText={passwordOnChange}
         />
       </View>
     );
@@ -58,21 +59,21 @@ const BottomContainer = (props) => {
           title="E-mail"
           value={emailTextInputValue}
           placeholder="john@doe.com"
-          onChangeText={emailOnChangeText}
+          onChangeText={emailOnChange}
         />
         <Card
           nameIcon="user"
           title="First name"
           value={firstnameTextInputValue}
           placeholder="Your first name"
-          onChangeText={firstnameOnChangeText}
+          onChangeText={firstnameOnChange}
         />
         <Card
           nameIcon="user"
           title="Last name"
           value={lastnameTextInputValue}
           placeholder="Your last name"
-          onChangeText={lastnameOnChangeText}
+          onChangeText={lastnameOnChange}
         />
         <Card
           nameIcon="lock"
@@ -80,7 +81,7 @@ const BottomContainer = (props) => {
           title="Password"
           value={passwordTextInputValue}
           placeholder="Enter your password"
-          onChangeText={passwordOnChangeText}
+          onChangeText={passwordOnChange}
         />
         <Card
           nameIcon="lock"
@@ -88,7 +89,7 @@ const BottomContainer = (props) => {
           title="Password confirmation"
           value={repasswordTextInputValue}
           placeholder="Re-enter your password"
-          onChangeText={repasswordOnChangeText}
+          onChangeText={repasswordOnChange}
         />
       </ScrollView>
     );
@@ -117,7 +118,7 @@ const BottomContainer = (props) => {
             )}
             <TouchableOpacity
               style={styles.signupButtonStyle}
-              onPress={() => onPressSignup()}>
+              onPress={onPressSignup}>
               <Text style={styles.signupTextStyle}>
                 {cardState ? 'Create account' : 'Login'}
               </Text>

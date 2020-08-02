@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import {
   Text,
@@ -13,6 +13,7 @@ import Spinner from 'react-native-spinkit';
 import styles from './LoginScreen.style';
 import Logo from '../components/Logo';
 import BottomContainer from '../components/BottomContainer';
+import { store } from '../components/store';
 
 const defaultBackground =
   'https://images.unsplash.com/photo-1554189097-ffe88e998a2b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80';
@@ -26,6 +27,10 @@ const LoginScreen = (props) => {
     spinnerVisibility,
   } = props;
   const [cardState, setCardState] = useState(true);
+  const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState(null);
+  const globalState = useContext(store);
+  const { dispatch } = globalState;
   // Spinner
   renderSpinner = () => (
     <View style={styles.spinnerStyle}>
@@ -61,10 +66,12 @@ const LoginScreen = (props) => {
               </View>
               <BottomContainer
                 cardState={cardState}
+                onChangeEmail={(email) => setEmail(email)}
+                onChangePassword={(password) => setPassword(password)}
                 onPressSignup={() => {
                   setCardState(!cardState);
-                  onPressSignup && onPressSignup();
                 }}
+                onPressLogin={onPressLogin}
               />
             </SafeAreaView>
           </View>

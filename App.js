@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 // Local Imports
+
 // screens
 import LoginScreen from './screens/LoginScreen';
 import DrawerScreen from './screens/DrawerScreen';
@@ -40,16 +41,29 @@ const RootStackScreen = () => {
 };
 const App = () => {
   //const [switchValue, setSwitchValue] = useState(false);
-  const [username, setUsername] = useState(null);
+  const initialState = {
+    email: '', // Store `email` when user enters their email
+    password: '', // Store `password` when user enters their password
+    errors: {}, // Store error data from the backend here
+    isAuthorized: false, // If auth is successful, set this to `true`
+    isLoading: false, // Set this to `true` if You want to show spinner
+  };
   const [spinnerVisibility, setSpinnerVisibility] = useState(false);
   const globalState = useContext(store);
 
-  return globalState['signedIn'] ? (
+  return globalState['isAuthorized'] ? (
     <StateProvider>
       <NavigationContainer style={styles.container}>
         <Drawer.Navigator
           initialRouteName="Home"
-          drawerContent={(props) => <DrawerScreen {...props} />}>
+          drawerContent={(props) => (
+            <DrawerScreen
+              {...props}
+              onPressLogout={() => {
+                globalState['isAuthorized'] = false;
+              }}
+            />
+          )}>
           <Drawer.Screen name="Home" component={RootStackScreen} />
         </Drawer.Navigator>
       </NavigationContainer>
@@ -65,7 +79,6 @@ const App = () => {
             {(props) => (
               <View>
                 <LoginScreen
-                  isSignedIn
                   spinnerEnable
                   spinnerVisibility={spinnerVisibility}
                   onPressLogin={() => {
@@ -73,13 +86,9 @@ const App = () => {
                     setTimeout(() => {
                       setSpinnerVisibility(false);
                     }, 4000);
-                    globalState['signedIn'] = true;
+                    globalState['isAuthorized'] = true;
                   }}
-                  usernameOnChangeText={(username) => setUsername(username)}
                   onPressSettings={() => alert('Settings Button is pressed')}
-                  passwordOnChangeText={(password) =>
-                    console.log('Password: ', password)
-                  }
                 />
               </View>
             )}
