@@ -1,6 +1,10 @@
 import React from 'react';
 import { View, Text, Button } from 'react-native';
 
+/*
+ Search screen ?
+ work in progress
+*/
 const SearchScreen = ({ navigation }) => {
   return (
     <View style={{ flex: 2, alignItems: 'center', justifyContent: 'center' }}>

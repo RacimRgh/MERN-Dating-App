@@ -6,7 +6,6 @@ import {
   Text,
   ImageBackground,
   ScrollView,
-  SafeAreaView,
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import images from '../components/Images';
@@ -14,7 +13,10 @@ import ProfileBar from '../components/ProfileBar';
 import ProfileTabs from '../components/ProfileTabs';
 
 const { width, height } = Dimensions.get('window');
-
+/* this is the user profile screen
+  all his information will be displayed
+  there are 5 different tabs: General info, Astrology, Taste, LifeStyle and 
+*/
 const ProfileScreen = ({ navigation }) => {
   const [activeIcon, setActiveIcon] = useState(3);
   return (

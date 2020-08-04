@@ -1,6 +1,10 @@
 import React from 'react';
 import { View, Text, Button } from 'react-native';
 
+/* Notifications screen
+  work in progress
+*/
+
 const NotificationsScreen = ({ navigation }) => {
   return (
     <View style={{ flex: 2, alignItems: 'center', justifyContent: 'center' }}>

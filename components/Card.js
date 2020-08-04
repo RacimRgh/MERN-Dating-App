@@ -5,6 +5,10 @@ import Icon from 'react-native-dynamic-vector-icons';
 import TextInput from 'react-native-improved-text-input';
 import styles from './Card.style';
 
+/* Component for individual cards that can be used 
+  in the login screen where the user can write 
+  depending on the card's field
+*/
 const Card = (props) => {
   const { nameIcon, title, textInputValue, placeholder, onChangeText } = props;
   return (

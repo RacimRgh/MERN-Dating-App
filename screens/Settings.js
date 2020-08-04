@@ -1,6 +1,9 @@
 import React from 'react';
 import { ScrollView, FlatList, View, Text, StyleSheet } from 'react-native';
-
+/* 
+  This is the settings screen (modal)
+  The user can modify his account information and more to come
+*/
 const Settings = ({ navigation }) => {
   const DATA = [
     {
@@ -10,6 +13,7 @@ const Settings = ({ navigation }) => {
       lastname: 'righi',
     },
   ];
+
   return (
     <View style={styles.container}>
       <View>

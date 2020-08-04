@@ -1,23 +1,26 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 // Local Imports
-
 // screens
 import LoginScreen from './screens/LoginScreen';
 import DrawerScreen from './screens/DrawerScreen';
 import Settings from './screens/Settings';
 import EditProfile from './screens/EditProfile';
+import Home from './screens/HomeTabs';
 // components
 import { StateProvider, store } from './components/store';
-import Home from './screens/HomeTabs';
 
 const RootStack = createStackNavigator();
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
+/* The RootStackScreen has the Home (the mains app tabs), 
+and 2 modals (Settings and Edit Profile) both accessible from
+the main menu when online (Home)
+*/
 const RootStackScreen = () => {
   return (
     <RootStack.Navigator mode="modal">
@@ -48,9 +51,8 @@ const App = () => {
     isAuthorized: false, // If auth is successful, set this to `true`
     isLoading: false, // Set this to `true` if You want to show spinner
   };
-  const [spinnerVisibility, setSpinnerVisibility] = useState(false);
   const globalState = useContext(store);
-
+  // Render the LoginScreen or the Full application whether the user is connected (authorized) or not
   return globalState['isAuthorized'] ? (
     <StateProvider>
       <NavigationContainer style={styles.container}>
@@ -79,15 +81,6 @@ const App = () => {
             {(props) => (
               <View>
                 <LoginScreen
-                  spinnerEnable
-                  spinnerVisibility={spinnerVisibility}
-                  onPressLogin={() => {
-                    setSpinnerVisibility(true);
-                    setTimeout(() => {
-                      setSpinnerVisibility(false);
-                    }, 4000);
-                    globalState['isAuthorized'] = true;
-                  }}
                   onPressSettings={() => alert('Settings Button is pressed')}
                 />
               </View>
@@ -107,11 +100,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  drawerButton: {
-    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
   },

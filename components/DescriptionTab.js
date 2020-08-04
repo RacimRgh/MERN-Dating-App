@@ -1,31 +1,53 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  SectionList,
+  SafeAreaView,
+  FlatList,
+} from 'react-native';
 
 const DescriptionTab = () => {
-  return (
-    <View>
-      <View style={styles.divider} />
-      <Text style={styles.titles}>Informations générales</Text>
-      <Text>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-        porttitor metus nibh, et finibus massa pharetra ornare. Vivamus vitae
-        est interdum, bibendum metus sit amet, elementum nisl. In ac arcu ut mi
-        placerat ultrices non sed nibh. Pellentesque habitant morbi tristique
-        senectus et netus et malesuada fames ac turpis egestas. Suspendisse
-        dictum mattis ornare. Pellentesque habitant morbi tristique senectus et
-        netus et malesuada fames ac turpis egestas. Aliquam fringilla diam ut
-        euismod facilisis. Nam placerat, enim id aliquam dignissim, magna ex
-        rhoncus tellus, condimentum dictum nunc ante sit amet libero. In
-        bibendum malesuada erat, at fringilla mauris rhoncus vitae. Vivamus
-        metus nisi, scelerisque vitae lacus in, blandit vulputate mi. Cras
-        molestie eros enim, in pretium nisi pharetra nec.
-      </Text>
-      <View style={styles.divider} />
-      <Text style={styles.titles}>Lifestyle</Text>
-      <View style={styles.divider} />
-      <Text style={styles.titles}>Apparence</Text>
-      <View style={styles.divider} />
+  const DATA = [
+    {
+      title: 'Informations générales',
+      data: [
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer porttitor metus nibh, et finibus massa pharetra ornare. Vivamus vitaeest interdum, bibendum metus sit amet, elementum nisl. In ac arcu ut mi placerat ultrices non sed nibh.',
+      ],
+    },
+    {
+      title: 'Lifestyle',
+      data: ['Football', 'Dragonforce'],
+    },
+    {
+      title: 'Apparence',
+      data: ['Marron', 'Chatins', '1m75', 63],
+    },
+  ];
+  const Item = ({ item }) => (
+    <View style={styles.item}>
+      <Text style={styles.titles}>{item}</Text>
     </View>
+  );
+  return (
+    <SafeAreaView>
+      <SectionList
+        sections={DATA}
+        keyExtractor={(item, index) => item + index}
+        renderItem={({ item }) => (
+          <View style={styles.item}>
+            <Text style={styles.content}>{item}</Text>
+          </View>
+        )}
+        renderSectionHeader={({ section: { title } }) => (
+          <View>
+            <View style={styles.divider} />
+            <Text style={styles.titles}>{title}</Text>
+          </View>
+        )}
+      />
+    </SafeAreaView>
   );
 };
 
@@ -40,11 +62,15 @@ const styles = StyleSheet.create({
   titles: {
     fontWeight: 'bold',
     fontSize: 20,
+    marginHorizontal: 10,
   },
   divider: {
-    marginTop: 10,
+    marginVertical: 10,
     borderBottomColor: '#ccffff',
     borderBottomWidth: 1,
+  },
+  content: {
+    marginHorizontal: 10,
   },
 });
 

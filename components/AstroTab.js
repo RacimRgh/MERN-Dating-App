@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
+// Astrology tab in the user profile screen
 const AstroTab = () => {
   return (
     <View>

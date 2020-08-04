@@ -6,9 +6,14 @@ import {
   DrawerItem,
 } from '@react-navigation/drawer';
 import DrawerHeader from '../components/DrawerHeader';
-
+/* The Drawer screens that pops up when swiping right 
+or clicking the drawer button in the tab navigator
+(Bottom left button in the home menu)
+*/
 const DrawerScreen = (props) => {
   const { onPressLogout } = props;
+  /* comment to explain all the drawer items later
+   */
   return (
     <DrawerContentScrollView {...props}>
       <DrawerHeader {...props} />

@@ -13,6 +13,7 @@ import DrawerScreen from './DrawerScreen';
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
 
+// The home main menu that contains the bottom tab navigator
 const Home = ({ navigation }) => {
   return (
     <Tab.Navigator

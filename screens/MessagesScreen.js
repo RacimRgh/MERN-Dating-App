@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Text, Button } from 'react-native';
 
+// Messages screens
+// Work in progress
 const MessagesScreen = ({ navigation }) => {
   return (
     <View style={{ flex: 2, alignItems: 'center', justifyContent: 'center' }}>

@@ -1,5 +1,4 @@
 import React, { useState, useContext } from 'react';
-import PropTypes from 'prop-types';
 import {
   Text,
   View,
@@ -9,6 +8,7 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import Spinner from 'react-native-spinkit';
+import axios from 'axios';
 // Local imports
 import styles from './LoginScreen.style';
 import Logo from '../components/Logo';
@@ -16,22 +16,59 @@ import BottomContainer from '../components/BottomContainer';
 import { store } from '../components/store';
 
 const defaultBackground =
-  'https://images.unsplash.com/photo-1554189097-ffe88e998a2b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80';
+  'https://images.unsplas.h.com/photo-1554189097-ffe88e998a2b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80';
+
+// Function to send a post request to sign up a user
+const signInUser = async (data) => {
+  try {
+    const result = await axios.post('http://10.0.2.2:3000/users', data);
+    console.log('add result', result.data.result);
+  } catch (error) {
+    console.log('Error in adding ', error);
+  }
+};
+// Function to send a post request to login a user
+const loginUser = async (data) => {
+  try {
+    const result = await axios.post('http://10.0.2.2:3000/users/login', data);
+    console.log('Login user: ', result.data);
+  } catch (error) {
+    console.log('Error in adding ', error);
+  }
+};
+/* The login screen component that contains Login and Signup components */
 
 const LoginScreen = (props) => {
-  // Deconstructing the props
-  const {
-    onPressLogin,
-    spinnerEnable,
-    onPressSignup,
-    spinnerVisibility,
-  } = props;
+  // cardState is to either show Login cards or SignUp cards
   const [cardState, setCardState] = useState(true);
+  const [spinnerVisibility, setSpinnerVisibility] = useState(false);
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const globalState = useContext(store);
   const { dispatch } = globalState;
-  // Spinner
+  // onPress function when the user presses "Sign Me Up"
+  const onPressSignup = () => {
+    setSpinnerVisibility(true);
+    setTimeout(() => {
+      setSpinnerVisibility(false);
+    }, 4000);
+    signInUser({
+      nom: 'racim',
+      prenom: 'righi',
+      email: 'racim458s8@gmail.com',
+      password: 'aaabbbddd123',
+    });
+  };
+  // onPress function for when the user presses "Login now"
+  const onPressLogin = () => {
+    setSpinnerVisibility(true);
+    setTimeout(() => {
+      setSpinnerVisibility(false);
+    }, 4000);
+    dispatch({ type: 'login' });
+    console.log(globalState['isAuthorized']);
+  };
+  // Loading spinner to show while the requests are going through
   renderSpinner = () => (
     <View style={styles.spinnerStyle}>
       <Spinner
@@ -43,9 +80,11 @@ const LoginScreen = (props) => {
       />
     </View>
   );
-  // Login Button
+  // Login or Sign Up button depending on cardState
   renderLoginButton = () => (
-    <TouchableOpacity style={styles.loginButtonStyle} onPress={onPressLogin}>
+    <TouchableOpacity
+      style={styles.loginButtonStyle}
+      onPress={cardState ? onPressLogin : onPressSignup}>
       <Text style={styles.loginButtonTextStyle}>
         {cardState ? 'LOGIN NOW' : 'SIGN ME UP'}
       </Text>
@@ -76,20 +115,10 @@ const LoginScreen = (props) => {
             </SafeAreaView>
           </View>
         </ImageBackground>
-        {spinnerEnable && spinnerVisibility
-          ? renderSpinner()
-          : renderLoginButton()}
+        {spinnerVisibility ? renderSpinner() : renderLoginButton()}
       </View>
     </KeyboardAvoidingView>
   );
 };
-LoginScreen.propTypes = {
-  spinnerEnable: PropTypes.bool,
-  spinnerVisibility: PropTypes.bool,
-};
 
-LoginScreen.defaultProps = {
-  spinnerEnable: false,
-  spinnerVisibility: false,
-};
 export default LoginScreen;
