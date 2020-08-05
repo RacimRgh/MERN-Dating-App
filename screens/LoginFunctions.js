@@ -1,4 +1,4 @@
-export const textInputChange = (val) => {
+const textInputChange = (val) => {
   if (val.length !== 0) {
     setData({
       ...data,
@@ -14,28 +14,28 @@ export const textInputChange = (val) => {
   }
 };
 
-export const handlePasswordChange = (val) => {
+const handlePasswordChange = (val) => {
   setData({
     ...data,
     password: val,
   });
 };
 
-export const handleConfirmPasswordChange = (val) => {
+const handleConfirmPasswordChange = (val) => {
   setData({
     ...data,
     confirm_password: val,
   });
 };
 
-export const updateSecureTextEntry = () => {
+const updateSecureTextEntry = () => {
   setData({
     ...data,
     secureTextEntry: !data.secureTextEntry,
   });
 };
 
-export const updateConfirmSecureTextEntry = () => {
+const updateConfirmSecureTextEntry = () => {
   setData({
     ...data,
     confirm_secureTextEntry: !data.confirm_secureTextEntry,

@@ -18,56 +18,78 @@ import { AuthContext } from '../components/context';
 const defaultBackground =
   'https://images.unsplas.h.com/photo-1554189097-ffe88e998a2b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80';
 
-// Function to send a post request to sign up a user
-const signInUser = async (data) => {
-  try {
-    const result = await axios.post('http://10.0.2.2:3000/users', data);
-    console.log('add result', result.data.result);
-  } catch (error) {
-    console.log('Error in adding ', error);
-  }
-};
-// Function to send a post request to login a user
-const loginUser = async (data) => {
-  try {
-    const result = await axios.post('http://10.0.2.2:3000/users/login', data);
-    console.log('Login user: ', result.data);
-  } catch (error) {
-    console.log('Error in adding ', error);
-  }
-};
 /* The login screen component that contains Login and Signup components */
 
 const LoginScreen = (props) => {
   // cardState is to either show Login cards or SignUp cards
-  const [data, setData] = useState({
-    username: '',
-    password: '',
-    check_textInputChange: false,
-    secureTextEntry: true,
-  });
   const [cardState, setCardState] = useState(true);
   const [spinnerVisibility, setSpinnerVisibility] = useState(false);
-  const { signIn } = React.useContext(AuthContext);
-  // onPress function when the user presses "Sign Me Up"
-  const onPressSignup = () => {
-    setSpinnerVisibility(true);
-    setTimeout(() => {
-      setSpinnerVisibility(false);
-    }, 4000);
-    // signInUser({
-    //   nom: 'racim',
-    //   prenom: 'righi',
-    //   email: 'racim458s8@gmail.com',
-    //   password: 'aaabbbddd123',
-    // });
+  const { signIn, signUp } = React.useContext(AuthContext);
+
+  const [data, setData] = React.useState({
+    email: '',
+    password: '',
+    firstname: '',
+    lastname: '',
+    confirm_password: '',
+    check_textInputChange: false,
+    secureTextEntry: true,
+    confirm_secureTextEntry: true,
+  });
+  const emailInputChange = (val) => {
+    if (val.length !== 0) {
+      setData({
+        ...data,
+        email: val,
+        check_textInputChange: true,
+      });
+    } else {
+      setData({
+        ...data,
+        email: val,
+        check_textInputChange: false,
+      });
+    }
   };
-  // onPress function for when the user presses "Login now"
-  const onPressLogin = () => {
-    setSpinnerVisibility(true);
-    setTimeout(() => {
-      setSpinnerVisibility(false);
-    }, 4000);
+
+  const firstnameInputChange = (val) => {
+    setData({
+      ...data,
+      firstname: val,
+    });
+  };
+  const lastnameInputChange = (val) => {
+    setData({
+      ...data,
+      lastname: val,
+    });
+  };
+  const handlePasswordChange = (val) => {
+    setData({
+      ...data,
+      password: val,
+    });
+  };
+
+  const handleConfirmPasswordChange = (val) => {
+    setData({
+      ...data,
+      confirm_password: val,
+    });
+  };
+
+  const updateSecureTextEntry = () => {
+    setData({
+      ...data,
+      secureTextEntry: !data.secureTextEntry,
+    });
+  };
+
+  const updateConfirmSecureTextEntry = () => {
+    setData({
+      ...data,
+      confirm_secureTextEntry: !data.confirm_secureTextEntry,
+    });
   };
 
   // Loading spinner to show while the requests are going through
@@ -89,9 +111,16 @@ const LoginScreen = (props) => {
       onPress={
         cardState
           ? () => {
-              signIn();
+              signIn({ userEmail: data.email, password: data.password });
             }
-          : onPressSignup
+          : () => {
+              signUp({
+                userEmail: data.email,
+                firstname: data.firstname,
+                lastname: data.lastname,
+                password: data.password,
+              });
+            }
       }>
       <Text style={styles.loginButtonTextStyle}>
         {cardState ? 'LOGIN NOW' : 'SIGN ME UP'}
@@ -113,12 +142,19 @@ const LoginScreen = (props) => {
               </View>
               <BottomContainer
                 cardState={cardState}
-                onChangeEmail={(email) => setEmail(email)}
-                onChangePassword={(password) => setPassword(password)}
-                onPressSignup={() => {
+                emailOnChange={(val) => emailInputChange(val)}
+                firstnameOnChange={(val) => firstnameInputChange(val)}
+                lastnameOnChange={(val) => lastnameInputChange(val)}
+                passwordOnChange={(val) => handlePasswordChange(val)}
+                repasswordOnChange={(val) => handleConfirmPasswordChange(val)}
+                updateSecureTextEntry={() => updateSecureTextEntry()}
+                updateConfirmSecureTextEntry={() =>
+                  updateConfirmSecureTextEntry()
+                }
+                secureTextEntry={data.confirm_secureTextEntry ? true : false}
+                onPressChange={() => {
                   setCardState(!cardState);
                 }}
-                onPressLogin={onPressLogin}
               />
             </SafeAreaView>
           </View>
