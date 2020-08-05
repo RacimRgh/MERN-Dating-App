@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Text,
   View,
@@ -13,7 +13,7 @@ import axios from 'axios';
 import styles from './LoginScreen.style';
 import Logo from '../components/Logo';
 import BottomContainer from '../components/BottomContainer';
-import { store } from '../components/store';
+import { AuthContext } from '../components/context';
 
 const defaultBackground =
   'https://images.unsplas.h.com/photo-1554189097-ffe88e998a2b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80';
@@ -40,24 +40,27 @@ const loginUser = async (data) => {
 
 const LoginScreen = (props) => {
   // cardState is to either show Login cards or SignUp cards
+  const [data, setData] = useState({
+    username: '',
+    password: '',
+    check_textInputChange: false,
+    secureTextEntry: true,
+  });
   const [cardState, setCardState] = useState(true);
   const [spinnerVisibility, setSpinnerVisibility] = useState(false);
-  const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
-  const globalState = useContext(store);
-  const { dispatch } = globalState;
+  const { signIn } = React.useContext(AuthContext);
   // onPress function when the user presses "Sign Me Up"
   const onPressSignup = () => {
     setSpinnerVisibility(true);
     setTimeout(() => {
       setSpinnerVisibility(false);
     }, 4000);
-    signInUser({
-      nom: 'racim',
-      prenom: 'righi',
-      email: 'racim458s8@gmail.com',
-      password: 'aaabbbddd123',
-    });
+    // signInUser({
+    //   nom: 'racim',
+    //   prenom: 'righi',
+    //   email: 'racim458s8@gmail.com',
+    //   password: 'aaabbbddd123',
+    // });
   };
   // onPress function for when the user presses "Login now"
   const onPressLogin = () => {
@@ -65,9 +68,8 @@ const LoginScreen = (props) => {
     setTimeout(() => {
       setSpinnerVisibility(false);
     }, 4000);
-    dispatch({ type: 'login' });
-    console.log(globalState['isAuthorized']);
   };
+
   // Loading spinner to show while the requests are going through
   renderSpinner = () => (
     <View style={styles.spinnerStyle}>
@@ -84,7 +86,13 @@ const LoginScreen = (props) => {
   renderLoginButton = () => (
     <TouchableOpacity
       style={styles.loginButtonStyle}
-      onPress={cardState ? onPressLogin : onPressSignup}>
+      onPress={
+        cardState
+          ? () => {
+              signIn();
+            }
+          : onPressSignup
+      }>
       <Text style={styles.loginButtonTextStyle}>
         {cardState ? 'LOGIN NOW' : 'SIGN ME UP'}
       </Text>
