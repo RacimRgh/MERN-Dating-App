@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-dynamic-vector-icons';
 import TextInput from 'react-native-improved-text-input';
 import styles from './Card.style';
@@ -9,7 +9,17 @@ import styles from './Card.style';
   depending on the card's field
 */
 const Card = (props) => {
-  const { nameIcon, title, placeholder, onChangeText } = props;
+  const {
+    nameIcon,
+    title,
+    placeholder,
+    onChangeText,
+    onPressSecure,
+    secureText,
+    isPassword,
+  } = props;
+
+  React.useEffect(() => {}, [secureText]);
   return (
     <View style={styles.container}>
       <View style={styles.containerGlue}>
@@ -29,12 +39,31 @@ const Card = (props) => {
             selectionColor="#757575"
             onChangeText={onChangeText}
             style={styles.textInputStyle}
+            secureTextEntry={secureText}
             {...props}
           />
         </View>
-        <View style={{ width: 35, justifyContent: 'center', marginRight: 20 }}>
-          <Icon size={25} name="eye" color="black" type="SimpleLineIcons" />
-        </View>
+        {isPassword ? (
+          <View style={{ width: 35, justifyContent: 'center' }}>
+            <TouchableOpacity onPress={onPressSecure}>
+              {secureText ? (
+                <Icon
+                  size={25}
+                  name="eye"
+                  color="black"
+                  type="SimpleLineIcons"
+                />
+              ) : (
+                <Icon
+                  size={25}
+                  name="lock-open"
+                  color="black"
+                  type="SimpleLineIcons"
+                />
+              )}
+            </TouchableOpacity>
+          </View>
+        ) : undefined}
       </View>
     </View>
   );

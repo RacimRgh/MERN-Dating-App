@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   },
   containerGlue: {
     marginLeft: 24,
-    marginRight: 24,
+    marginRight: 60,
     flexDirection: 'row',
   },
   textContainer: {

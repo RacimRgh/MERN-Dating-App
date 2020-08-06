@@ -126,7 +126,7 @@ const LoginScreen = (props) => {
       </Text>
     </TouchableOpacity>
   );
-  console.log('\n\n\n' + AuthContext.Consumer + '\n\n\n');
+
   return (
     <KeyboardAvoidingView behavior="position" style={styles.container}>
       <View style={styles.container}>
@@ -151,10 +151,11 @@ const LoginScreen = (props) => {
                 updateConfirmSecureTextEntry={() =>
                   updateConfirmSecureTextEntry()
                 }
-                secureTextEntry={data.confirm_secureTextEntry ? true : false}
                 onPressChange={() => {
                   setCardState(!cardState);
                 }}
+                secureText={data.secureTextEntry}
+                confirmSecureText={data.confirm_secureTextEntry}
               />
             </SafeAreaView>
           </View>

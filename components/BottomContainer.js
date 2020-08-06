@@ -20,7 +20,8 @@ const BottomContainer = (props) => {
 
     updateSecureTextEntry,
     updateConfirmSecureTextEntry,
-    secureTextEntry,
+    secureText,
+    confirmSecureText,
   } = props;
 
   renderLoginCards = () => {
@@ -31,14 +32,17 @@ const BottomContainer = (props) => {
           title="E-mail"
           placeholder="john@doe.com"
           onChangeText={emailOnChange}
+          isPassword={false}
         />
         <Card
           nameIcon="lock"
           name="key"
-          secureTextEntry
           title="Password"
           placeholder="Enter your password"
           onChangeText={passwordOnChange}
+          onPressSecure={updateSecureTextEntry}
+          secureText={secureText}
+          isPassword={true}
         />
       </View>
     );
@@ -52,32 +56,39 @@ const BottomContainer = (props) => {
           title="E-mail"
           placeholder="john@doe.com"
           onChangeText={emailOnChange}
+          isPassword={false}
         />
         <Card
           nameIcon="user"
           title="First name"
           placeholder="Your first name"
           onChangeText={firstnameOnChange}
+          isPassword={false}
         />
         <Card
           nameIcon="user"
           title="Last name"
           placeholder="Your last name"
           onChangeText={lastnameOnChange}
+          isPassword={false}
         />
         <Card
           nameIcon="lock"
-          secureTextEntry
           title="Password"
           placeholder="Enter your password"
           onChangeText={passwordOnChange}
+          onPressSecure={updateSecureTextEntry}
+          secureText={secureText}
+          isPassword={true}
         />
         <Card
           nameIcon="lock"
-          secureTextEntry
           title="Password confirmation"
           placeholder="Re-enter your password"
           onChangeText={repasswordOnChange}
+          onPressSecure={updateConfirmSecureTextEntry}
+          secureText={confirmSecureText}
+          isPassword={true}
         />
       </ScrollView>
     );
