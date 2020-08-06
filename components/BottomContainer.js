@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import Icon from 'react-native-dynamic-vector-icons';
+import DropDownPicker from 'react-native-dropdown-picker';
+// Local Imports
 import Card from './Card';
 import DateHourPicker from './DateHourPicker';
 import styles, { container } from './BottomContainer.style';
@@ -90,6 +92,45 @@ const BottomContainer = (props) => {
           secureText={confirmSecureText}
           isPassword={true}
         />
+        <View
+          style={{
+            flexDirection: 'row',
+            backgroundColor: 'white',
+            borderRadius: 24,
+            margin: 8,
+            height: 75,
+            width: '95%',
+          }}>
+          <View
+            style={{
+              width: 35,
+              justifyContent: 'center',
+              marginLeft: 20,
+            }}>
+            <Icon size={25} type="SimpleLineIcons" name="list" color="black" />
+          </View>
+          <View style={{ width: '80%' }}>
+            <Text
+              style={{
+                marginLeft: 14,
+                marginTop: 12,
+                fontSize: 15,
+                fontWeight: '700',
+              }}>
+              Gender
+            </Text>
+            <DropDownPicker
+              items={[
+                { label: 'Male', value: 'Male' },
+                { label: 'Female', value: 'Female' },
+              ]}
+              defaultIndex={0}
+              containerStyle={{ height: 30, marginTop: 2 }}
+              onChangeItem={(item) => console.log(item.label, item.value)}
+            />
+          </View>
+        </View>
+        <DateHourPicker />
       </ScrollView>
     );
   };
@@ -101,7 +142,6 @@ const BottomContainer = (props) => {
   return (
     <ScrollView style={container(backgroundColor, cardState)}>
       <View style={styles.containerGlue}>{renderCardContent()}</View>
-      {cardState ? undefined : <DateHourPicker />}
       <View style={styles.footerContainer}>
         <TouchableOpacity
           onPress={onPressSettings}

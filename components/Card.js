@@ -17,6 +17,7 @@ const Card = (props) => {
     onPressSecure,
     secureText,
     isPassword,
+    CustomComponent,
   } = props;
 
   React.useEffect(() => {}, [secureText]);
