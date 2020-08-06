@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect } from 'react';
+import React, { useMemo, useEffect, useContext } from 'react';
 import { StyleSheet, View, ActivityIndicator } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
@@ -38,18 +38,10 @@ const loginUser = async (data) => {
 };
 
 const App = () => {
-  const initialState = {
-    email: '', // Store `email` when user enters their email
-    password: '', // Store `password` when user enters their password
-    errors: {}, // Store error data from the backend here
-    isAuthorized: false, // If auth is successful, set this to `true`
-    isLoading: false, // Set this to `true` if You want to show spinner
-  };
   initialLoginState = {
     isLoading: true,
     userEmail: null,
     userToken: null,
-    cardState: true,
   };
 
   const loginReducer = (prevState, action) => {
@@ -119,6 +111,7 @@ const App = () => {
           token: null,
         });
       },
+      profileInfo: () => {},
     }),
     [],
   );

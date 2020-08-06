@@ -8,7 +8,6 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import Spinner from 'react-native-spinkit';
-import axios from 'axios';
 // Local imports
 import styles from './LoginScreen.style';
 import Logo from '../components/Logo';
@@ -24,7 +23,7 @@ const LoginScreen = (props) => {
   // cardState is to either show Login cards or SignUp cards
   const [cardState, setCardState] = useState(true);
   const [spinnerVisibility, setSpinnerVisibility] = useState(false);
-  const { signIn, signUp } = React.useContext(AuthContext);
+  const { signIn, signUp, loginState } = React.useContext(AuthContext);
 
   const [data, setData] = React.useState({
     email: '',
@@ -127,6 +126,7 @@ const LoginScreen = (props) => {
       </Text>
     </TouchableOpacity>
   );
+  console.log('\n\n\n' + AuthContext.Consumer + '\n\n\n');
   return (
     <KeyboardAvoidingView behavior="position" style={styles.container}>
       <View style={styles.container}>

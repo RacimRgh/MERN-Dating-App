@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import {
   View,
   Text,
@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   FlatList,
 } from 'react-native';
+import { store } from '../components/store';
 
 const DescriptionTab = () => {
   const DATA = [
@@ -30,6 +31,12 @@ const DescriptionTab = () => {
       <Text style={styles.titles}>{item}</Text>
     </View>
   );
+
+  const globalState = useContext(store);
+  const { dispatch } = globalState;
+  useEffect(() => {
+    dispatch({ type: 'GET_PROFILE' });
+  }, []);
   return (
     <SafeAreaView>
       <SectionList

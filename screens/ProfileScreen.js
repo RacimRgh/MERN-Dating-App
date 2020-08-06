@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { StateProvider } from '../components/store';
 import {
   StyleSheet,
   View,
@@ -17,77 +18,86 @@ const { width, height } = Dimensions.get('window');
   all his information will be displayed
   there are 5 different tabs: General info, Astrology, Taste, LifeStyle and 
 */
+
 const ProfileScreen = ({ navigation }) => {
   const [activeIcon, setActiveIcon] = useState(3);
+
   return (
-    <ScrollView style={{ flex: 1 }} contentContainerStyle={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>YOUR PROFILE</Text>
-      </View>
-      <View style={styles.imageContainer}>
-        <ImageBackground
-          source={images.userPic}
-          style={{
-            width: width,
-            height: height * 0.4,
-            justifyContent: 'flex-end',
-          }}
-        />
-        <View style={styles.editButton}>
-          <TouchableOpacity onPress={() => navigation.navigate('Edit profile')}>
-            <ImageBackground source={images.ellipse} style={styles.ellipseIcon}>
+    <StateProvider>
+      <ScrollView style={{ flex: 1 }} contentContainerStyle={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.headerText}>YOUR PROFILE</Text>
+        </View>
+        <View style={styles.imageContainer}>
+          <ImageBackground
+            source={images.userPic}
+            style={{
+              width: width,
+              height: height * 0.4,
+              justifyContent: 'flex-end',
+            }}
+          />
+          <View style={styles.editButton}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Edit profile')}>
               <ImageBackground
-                source={images.pencil}
-                style={styles.pencilIcon}
-              />
-            </ImageBackground>
-          </TouchableOpacity>
+                source={images.ellipse}
+                style={styles.ellipseIcon}>
+                <ImageBackground
+                  source={images.pencil}
+                  style={styles.pencilIcon}
+                />
+              </ImageBackground>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
-      <View style={styles.footer}>
-        <View style={styles.divider} />
-        <Text style={styles.footerText}>Julien , 26</Text>
-        <Text style={styles.footerTextLocalisation}>Marseille, France</Text>
-        <View style={styles.profileBar}>
-          <ProfileBar
-            pathIcon={
-              activeIcon == 1 ? images.profile.sexeActif : images.profile.sexe
-            }
-            onPressTab={() => setActiveIcon(1)}
-          />
-          <ProfileBar
-            pathIcon={
-              activeIcon == 2
-                ? images.profile.planeteActif
-                : images.profile.planete
-            }
-            onPressTab={() => setActiveIcon(2)}
-          />
-          <ProfileBar
-            pathIcon={
-              activeIcon == 3 ? images.profile.manActif : images.profile.man
-            }
-            onPressTab={() => setActiveIcon(3)}
-          />
-          <ProfileBar
-            pathIcon={
-              activeIcon == 4 ? images.profile.coeurActif : images.profile.coeur
-            }
-            onPressTab={() => setActiveIcon(4)}
-          />
-          <ProfileBar
-            pathIcon={
-              activeIcon == 5
-                ? images.profile.castleActif
-                : images.profile.castle
-            }
-            onPressTab={() => setActiveIcon(5)}
-          />
+        <View style={styles.footer}>
+          <View style={styles.divider} />
+          <Text style={styles.footerText}>Julien , 26</Text>
+          <Text style={styles.footerTextLocalisation}>Marseille, France</Text>
+          <View style={styles.profileBar}>
+            <ProfileBar
+              pathIcon={
+                activeIcon == 1 ? images.profile.sexeActif : images.profile.sexe
+              }
+              onPressTab={() => setActiveIcon(1)}
+            />
+            <ProfileBar
+              pathIcon={
+                activeIcon == 2
+                  ? images.profile.planeteActif
+                  : images.profile.planete
+              }
+              onPressTab={() => setActiveIcon(2)}
+            />
+            <ProfileBar
+              pathIcon={
+                activeIcon == 3 ? images.profile.manActif : images.profile.man
+              }
+              onPressTab={() => setActiveIcon(3)}
+            />
+            <ProfileBar
+              pathIcon={
+                activeIcon == 4
+                  ? images.profile.coeurActif
+                  : images.profile.coeur
+              }
+              onPressTab={() => setActiveIcon(4)}
+            />
+            <ProfileBar
+              pathIcon={
+                activeIcon == 5
+                  ? images.profile.castleActif
+                  : images.profile.castle
+              }
+              onPressTab={() => setActiveIcon(5)}
+            />
+          </View>
+          <ProfileTabs activeTab={activeIcon} />
+          <View style={styles.divider} />
         </View>
-        <ProfileTabs activeTab={activeIcon} />
-        <View style={styles.divider} />
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </StateProvider>
   );
 };
 
