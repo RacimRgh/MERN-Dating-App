@@ -104,13 +104,16 @@ const App = () => {
         });
       },
       signOut: async () => {
+        const tok = await deviceStorage.loadJWT();
+        console.log('\n\n\n.................', tok);
         await axios({
           method: 'POST',
           url: 'http://10.0.2.2:3000/users/logout',
           headers: {
-            Authorization: 'Bearer ' + deviceStorage.loadJWT(),
+            Authorization: 'Bearer ' + tok,
           },
         });
+        console.log('\n\n***********HERE IN LOGOUT**************\n\n');
         dispatch({ type: 'LOGOUT' });
       },
       signUp: async ({ userEmail, firstname, lastname, password }) => {
@@ -125,6 +128,7 @@ const App = () => {
           email: null,
           token: null,
         });
+        console.log('\n\n***********HERE IN SIGNUP**************\n\n');
       },
       profileInfo: () => {},
     }),
@@ -144,6 +148,7 @@ const App = () => {
       </View>
     );
   }
+  deviceStorage.logCurrentStorage();
   // Render the LoginScreen or the Full application whether the user is connected (authorized) or not
   return (
     <AuthContext.Provider value={authContext}>

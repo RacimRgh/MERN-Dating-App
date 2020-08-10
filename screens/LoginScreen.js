@@ -112,8 +112,8 @@ const LoginScreen = (props) => {
           ? () => {
               signIn({ userEmail: data.email, password: data.password });
             }
-          : () => {
-              signUp({
+          : async () => {
+              await signUp({
                 userEmail: data.email,
                 firstname: data.firstname,
                 lastname: data.lastname,

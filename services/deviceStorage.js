@@ -11,10 +11,26 @@ const deviceStorage = {
   async loadJWT() {
     try {
       const value = await AsyncStorage.getItem('id_token');
+      //   console.log('\n\n\n.................', value);
       return value;
     } catch (error) {
       console.log('AsyncStorage Error: ' + error.message);
     }
+  },
+  logCurrentStorage() {
+    AsyncStorage.getAllKeys().then((keyArray) => {
+      AsyncStorage.multiGet(keyArray).then((keyValArray) => {
+        let myStorage = {};
+        for (let keyVal of keyValArray) {
+          myStorage[keyVal[0]] = keyVal[1];
+        }
+
+        // console.log(
+        //   '\n\n\n\n*************************CURRENT STORAGE: ',
+        //   myStorage,
+        // );
+      });
+    });
   },
 };
 
