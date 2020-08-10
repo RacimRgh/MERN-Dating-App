@@ -1,6 +1,7 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createStackNavigator } from '@react-navigation/stack';
 // components
 import TabBarIcon from '../components/TabBarIcon';
 import images from '../components/Images';
@@ -12,6 +13,7 @@ import DrawerScreen from './DrawerScreen';
 
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
+const Stack = createStackNavigator();
 
 // The home main menu that contains the bottom tab navigator
 const Home = ({ navigation }) => {
@@ -56,7 +58,11 @@ const Home = ({ navigation }) => {
         },
       }}>
       <Drawer.Screen name="Drawer" component={DrawerScreen} />
-      <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{ title: 'Your profile' }}
+      />
       <Tab.Screen name="Recherche" component={SearchScreen} />
       <Tab.Screen name="Messages" component={MessagesScreen} />
       <Tab.Screen name="Notifications" component={NotificationsScreen} />

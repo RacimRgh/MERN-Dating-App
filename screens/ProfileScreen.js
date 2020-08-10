@@ -1,5 +1,4 @@
 import React, { useState, useContext } from 'react';
-import { StateProvider } from '../components/store';
 import {
   StyleSheet,
   View,
@@ -12,6 +11,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import images from '../components/Images';
 import ProfileBar from '../components/ProfileBar';
 import ProfileTabs from '../components/ProfileTabs';
+import { StateProvider } from '../components/store';
 
 const { width, height } = Dimensions.get('window');
 /* this is the user profile screen
@@ -25,9 +25,9 @@ const ProfileScreen = ({ navigation }) => {
   return (
     <StateProvider>
       <ScrollView style={{ flex: 1 }} contentContainerStyle={styles.container}>
-        <View style={styles.header}>
+        {/* <View style={styles.header}>
           <Text style={styles.headerText}>YOUR PROFILE</Text>
-        </View>
+        </View> */}
         <View style={styles.imageContainer}>
           <ImageBackground
             source={images.userPic}

@@ -32,11 +32,12 @@ const DescriptionTab = () => {
     </View>
   );
 
-  const globalState = useContext(store);
-  const { dispatch } = globalState;
+  const profileState = useContext(store);
+  const { dispatch } = profileState;
   useEffect(() => {
     dispatch({ type: 'GET_PROFILE' });
   }, []);
+
   return (
     <SafeAreaView>
       <SectionList

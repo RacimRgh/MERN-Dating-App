@@ -15,17 +15,31 @@ const RootStackScreen = () => {
       <RootStack.Screen
         name="Main"
         component={Home}
-        options={{ headerShown: false }}
+        options={{
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: '#fd5098',
+          },
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
       />
       <RootStack.Screen
         name="Settings"
         component={Settings}
-        options={{ headerStyle: { backgroundColor: '#fd5098' } }}
+        options={{
+          title: 'Settings',
+          headerStyle: { backgroundColor: '#fd5098' },
+        }}
       />
       <RootStack.Screen
         name="Edit profile"
         component={EditProfile}
-        options={{ headerStyle: { backgroundColor: '#fd5098' } }}
+        options={{
+          title: 'Edit profile',
+          headerStyle: { backgroundColor: '#fd5098' },
+        }}
       />
     </RootStack.Navigator>
   );

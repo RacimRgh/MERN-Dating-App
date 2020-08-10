@@ -23,7 +23,7 @@ const LoginScreen = (props) => {
   // cardState is to either show Login cards or SignUp cards
   const [cardState, setCardState] = useState(true);
   const [spinnerVisibility, setSpinnerVisibility] = useState(false);
-  const { signIn, signUp, loginState } = React.useContext(AuthContext);
+  const { signIn, signUp, signOut } = React.useContext(AuthContext);
 
   const [data, setData] = React.useState({
     email: '',
@@ -119,6 +119,7 @@ const LoginScreen = (props) => {
                 lastname: data.lastname,
                 password: data.password,
               });
+              signOut();
             }
       }>
       <Text style={styles.loginButtonTextStyle}>

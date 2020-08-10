@@ -11,29 +11,37 @@ import DrawerScreen from './screens/DrawerScreen';
 import RootStackScreen from './screens/RootStackScreen';
 // components
 import { AuthContext } from './components/context';
+// services
+import deviceStorage from './services/deviceStorage';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
 // Function to send a post request to sign up a user
-const signInUser = async (data) => {
+const signInUser = (data) => {
   try {
-    const result = await axios.post('http://10.0.2.2:3000/users', data);
-    console.log('add result', result.data);
-    return result;
+    return axios.post('http://10.0.2.2:3000/users', data).then((response) => {
+      deviceStorage.saveItem('id_token', response.data.token);
+      console.log('\n**********SIGNUP this: ', response.data);
+      return response;
+    });
   } catch (error) {
-    console.log('Error in adding ', error.response);
+    console.log('Error in SIGN UP ', error.response);
   }
 };
 
 // Function to send a post request to login a user
-const loginUser = async (data) => {
+const loginUser = (data) => {
   try {
-    const result = await axios.post('http://10.0.2.2:3000/users/login', data);
-    console.log('\n\n\nLogin user: ', result.data);
-    return result;
+    return axios
+      .post('http://10.0.2.2:3000/users/login', data)
+      .then((response) => {
+        deviceStorage.saveItem('id_token', response.data.token);
+        console.log('\n**********LOGIN this: ', response.data);
+        return response;
+      });
   } catch (error) {
-    console.log('\n\n\nError in adding ', error.response);
+    console.log('\n\n\nError in LOGIN ', error.response);
   }
 };
 
@@ -95,7 +103,14 @@ const App = () => {
           token: results.data.token,
         });
       },
-      signOut: () => {
+      signOut: async () => {
+        await axios({
+          method: 'POST',
+          url: 'http://10.0.2.2:3000/users/logout',
+          headers: {
+            Authorization: 'Bearer ' + deviceStorage.loadJWT(),
+          },
+        });
         dispatch({ type: 'LOGOUT' });
       },
       signUp: async ({ userEmail, firstname, lastname, password }) => {
