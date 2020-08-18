@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Text,
   View,
@@ -15,7 +15,11 @@ import BottomContainer from '../components/BottomContainer';
 import { AuthContext } from '../components/context';
 
 const defaultBackground =
-  'https://images.unsplas.h.com/photo-1554189097-ffe88e998a2b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80';
+  'https://images.unsplash.com/photo-1535635790206-6960f6eaacff?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80';
+
+// const defaultBackground =
+//   'https://images.unsplash.com/photo-1531306728370-e2ebd9d7bb99?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80';
+//   'https://images.unsplash.com/photo-1554189097-ffe88e998a2b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80';
 
 /* The login screen component that contains Login and Signup components */
 
@@ -27,14 +31,19 @@ const LoginScreen = (props) => {
 
   const [data, setData] = React.useState({
     email: '',
-    password: '',
     firstname: '',
     lastname: '',
+    password: '',
     confirm_password: '',
+    birthday: undefined,
+    birthhour: '',
+    country: '',
+    city: '',
     check_textInputChange: false,
     secureTextEntry: true,
     confirm_secureTextEntry: true,
   });
+
   const emailInputChange = (val) => {
     if (val.length !== 0) {
       setData({
@@ -61,6 +70,24 @@ const LoginScreen = (props) => {
     setData({
       ...data,
       lastname: val,
+    });
+  };
+  const dateInputChange = (val) => {
+    setData({
+      ...data,
+      birthday: val,
+    });
+  };
+  const countryInputChange = (val) => {
+    setData({
+      ...data,
+      country: val,
+    });
+  };
+  const cityInputChange = (val) => {
+    setData({
+      ...data,
+      city: val,
     });
   };
   const handlePasswordChange = (val) => {
@@ -118,8 +145,13 @@ const LoginScreen = (props) => {
                 firstname: data.firstname,
                 lastname: data.lastname,
                 password: data.password,
+                birthday: data.birthday,
+                birthhour: data.birthday.toISOString().slice(11, 16),
+                country: data.country,
+                city: data.city,
               });
               signOut();
+              setCardState(!cardState);
             }
       }>
       <Text style={styles.loginButtonTextStyle}>
@@ -148,6 +180,9 @@ const LoginScreen = (props) => {
                 lastnameOnChange={(val) => lastnameInputChange(val)}
                 passwordOnChange={(val) => handlePasswordChange(val)}
                 repasswordOnChange={(val) => handleConfirmPasswordChange(val)}
+                dateOnChange={(val) => dateInputChange(val)}
+                countryOnChange={(val) => countryInputChange(val)}
+                cityOnChange={(val) => cityInputChange(val)}
                 updateSecureTextEntry={() => updateSecureTextEntry()}
                 updateConfirmSecureTextEntry={() =>
                   updateConfirmSecureTextEntry()

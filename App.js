@@ -104,24 +104,37 @@ const App = () => {
         });
       },
       signOut: async () => {
-        const tok = await deviceStorage.loadJWT();
-        console.log('\n\n\n.................', tok);
+        const user_token = await deviceStorage.loadJWT();
+        // console.log('\n\n\n.................', tok);
         await axios({
           method: 'POST',
           url: 'http://10.0.2.2:3000/users/logout',
           headers: {
-            Authorization: 'Bearer ' + tok,
+            Authorization: 'Bearer ' + user_token,
           },
         });
         console.log('\n\n***********HERE IN LOGOUT**************\n\n');
         dispatch({ type: 'LOGOUT' });
       },
-      signUp: async ({ userEmail, firstname, lastname, password }) => {
+      signUp: async ({
+        userEmail,
+        firstname,
+        lastname,
+        password,
+        birthday,
+        birthhour,
+        country,
+        city,
+      }) => {
         const results = await signInUser({
           nom: firstname,
           prenom: lastname,
           email: userEmail,
           password: password,
+          birthdaydate: birthday,
+          birthHour: birthhour,
+          countryName: country,
+          cityName: city,
         });
         dispatch({
           type: 'REGISTER',

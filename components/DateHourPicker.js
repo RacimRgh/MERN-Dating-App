@@ -12,15 +12,17 @@ import {
 import { isAndroid, isIPhoneXFamily } from '@freakycoder/react-native-helpers';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
-const DateHourPicker = () => {
+const DateHourPicker = (props) => {
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
 
+  const { onChangeDate } = props;
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setShow(Platform.OS === 'ios');
     setDate(currentDate);
+    onChangeDate(currentDate);
   };
 
   const showMode = (currentMode) => {

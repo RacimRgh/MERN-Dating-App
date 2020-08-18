@@ -19,6 +19,9 @@ const BottomContainer = (props) => {
     lastnameOnChange,
     passwordOnChange,
     repasswordOnChange,
+    dateOnChange,
+    countryOnChange,
+    cityOnChange,
 
     updateSecureTextEntry,
     updateConfirmSecureTextEntry,
@@ -92,33 +95,26 @@ const BottomContainer = (props) => {
           secureText={confirmSecureText}
           isPassword={true}
         />
-        <View
-          style={{
-            flexDirection: 'row',
-            backgroundColor: 'white',
-            borderRadius: 24,
-            margin: 8,
-            height: 75,
-            width: '95%',
-          }}>
-          <View
-            style={{
-              width: 35,
-              justifyContent: 'center',
-              marginLeft: 20,
-            }}>
+        <Card
+          nameIcon="location-pin"
+          title="Country of birth"
+          placeholder="Your birth country"
+          onChangeText={countryOnChange}
+          isPassword={false}
+        />
+        <Card
+          nameIcon="location-pin"
+          title="City of birth"
+          placeholder="Your birth city"
+          onChangeText={cityOnChange}
+          isPassword={false}
+        />
+        <View style={styles.ovalcontainer}>
+          <View style={styles.ovalcontainerglue}>
             <Icon size={25} type="SimpleLineIcons" name="list" color="black" />
           </View>
           <View style={{ width: '80%' }}>
-            <Text
-              style={{
-                marginLeft: 14,
-                marginTop: 12,
-                fontSize: 15,
-                fontWeight: '700',
-              }}>
-              Gender
-            </Text>
+            <Text style={styles.textStyle}>Gender</Text>
             <DropDownPicker
               items={[
                 { label: 'Male', value: 'Male' },
@@ -130,7 +126,7 @@ const BottomContainer = (props) => {
             />
           </View>
         </View>
-        <DateHourPicker />
+        <DateHourPicker onChangeDate={dateOnChange} />
       </ScrollView>
     );
   };
@@ -150,9 +146,11 @@ const BottomContainer = (props) => {
         </TouchableOpacity>
         <View>
           {cardState ? (
-            <Text>Dont have an account?</Text>
+            <Text style={{ color: 'white' }}>Dont have an account?</Text>
           ) : (
-            <Text style={{ marginTop: 30 }}>Already have an account</Text>
+            <Text style={{ marginTop: 30, color: 'white' }}>
+              Already have an account
+            </Text>
           )}
           <TouchableOpacity
             style={styles.signupButtonStyle}

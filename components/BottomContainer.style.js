@@ -40,4 +40,24 @@ export default {
     justifyContent: 'center',
     backgroundColor: 'rgba(0,0,0,0.2)',
   },
+  ovalcontainer: {
+    flexDirection: 'row',
+    backgroundColor: 'white',
+    borderRadius: 24,
+    height: 75,
+    marginBottom: 8,
+    marginLeft: 8,
+    width: '95%',
+  },
+  ovalcontainerglue: {
+    width: 35,
+    justifyContent: 'center',
+    marginLeft: 20,
+  },
+  textStyle: {
+    marginLeft: 14,
+    marginTop: 12,
+    fontSize: 15,
+    fontWeight: '700',
+  },
 };

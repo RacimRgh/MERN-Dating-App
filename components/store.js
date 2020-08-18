@@ -15,13 +15,13 @@ const StateProvider = ({ children }) => {
   const [state, dispatch] = useReducer(async (state, action) => {
     switch (action.type) {
       case 'GET_PROFILE':
-        const tok = await deviceStorage.loadJWT();
+        const user_token = await deviceStorage.loadJWT();
         // console.log('\n\n\n___________________', tok);
         const result = await axios({
           method: 'GET',
           url: 'http://10.0.2.2:3000/users/me',
           headers: {
-            Authorization: 'Bearer ' + tok,
+            Authorization: 'Bearer ' + user_token,
           },
         });
         console.log('\n\n\n*************', result.data, '\n\n\n');
