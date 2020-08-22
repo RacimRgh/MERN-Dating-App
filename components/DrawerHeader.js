@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Icon from 'react-native-dynamic-vector-icons';
-
+import { store } from './store';
 const DrawerHeader = (props) => {
+  const { state } = useContext(store);
+  // console.log('\n\n\n Drawer Header', state);
   return (
     <View style={styles.header}>
       <TouchableOpacity

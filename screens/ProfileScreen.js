@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect, useCallback } from 'react';
 import {
   StyleSheet,
   View,
@@ -11,7 +11,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import images from '../components/Images';
 import ProfileBar from '../components/ProfileBar';
 import ProfileTabs from '../components/ProfileTabs';
-import { StateProvider } from '../components/store';
+import { store } from '../components/store';
 
 const { width, height } = Dimensions.get('window');
 /* this is the user profile screen
@@ -22,82 +22,90 @@ const { width, height } = Dimensions.get('window');
 const ProfileScreen = ({ navigation }) => {
   const [activeIcon, setActiveIcon] = useState(3);
 
+  const { dispatch, state } = useContext(store);
+
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     await dispatch({ type: 'GET_PROFILE' });
+  //     console.log('\n\n\n2________**______', state, '\n\n\n');
+  //   }
+  //   fetchData();
+  // }, []);
+  console.log('\n\n\nProfile Screen:______________\n', state, '\n\n\n');
   return (
-    <StateProvider>
-      <ScrollView style={{ flex: 1 }} contentContainerStyle={styles.container}>
-        {/* <View style={styles.header}>
+    <ScrollView style={{ flex: 1 }} contentContainerStyle={styles.container}>
+      {/* <View style={styles.header}>
           <Text style={styles.headerText}>YOUR PROFILE</Text>
         </View> */}
-        <View style={styles.imageContainer}>
-          <ImageBackground
-            source={images.userPic}
-            style={{
-              width: width,
-              height: height * 0.4,
-              justifyContent: 'flex-end',
-            }}
-          />
-          <View style={styles.editButton}>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('Edit profile')}>
+      <View style={styles.imageContainer}>
+        <ImageBackground
+          source={images.userPic1}
+          style={{
+            width: width,
+            height: height * 0.52,
+          }}
+        />
+        <View style={styles.editButton}>
+          <TouchableOpacity onPress={() => navigation.navigate('Edit profile')}>
+            <ImageBackground source={images.ellipse} style={styles.ellipseIcon}>
               <ImageBackground
-                source={images.ellipse}
-                style={styles.ellipseIcon}>
-                <ImageBackground
-                  source={images.pencil}
-                  style={styles.pencilIcon}
-                />
-              </ImageBackground>
-            </TouchableOpacity>
-          </View>
+                source={images.pencil}
+                style={styles.pencilIcon}
+              />
+            </ImageBackground>
+          </TouchableOpacity>
         </View>
-        <View style={styles.footer}>
-          <View style={styles.divider} />
-          <Text style={styles.footerText}>Julien , 26</Text>
-          <Text style={styles.footerTextLocalisation}>Marseille, France</Text>
-          <View style={styles.profileBar}>
-            <ProfileBar
-              pathIcon={
-                activeIcon == 1 ? images.profile.sexeActif : images.profile.sexe
-              }
-              onPressTab={() => setActiveIcon(1)}
-            />
-            <ProfileBar
-              pathIcon={
-                activeIcon == 2
-                  ? images.profile.planeteActif
-                  : images.profile.planete
-              }
-              onPressTab={() => setActiveIcon(2)}
-            />
-            <ProfileBar
-              pathIcon={
-                activeIcon == 3 ? images.profile.manActif : images.profile.man
-              }
-              onPressTab={() => setActiveIcon(3)}
-            />
-            <ProfileBar
-              pathIcon={
-                activeIcon == 4
-                  ? images.profile.coeurActif
-                  : images.profile.coeur
-              }
-              onPressTab={() => setActiveIcon(4)}
-            />
-            <ProfileBar
-              pathIcon={
-                activeIcon == 5
-                  ? images.profile.castleActif
-                  : images.profile.castle
-              }
-              onPressTab={() => setActiveIcon(5)}
-            />
-          </View>
-          <ProfileTabs activeTab={activeIcon} />
-          <View style={styles.divider} />
+      </View>
+      <View style={styles.footer}>
+        <View style={styles.divider} />
+        <Text style={styles.footerText}>
+          {state.firstname} ,{' '}
+          {new Date().getFullYear() - new Date(state.birthday).getFullYear()}{' '}
+          ans
+        </Text>
+        <Text style={styles.footerTextLocalisation}>
+          {state.city}, {state.country}
+        </Text>
+        <View style={styles.profileBar}>
+          <ProfileBar
+            pathIcon={
+              activeIcon == 1
+                ? images.profile.castleActif
+                : images.profile.castle
+            }
+            onPressTab={() => setActiveIcon(1)}
+          />
+          <ProfileBar
+            pathIcon={
+              activeIcon == 2
+                ? images.profile.planeteActif
+                : images.profile.planete
+            }
+            onPressTab={() => setActiveIcon(2)}
+          />
+          <ProfileBar
+            pathIcon={
+              activeIcon == 3 ? images.profile.manActif : images.profile.man
+            }
+            onPressTab={() => setActiveIcon(3)}
+          />
+          <ProfileBar
+            pathIcon={
+              activeIcon == 4 ? images.profile.coeurActif : images.profile.coeur
+            }
+            onPressTab={() => setActiveIcon(4)}
+          />
+          <ProfileBar
+            pathIcon={
+              activeIcon == 5 ? images.profile.sexeActif : images.profile.sexe
+            }
+            onPressTab={() => setActiveIcon(5)}
+          />
         </View>
-      </ScrollView>
-    </StateProvider>
+        <ProfileTabs activeTab={activeIcon} />
+        <View style={styles.divider} />
+      </View>
+    </ScrollView>
   );
 };
 
@@ -146,7 +154,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     justifyContent: 'center',
     alignSelf: 'center',
-    top: 225,
+    top: 315,
   },
   ellipseIcon: {
     height: 80,

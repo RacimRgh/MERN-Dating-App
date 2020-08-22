@@ -2,6 +2,7 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
+import Icon from 'react-native-dynamic-vector-icons';
 // components
 import TabBarIcon from '../components/TabBarIcon';
 import images from '../components/Images';

@@ -58,7 +58,7 @@ const App = () => {
         return {
           ...prevState,
           // userToken: action.token,
-          userToken: null,
+          userToken: action.token,
           isLoading: false,
         };
       case 'LOGIN':
@@ -114,6 +114,7 @@ const App = () => {
           },
         });
         console.log('\n\n***********HERE IN LOGOUT**************\n\n');
+        await deviceStorage.removeItemValue('id_token');
         dispatch({ type: 'LOGOUT' });
       },
       signUp: async ({
@@ -149,8 +150,12 @@ const App = () => {
   );
 
   useEffect(() => {
-    setTimeout(() => {
-      dispatch({ type: 'RETRIEVE_TOKEN', token: 'dfklj' });
+    setTimeout(async () => {
+      const user_token = await deviceStorage.loadJWT();
+      // console.log('\n\n\n Retrieve: ', user_token);
+      deviceStorage.logCurrentStorage();
+      if (user_token !== null)
+        dispatch({ type: 'RETRIEVE_TOKEN', token: user_token });
     }, 1000);
   }, []);
 
@@ -161,7 +166,6 @@ const App = () => {
       </View>
     );
   }
-  deviceStorage.logCurrentStorage();
   // Render the LoginScreen or the Full application whether the user is connected (authorized) or not
   return (
     <AuthContext.Provider value={authContext}>

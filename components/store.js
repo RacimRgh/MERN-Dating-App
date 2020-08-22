@@ -1,13 +1,40 @@
 // store.js
-import React, { createContext, useReducer } from 'react';
+import React, { createContext, useReducer, useState } from 'react';
 import axios from 'axios';
 import deviceStorage from '../services/deviceStorage';
 
-const initialState = {
+let initialState = {
   email: '',
   firstname: '',
   lastname: '',
+  birthday: undefined,
+  birthhour: '',
+  country: '',
+  city: '',
+  themeAstral: {},
 };
+
+(async function () {
+  const user_token = await deviceStorage.loadJWT();
+  const result = await axios({
+    method: 'GET',
+    url: 'http://10.0.2.2:3000/users/me',
+    headers: {
+      Authorization: 'Bearer ' + user_token,
+    },
+  });
+  initialState = {
+    email: result.data.email,
+    firstname: result.data.prenom,
+    lastname: result.data.nom,
+    birthday: result.data.birthdaydate,
+    birthhour: result.data.birthHour,
+    country: result.data.countryName,
+    city: result.data.cityName,
+    themeAstral: result.data.themeastral,
+  };
+})();
+
 const store = createContext(initialState);
 const { Provider } = store;
 
@@ -16,7 +43,6 @@ const StateProvider = ({ children }) => {
     switch (action.type) {
       case 'GET_PROFILE':
         const user_token = await deviceStorage.loadJWT();
-        // console.log('\n\n\n___________________', tok);
         const result = await axios({
           method: 'GET',
           url: 'http://10.0.2.2:3000/users/me',
@@ -25,7 +51,15 @@ const StateProvider = ({ children }) => {
           },
         });
         console.log('\n\n\n*************', result.data, '\n\n\n');
-        return { result }; // do something with the action
+        return {
+          email: result.data.email,
+          firstname: result.data.prenom,
+          lastname: result.data.nom,
+          birthday: result.data.birthdaydate,
+          birthhour: result.data.birthHour,
+          country: result.data.countryName,
+          city: result.data.cityName,
+        }; // do something with the action
       case 'SET_PROFILE':
         return { isAuthorized: false }; // do something with the action
       default:

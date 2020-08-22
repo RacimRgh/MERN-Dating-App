@@ -5,7 +5,6 @@ import {
   StyleSheet,
   SectionList,
   SafeAreaView,
-  FlatList,
 } from 'react-native';
 import { store } from '../components/store';
 
@@ -32,15 +31,10 @@ const DescriptionTab = () => {
     </View>
   );
 
-  const profileState = useContext(store);
-  const { dispatch } = profileState;
-  useEffect(() => {
-    dispatch({ type: 'GET_PROFILE' });
-  }, []);
-
   return (
-    <SafeAreaView>
-      <SectionList
+    <View>
+      <Text style={styles.tabTitle}>Informations générales</Text>
+      {/* <SectionList
         sections={DATA}
         keyExtractor={(item, index) => item + index}
         renderItem={({ item }) => (
@@ -54,8 +48,8 @@ const DescriptionTab = () => {
             <Text style={styles.titles}>{title}</Text>
           </View>
         )}
-      />
-    </SafeAreaView>
+      /> */}
+    </View>
   );
 };
 
@@ -79,6 +73,12 @@ const styles = StyleSheet.create({
   },
   content: {
     marginHorizontal: 10,
+  },
+  tabTitle: {
+    fontWeight: 'bold',
+    fontSize: 30,
+    marginVertical: 5,
+    alignSelf: 'center',
   },
 });
 

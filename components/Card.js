@@ -20,6 +20,7 @@ const Card = (props) => {
   } = props;
 
   React.useEffect(() => {}, [secureText]);
+
   return (
     <View style={styles.container}>
       <View style={styles.containerGlue}>

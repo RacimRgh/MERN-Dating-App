@@ -17,6 +17,14 @@ const deviceStorage = {
       console.log('AsyncStorage Error: ' + error.message);
     }
   },
+  async removeItemValue(key) {
+    try {
+      await AsyncStorage.removeItem(key);
+      return true;
+    } catch (exception) {
+      return false;
+    }
+  },
   logCurrentStorage() {
     AsyncStorage.getAllKeys().then((keyArray) => {
       AsyncStorage.multiGet(keyArray).then((keyValArray) => {
@@ -24,7 +32,6 @@ const deviceStorage = {
         for (let keyVal of keyValArray) {
           myStorage[keyVal[0]] = keyVal[1];
         }
-
         // console.log(
         //   '\n\n\n\n*************************CURRENT STORAGE: ',
         //   myStorage,

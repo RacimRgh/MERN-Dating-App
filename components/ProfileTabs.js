@@ -3,11 +3,12 @@ import { View, Text, StyleSheet } from 'react-native';
 import DescriptionTab from '../components/DescriptionTab';
 import GoutsTab from '../components/GoutsTab';
 import AstroTab from '../components/AstroTab';
+import HousesTab from '../components/HousesTab';
 
 const ProfileTabs = (props) => {
   const { activeTab } = props;
   return activeTab == 1 ? (
-    <AstroTab />
+    <HousesTab />
   ) : activeTab == 2 ? (
     <AstroTab />
   ) : activeTab == 3 ? (
