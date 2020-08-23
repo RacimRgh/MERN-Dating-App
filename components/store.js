@@ -12,6 +12,7 @@ let initialState = {
   country: '',
   city: '',
   themeAstral: {},
+  description: {},
 };
 
 (async function () {
@@ -23,6 +24,7 @@ let initialState = {
       Authorization: 'Bearer ' + user_token,
     },
   });
+  console.log('\n\n\n Store: ', result.data.description);
   initialState = {
     email: result.data.email,
     firstname: result.data.prenom,
@@ -32,6 +34,7 @@ let initialState = {
     country: result.data.countryName,
     city: result.data.cityName,
     themeAstral: result.data.themeastral,
+    description: result.data.description,
   };
 })();
 

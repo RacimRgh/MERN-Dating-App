@@ -6,23 +6,29 @@ import {
   SectionList,
   SafeAreaView,
 } from 'react-native';
+import Icon from 'react-native-dynamic-vector-icons';
 import { store } from '../components/store';
 
 const DescriptionTab = () => {
+  const { state } = useContext(store);
   const DATA = [
     {
-      title: 'Informations générales',
+      title: 'Description',
       data: [
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer porttitor metus nibh, et finibus massa pharetra ornare. Vivamus vitaeest interdum, bibendum metus sit amet, elementum nisl. In ac arcu ut mi placerat ultrices non sed nibh.',
+        {
+          Bio:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer porttitor metus nibh, et finibus massa pharetra ornare. Vivamus vitaeest interdum, bibendum metus sit amet, elementum nisl. In ac arcu ut mi placerat ultrices non sed nibh.',
+        },
       ],
     },
     {
-      title: 'Lifestyle',
-      data: ['Football', 'Dragonforce'],
-    },
-    {
       title: 'Apparence',
-      data: ['Marron', 'Chatins', '1m75', 63],
+      data: [
+        { Yeux: state.description.phydesc.eyecolor },
+        { Cheveux: state.description.phydesc.haircolor },
+        { Taille: state.description.phydesc.height },
+        { Poids: state.description.phydesc.weight },
+      ],
     },
   ];
   const Item = ({ item }) => (
@@ -34,21 +40,36 @@ const DescriptionTab = () => {
   return (
     <View>
       <Text style={styles.tabTitle}>Informations générales</Text>
-      {/* <SectionList
-        sections={DATA}
-        keyExtractor={(item, index) => item + index}
-        renderItem={({ item }) => (
-          <View style={styles.item}>
-            <Text style={styles.content}>{item}</Text>
-          </View>
-        )}
-        renderSectionHeader={({ section: { title } }) => (
-          <View>
-            <View style={styles.divider} />
-            <Text style={styles.titles}>{title}</Text>
-          </View>
-        )}
-      /> */}
+      <View style={styles.section}>
+        <SectionList
+          sections={DATA}
+          keyExtractor={(item, index) => item + index}
+          renderItem={({ item }) => (
+            <View style={styles.content}>
+              <Icon
+                size={25}
+                name="person"
+                color="black"
+                type="ionicons"
+                style={{ marginRight: 10 }}
+              />
+              <Text style={styles.contentText}>
+                {Object.keys(item)} :{' '}
+                {Object.values(item)[0] === undefined
+                  ? 'Pas mentionné'
+                  : Object.values(item)}
+              </Text>
+            </View>
+          )}
+          renderSectionHeader={({ section: { title } }) => (
+            <View>
+              <View style={styles.divider} />
+              <Text style={styles.titles}>{title}</Text>
+              <View style={styles.divider} />
+            </View>
+          )}
+        />
+      </View>
     </View>
   );
 };
@@ -61,6 +82,18 @@ const styles = StyleSheet.create({
     width: 45,
     resizeMode: 'contain',
   },
+  section: {
+    backgroundColor: '#fbe7c2',
+    borderRadius: 10,
+    margin: 8,
+    padding: 10,
+    paddingBottom: 15,
+    shadowColor: '#000',
+    shadowOffset: { width: 1, height: 1 },
+    shadowOpacity: 0.3,
+    shadowRadius: 1,
+    elevation: 2,
+  },
   titles: {
     fontWeight: 'bold',
     fontSize: 20,
@@ -68,16 +101,31 @@ const styles = StyleSheet.create({
   },
   divider: {
     marginVertical: 10,
-    borderBottomColor: '#ccffff',
+    borderBottomColor: 'white',
     borderBottomWidth: 1,
   },
   content: {
-    marginHorizontal: 10,
+    flexDirection: 'row',
+    backgroundColor: '#faf2dd',
+    borderRadius: 10,
+    margin: 8,
+    padding: 10,
+    paddingRight: 30,
+    paddingBottom: 15,
+    shadowColor: '#000',
+    shadowOffset: { width: 1, height: 1 },
+    shadowOpacity: 0.3,
+    shadowRadius: 1,
+    elevation: 2,
   },
   tabTitle: {
     fontWeight: 'bold',
     fontSize: 30,
     marginVertical: 5,
+    alignSelf: 'center',
+  },
+  contentText: {
+    fontSize: 18,
     alignSelf: 'center',
   },
 });

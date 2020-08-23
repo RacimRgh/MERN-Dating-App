@@ -14,31 +14,33 @@ import { store } from '../components/store';
 import deviceStorage from '../services/deviceStorage';
 import EditSection from '../components/EditSection';
 
+console.disableYellowBox = false;
+
 const EditProfile = () => {
-  (async function () {
-    const user_token = await deviceStorage.loadJWT();
-    const patchProfile = await axios({
-      method: 'PATCH',
-      url: 'http://10.0.2.2:3000/users/add',
-      headers: {
-        Authorization: 'Bearer ' + user_token,
-      },
-      data: {
-        description: {
-          phydesc: {
-            height: 250,
-            weight: 70,
-            eyecolor: 'brown',
-          },
-          tastes: {
-            sports: ['Football', 'Tennis'],
-            musique: ['Dragonforce'],
-          },
-        },
-      },
-    });
-    console.log('\n\n\n____Edit profile', patchProfile.data.description);
-  })();
+  // (async function () {
+  //   const user_token = await deviceStorage.loadJWT();
+  //   const patchProfile = await axios({
+  //     method: 'PATCH',
+  //     url: 'http://10.0.2.2:3000/users/add',
+  //     headers: {
+  //       Authorization: 'Bearer ' + user_token,
+  //     },
+  //     data: {
+  //       description: {
+  //         phydesc: {
+  //           height: 250,
+  //           weight: 70,
+  //           eyecolor: 'brown',
+  //         },
+  //         tastes: {
+  //           sports: ['Football', 'Tennis'],
+  //           musique: ['Dragonforce'],
+  //         },
+  //       },
+  //     },
+  //   });
+  // console.log('\n\n\n____Edit profile', patchProfile.data.description);
+  // })();
   /* Here the user can edit his profile by
   adding/deleting/updating his informations
   */
@@ -46,7 +48,7 @@ const EditProfile = () => {
 
   let data = Object.keys(state)
     .map(function (key) {
-      if (key !== 'themeAstral') {
+      if (key !== 'themeAstral' && key !== 'description') {
         return { title: key, data: [state[key]] };
       }
     })
@@ -54,41 +56,42 @@ const EditProfile = () => {
       return element !== undefined;
     });
 
+  console.log('\n\n\n Edit profile: ', state.description.tastes);
   let physique = [
     {
       title: 'Taille',
-      data: ['Non mentionné'],
+      data: [state.description.phydesc.height + 'cm'],
     },
     {
       title: 'Poids',
-      data: ['Non mentionné'],
+      data: [state.description.phydesc.weight + 'kg'],
     },
     {
       title: 'Couleur des yeux',
-      data: ['Non mentionné'],
+      data: [state.description.phydesc.eyecolor],
     },
     {
       title: 'Couleur des cheveux',
-      data: ['Non mentionné'],
+      data: [state.description.phydesc.haircolor],
     },
     {
       title: 'Style',
-      data: ['Non mentionné'],
+      data: [state.description.phydesc.style],
     },
   ];
 
   let gouts = [
     {
       title: 'Sports',
-      data: ['Non mentionné'],
+      data: state.description.tastes.sports,
     },
     {
       title: 'Musique',
-      data: ['Non mentionné'],
+      data: state.description.tastes.musique,
     },
     {
       title: 'Cinéma',
-      data: ['Non mentionné'],
+      data: state.description.tastes.movies,
     },
   ];
   return (

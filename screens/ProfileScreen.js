@@ -40,7 +40,11 @@ const ProfileScreen = ({ navigation }) => {
       <View style={styles.imageContainer}>
         <ImageBackground
           source={images.userPic1}
+          imageStyle={{
+            borderRadius: 200,
+          }}
           style={{
+            marginTop: 20,
             width: width,
             height: height * 0.52,
           }}

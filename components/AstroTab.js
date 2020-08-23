@@ -3,7 +3,8 @@ import { View, Text, StyleSheet, SectionList, Image } from 'react-native';
 
 import { store } from './store';
 import { signs, signsIcons, planetsIcons } from './astrology';
-// Astrology tab in the user profile screen
+// Astrology tab in the user profile screens
+
 const AstroTab = () => {
   const { state } = useContext(store);
 
@@ -30,10 +31,10 @@ const AstroTab = () => {
         sections={planetes}
         keyExtractor={(item, index) => item + index}
         renderItem={({ item }) => (
-          <View>
+          <View style={styles.content}>
             <View style={styles.item}>
-              <Text style={styles.contentText}>{signs[item]}</Text>
               <Image source={signsIcons[item]} style={styles.icons} />
+              <Text style={styles.contentText}>{signs[item]}: </Text>
             </View>
             <Text style={styles.text}>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
@@ -59,6 +60,19 @@ const AstroTab = () => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
+  },
+  content: {
+    backgroundColor: '#faf2dd',
+    borderRadius: 10,
+    margin: 8,
+    padding: 10,
+    paddingRight: 30,
+    paddingBottom: 15,
+    shadowColor: '#000',
+    shadowOffset: { width: 1, height: 1 },
+    shadowOpacity: 0.3,
+    shadowRadius: 1,
+    elevation: 2,
   },
   tabTitle: {
     fontWeight: 'bold',

@@ -18,19 +18,18 @@ const AstroTab = () => {
     return { title: key, data: [state.themeAstral.planetes[key]] };
   });
   const data = Array.prototype.concat(houses, planetes);
-  console.log('\n\naaaaaaaaaaaaaaaaaaa: ', data);
 
   // console.log('\n\n\nAstro Tab :______________\n', state.themeAstral, '\n\n\n');
   return (
     <View style={styles.container}>
       {/* <View style={styles.divider} />
       <View style={styles.divider} /> */}
-      <Text style={styles.tabTitle}> Maisons</Text>
+      <Text style={styles.tabTitle}> Maisons astrologiques</Text>
       <SectionList
         sections={houses}
         keyExtractor={(item, index) => item + index}
         renderItem={({ item }) => (
-          <View>
+          <View style={styles.content}>
             <View style={styles.item}>
               <Image source={signsIcons[item]} style={styles.icons} />
               <Text style={styles.contentText}>{signs[item]}</Text>
@@ -56,6 +55,19 @@ const AstroTab = () => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
+  },
+  content: {
+    backgroundColor: '#faf2dd',
+    borderRadius: 10,
+    margin: 8,
+    padding: 10,
+    paddingRight: 30,
+    paddingBottom: 15,
+    shadowColor: '#000',
+    shadowOffset: { width: 1, height: 1 },
+    shadowOpacity: 0.3,
+    shadowRadius: 1,
+    elevation: 2,
   },
   tabTitle: {
     fontWeight: 'bold',

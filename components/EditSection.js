@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Text,
+  TextInput,
 } from 'react-native';
 import Icon from 'react-native-dynamic-vector-icons';
 
@@ -20,9 +21,13 @@ const EditSection = (props) => {
           sections={data}
           keyExtractor={(item, index) => item + index}
           renderItem={({ item }) => (
-            <TouchableOpacity>
+            <View>
               <View style={styles.content}>
-                <Text style={styles.contentText}>{item}</Text>
+                <TextInput
+                  placeholder={item !== undefined ? item : 'Pas mentionné'}
+                  style={styles.contentText}
+                  selectionColor="#757575"
+                />
                 <Icon
                   size={25}
                   name="arrow-right"
@@ -30,7 +35,20 @@ const EditSection = (props) => {
                   type="SimpleLineIcons"
                 />
               </View>
-            </TouchableOpacity>
+              {sectionTitle === 'Passions et goûts' ? (
+                <TouchableOpacity>
+                  <View style={styles.addButton}>
+                    <Text style={styles.contentText}>Ajouter une passion</Text>
+                    <Icon
+                      size={25}
+                      name="plus"
+                      color="black"
+                      type="SimpleLineIcons"
+                    />
+                  </View>
+                </TouchableOpacity>
+              ) : undefined}
+            </View>
           )}
           renderSectionHeader={({ section: { title } }) => (
             <View style={styles.title}>
@@ -68,16 +86,16 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: 'bold',
     fontSize: 22,
-    marginHorizontal: 10,
+    marginHorizontal: 15,
     marginTop: 5,
   },
   content: {
     backgroundColor: 'white',
     borderBottomStartRadius: 10,
     marginHorizontal: 20,
-    padding: 5,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
   },
   divider: {
     marginBottom: 10,
@@ -112,6 +130,16 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 1,
     elevation: 2,
+  },
+  addButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 10,
+    alignSelf: 'center',
+    borderRadius: 20,
+    backgroundColor: 'white',
+    padding: 10,
   },
 });
 

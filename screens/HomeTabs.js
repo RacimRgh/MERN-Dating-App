@@ -52,9 +52,9 @@ const Home = ({ navigation }) => {
         },
       })}
       tabBarOptions={{
-        showLabel: true,
+        showLabel: false,
         style: {
-          backgroundColor: '#5dbcd2',
+          backgroundColor: '#a2a6ac',
           height: 60,
         },
       }}>
