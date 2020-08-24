@@ -48,7 +48,7 @@ const loginUser = (data) => {
 
 const App = () => {
   initialLoginState = {
-    isLoading: true,
+    isLoading: false,
     userEmail: null,
     userToken: null,
   };
@@ -58,8 +58,8 @@ const App = () => {
       case 'RETRIEVE_TOKEN':
         return {
           ...prevState,
-          // userToken: action.token,
           userToken: action.token,
+          // userToken: null,
           isLoading: false,
         };
       case 'LOGIN':
