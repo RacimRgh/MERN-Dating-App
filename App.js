@@ -17,6 +17,7 @@ import deviceStorage from './services/deviceStorage';
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
+console.disableYellowBox = true;
 // Function to send a post request to sign up a user
 const signInUser = (data) => {
   try {

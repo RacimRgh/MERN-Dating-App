@@ -68,7 +68,7 @@ const ProfileScreen = ({ navigation }) => {
           ans
         </Text>
         <Text style={styles.footerTextLocalisation}>
-          {state.city}, {state.country}
+          {state.city.toUpperCase()}, {state.country.toUpperCase()}
         </Text>
         <View style={styles.profileBar}>
           <ProfileBar
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     justifyContent: 'center',
     alignSelf: 'center',
-    top: 315,
+    top: 335,
   },
   ellipseIcon: {
     height: 80,

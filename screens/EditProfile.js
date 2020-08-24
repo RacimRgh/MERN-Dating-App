@@ -14,8 +14,6 @@ import { store } from '../components/store';
 import deviceStorage from '../services/deviceStorage';
 import EditSection from '../components/EditSection';
 
-console.disableYellowBox = false;
-
 const EditProfile = () => {
   // (async function () {
   //   const user_token = await deviceStorage.loadJWT();

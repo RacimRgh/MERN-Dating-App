@@ -31,12 +31,14 @@ const DescriptionTab = () => {
       ],
     },
   ];
-  const Item = ({ item }) => (
-    <View style={styles.item}>
-      <Text style={styles.titles}>{item}</Text>
-    </View>
-  );
 
+  const icons = {
+    Bio: { iconType: 'ionicons', name: 'person' },
+    Yeux: { iconType: 'FontAwesome', name: 'eye' },
+    Cheveux: { iconType: 'MaterialCommunityIcons', name: 'head' },
+    Taille: { iconType: 'MaterialCommunityIcons', name: 'human-male-height' },
+    Poids: { iconType: 'MaterialCommunityIcons', name: 'weight' },
+  };
   return (
     <View>
       <Text style={styles.tabTitle}>Informations générales</Text>
@@ -48,9 +50,9 @@ const DescriptionTab = () => {
             <View style={styles.content}>
               <Icon
                 size={25}
-                name="person"
+                name={icons[Object.keys(item)].name}
                 color="black"
-                type="ionicons"
+                type={icons[Object.keys(item)].iconType}
                 style={{ marginRight: 10 }}
               />
               <Text style={styles.contentText}>
@@ -75,13 +77,6 @@ const DescriptionTab = () => {
 };
 
 const styles = StyleSheet.create({
-  icons: {
-    margin: 20,
-    padding: 10,
-    height: 40,
-    width: 45,
-    resizeMode: 'contain',
-  },
   section: {
     backgroundColor: '#fbe7c2',
     borderRadius: 10,
