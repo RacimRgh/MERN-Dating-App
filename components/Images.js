@@ -1,6 +1,7 @@
 const images = {
   userPic: require('../assets/LoveAttraction/profile/man.png'),
   userPic1: require('../assets/LoveAttraction/photo-racim.png'),
+  userPic2: require('../assets/pexels-leah-kelley.jpg'),
   ellipse: require('../assets/LoveAttraction/Ellipse.png'),
   ellipseWhite: require('../assets/LoveAttraction/EllipseWhite.png'),
   pencil: require('../assets/LoveAttraction/pencil.png'),
