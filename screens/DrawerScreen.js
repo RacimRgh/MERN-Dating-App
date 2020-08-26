@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
+import { View, StyleSheet, Dimensions, Text } from 'react-native';
 import {
   DrawerContentScrollView,
   DrawerItemList,
@@ -70,9 +70,6 @@ const DrawerScreen = (props) => {
           }}
           style={styles.signOutButton}
           labelStyle={{ fontSize: 16, fontFamily: 'OpenSans-SemiBold' }}
-          activeTintColor="#2196f3"
-          activeBackgroundColor="rgba(0, 0, 0, .04)"
-          inactiveTintColor="rgba(0, 0, 0, .87)"
           inactiveBackgroundColor="#a2a6ac"
           icon={({ focused, color, size }) => (
             <Icon
@@ -84,6 +81,9 @@ const DrawerScreen = (props) => {
           )}
         />
       </View>
+      <Text style={{ fontWeight: 'bold', alignSelf: 'flex-end', margin: 5 }}>
+        Version x.x
+      </Text>
     </DrawerContentScrollView>
   );
 };
@@ -92,11 +92,11 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 120,
     backgroundColor: '#faf2dd',
-    height: height,
+    height: height * 0.8,
   },
   drawerContainer: {
     backgroundColor: '#faf2dd',
-    height: height,
+    height: height * 0.8,
   },
   content: {
     margin: 0,

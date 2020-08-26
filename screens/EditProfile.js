@@ -54,7 +54,6 @@ const EditProfile = () => {
       return element !== undefined;
     });
 
-  console.log('\n\n\n Edit profile: ', state.description.tastes);
   let physique = [
     {
       title: 'Taille',
