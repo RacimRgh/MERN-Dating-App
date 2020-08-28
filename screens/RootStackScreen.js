@@ -67,7 +67,12 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0,
     shadowColor: 'transparent',
     elevation: 0,
-    backgroundColor: '#fce0d8',
+    backgroundColor: '#FFE2F1',
+    shadowColor: '#000',
+    shadowOffset: { width: 1, height: 1 },
+    shadowOpacity: 0.3,
+    shadowRadius: 1,
+    elevation: 2,
   },
 });
 

@@ -18,65 +18,93 @@ const Match = () => {
       <ImageBackground
         style={{
           width: width * 0.95,
-          height: height * 0.69,
+          height: height * 0.66,
           borderRadius: 30,
           flexDirection: 'column-reverse',
         }}
         imageStyle={{ borderRadius: 30 }}
         source={images.userPic2}>
         <View style={styles.infoContainer}>
-          <TouchableOpacity>
+          <View style={styles.divider} />
+          <View
+            style={{
+              flexDirection: 'row-reverse',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}>
+            <TouchableOpacity>
+              <View>
+                <Text style={styles.textInfo}>
+                  <Icon
+                    name="arrow-bottom-right"
+                    type="MaterialCommunityIcons"
+                    size={25}
+                    color="white"
+                  />
+                  Voir plus
+                </Text>
+              </View>
+            </TouchableOpacity>
             <View>
               <Text style={styles.textInfo}>
                 <Icon
-                  name="arrow-bottom-right"
+                  name="face-profile"
                   type="MaterialCommunityIcons"
                   size={25}
                   color="white"
                 />
-                Voir plus
+                Sonia, 20 ans
+              </Text>
+              <Text style={styles.textInfo}>
+                <Icon
+                  name="location-on"
+                  type="MaterialIcons"
+                  size={25}
+                  color="white"
+                />
+                100 km
               </Text>
             </View>
-          </TouchableOpacity>
-          <View>
-            <View style={styles.divider} />
-            <Text style={styles.textInfo}>
-              <Icon
-                name="face-profile"
-                type="MaterialCommunityIcons"
-                size={25}
-                color="white"
-              />
-              Racima, 20 ans
-            </Text>
-            <Text style={styles.textInfo}>
-              <Icon
-                name="location-on"
-                type="MaterialIcons"
-                size={25}
-                color="white"
-              />
-              100 km
-            </Text>
           </View>
         </View>
       </ImageBackground>
       <View style={styles.iconsContainer}>
         <TouchableOpacity>
           <View style={styles.choiceIcon}>
-            <Icon size={40} name="cross" type="Entypo" color="red" />
+            <Icon
+              size={35}
+              name="rewind"
+              type="MaterialCommunityIcons"
+              color="black"
+            />
           </View>
         </TouchableOpacity>
-        <View style={styles.choiceIcon}>
-          <Text style={styles.iconText}> 100 %</Text>
+        <TouchableOpacity>
+          <View style={styles.choiceIcon}>
+            <Icon size={50} name="report" type="MaterialIcons" color="black" />
+          </View>
+        </TouchableOpacity>
+        <View style={styles.compatIcon}>
+          <Icon
+            size={40}
+            name="percent"
+            type="MaterialCommunityIcons"
+            color="black"
+          />
+          <Text style={styles.iconText}> 100 </Text>
         </View>
         <TouchableOpacity>
           <View style={styles.choiceIcon}>
+            <Icon size={50} name="like" type="SimpleLineIcons" color="black" />
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <View style={styles.choiceIcon}>
             <Icon
-              size={40}
-              name="heart"
-              type="MaterialCommunityIcons"
-              color="red"
+              size={35}
+              name="navigate-next"
+              type="MaterialIcons"
+              color="black"
             />
           </View>
         </TouchableOpacity>
@@ -85,25 +113,9 @@ const Match = () => {
   );
 };
 const styles = StyleSheet.create({
-  container: {},
-  iconsContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  container: {
     justifyContent: 'center',
-    backgroundColor: '#fbe7c2',
-    borderRadius: 200,
-    marginTop: 3,
-  },
-  choiceIcon: {
-    padding: 20,
-    margin: 10,
-    borderRadius: 200,
-    backgroundColor: '#faf2dd',
-    shadowColor: '#000',
-    shadowOffset: { width: 1, height: 1 },
-    shadowOpacity: 0.3,
-    shadowRadius: 1,
-    elevation: 2,
+    alignItems: 'center',
   },
   iconText: {
     fontWeight: 'bold',
@@ -116,7 +128,6 @@ const styles = StyleSheet.create({
   },
   infoContainer: {
     backgroundColor: 'rgba(52, 52, 52, 0.8)',
-    justifyContent: 'center',
     borderBottomEndRadius: 30,
     borderBottomStartRadius: 30,
     padding: 10,
@@ -125,6 +136,42 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 25,
     marginLeft: 8,
+  },
+  iconsContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    // backgroundColor: '#ece0e6',
+    backgroundColor: '#EEB9D5',
+    marginTop: 3,
+    width: width,
+  },
+  choiceIcon: {
+    padding: 10,
+    marginHorizontal: 5,
+    borderRadius: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#FFE2F1',
+    shadowColor: '#000',
+    shadowOffset: { width: 1, height: 1 },
+    shadowOpacity: 0.3,
+    shadowRadius: 1,
+    elevation: 2,
+  },
+  compatIcon: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 10,
+    marginBottom: 20,
+    marginTop: 5,
+    backgroundColor: '#FFE2F1',
+    borderRadius: 200,
+    shadowColor: '#000',
+    shadowOffset: { width: 1, height: 1 },
+    shadowOpacity: 0.3,
+    shadowRadius: 1,
+    elevation: 2,
   },
 });
 export default Match;

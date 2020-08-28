@@ -29,6 +29,7 @@
     "react-native-gallery-swiper": "^1.26.4",
     "react-native-gesture-handler": "^1.6.1",
     "react-native-improved-text-input": "0.0.1",
+    "react-native-modal-dropdown": "git+https://github.com/siemiatj/react-native-modal-dropdown.git",
     "react-native-reanimated": "^1.9.0",
     "react-native-safe-area-context": "^3.0.7",
     "react-native-screens": "^2.9.0",
@@ -36,7 +37,11 @@
     "react-native-unimodules": "~0.10.1",
     "react-native-vector-icons": "^6.6.0",
     "react-native-web": "~0.11.7",
-    "react-navigation": "^4.4.0"
+    "react-navigation": "^4.4.0",
+    "deprecated-react-native-listview": "^0.0.6"
+  },
+  "resolutions": {
+    "deprecated-react-native-listview": "0.0.6"
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",

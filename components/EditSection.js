@@ -9,68 +9,55 @@ import {
   TextInput,
 } from 'react-native';
 import Icon from 'react-native-dynamic-vector-icons';
+import EditCard from './EditCard';
 
 const EditSection = (props) => {
-  const { sectionTitle, data } = props;
+  const {
+    data,
+    heightOnChange,
+    weightOnChange,
+    eyecolorOnChange,
+    haircolorOnChange,
+    styleOnChange,
+  } = props;
   return (
-    <View style={styles.container}>
-      <View style={styles.section}>
-        <Text style={styles.title}>{sectionTitle}</Text>
-        <View style={styles.divider} />
-        <SectionList
-          sections={data}
-          keyExtractor={(item, index) => item + index}
-          renderItem={({ item }) => (
-            <View>
-              <View style={styles.content}>
-                <TextInput
-                  placeholder={item !== undefined ? item : 'Pas mentionné'}
-                  style={styles.contentText}
-                  selectionColor="#757575"
-                />
-                <Icon
-                  size={25}
-                  name="arrow-right"
-                  color="black"
-                  type="SimpleLineIcons"
-                />
-              </View>
-              {sectionTitle === 'Passions et goûts' ? (
-                <TouchableOpacity>
-                  <View style={styles.addButton}>
-                    <Text style={styles.contentText}>Ajouter une passion</Text>
-                    <Icon
-                      size={25}
-                      name="plus"
-                      color="black"
-                      type="SimpleLineIcons"
-                    />
-                  </View>
-                </TouchableOpacity>
-              ) : undefined}
-            </View>
-          )}
-          renderSectionHeader={({ section: { title } }) => (
-            <View style={styles.title}>
-              <Text style={styles.titleStyle}>{title.toUpperCase()}</Text>
-            </View>
-          )}
-        />
-      </View>
-      <View>
-        <TouchableOpacity style={styles.saveButtonStyle}>
-          <Text style={styles.title}>Save</Text>
-        </TouchableOpacity>
-      </View>
+    <View style={styles.section}>
+      <Text style={styles.title}>Physique</Text>
+      <View style={styles.divider} />
+      <EditCard
+        title="Taille en CM"
+        data={data.height}
+        onChangeDescription={heightOnChange}
+        num={true}
+      />
+      <EditCard
+        title="Poids en KG"
+        data={data.weight}
+        onChangeDescription={weightOnChange}
+        num={true}
+      />
+      <EditCard
+        title="Couleur des yeux"
+        data={data.eyecolor}
+        onChangeDescription={eyecolorOnChange}
+        dropdown={true}
+      />
+      <EditCard
+        title="Couleurs des cheveux"
+        data={data.haircolor}
+        onChangeDescription={haircolorOnChange}
+        dropdown={true}
+      />
+      <EditCard
+        title="Style"
+        data={data.style}
+        onChangeDescription={styleOnChange}
+      />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'white',
-  },
   section: {
     backgroundColor: '#fbe7c2',
     borderRadius: 10,
