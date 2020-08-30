@@ -6,17 +6,17 @@ import AstroTab from '../components/AstroTab';
 import HousesTab from '../components/HousesTab';
 
 const ProfileTabs = (props) => {
-  const { activeTab } = props;
+  const { activeTab, data } = props;
   return activeTab == 1 ? (
-    <HousesTab />
+    <HousesTab fullState={data} />
   ) : activeTab == 2 ? (
-    <AstroTab />
+    <AstroTab fullState={data} />
   ) : activeTab == 3 ? (
-    <DescriptionTab />
+    <DescriptionTab fullState={data} />
   ) : activeTab == 4 ? (
-    <GoutsTab />
+    <GoutsTab fullState={data} />
   ) : (
-    <AstroTab />
+    <AstroTab fullState={data} />
   );
 };
 

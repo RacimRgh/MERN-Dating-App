@@ -4,20 +4,21 @@ import Icon from 'react-native-dynamic-vector-icons';
 
 import { store } from '../components/store';
 
-const GoutsTab = () => {
+const GoutsTab = (props) => {
   const { state } = useContext(store);
+  const { fullState } = props;
   const DATA = [
     {
       title: 'Sports',
-      data: state.description.tastes.sports,
+      data: fullState.description.tastes.sports,
     },
     {
       title: 'Musique',
-      data: state.description.tastes.musique,
+      data: fullState.description.tastes.musique,
     },
     {
       title: 'Cinéma',
-      data: state.description.tastes.movies,
+      data: fullState.description.tastes.movies,
     },
   ];
   const icons = {

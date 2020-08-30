@@ -1,13 +1,12 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import {
   View,
   ScrollView,
-  SectionList,
   TouchableOpacity,
   StyleSheet,
   Text,
+  ActivityIndicator,
 } from 'react-native';
-import Icon from 'react-native-dynamic-vector-icons';
 import axios from 'axios';
 // local imports
 import { store } from '../components/store';
@@ -15,6 +14,37 @@ import deviceStorage from '../services/deviceStorage';
 import EditSection from '../components/EditSection';
 
 const EditProfile = () => {
+  const { dispatch, state } = useContext(store);
+  const [descriptionData, setDescription] = useState({ isLoading: true });
+  useEffect(() => {
+    async function fetchData() {
+      await dispatch({ type: 'GET_PROFILE' });
+    }
+    fetchData();
+    console.log('\n\n\nEditProfile: ', state);
+    setTimeout(() => {
+      setDescription({
+        height: state.initialState.description.phydesc.height,
+        weight: state.initialState.description.phydesc.weight,
+        eyecolor: state.initialState.description.phydesc.eyecolor,
+        haircolor: state.initialState.description.phydesc.haircolor,
+        style: state.initialState.description.phydesc.style,
+        sports: state.initialState.description.tastes.sports,
+        musique: state.initialState.description.tastes.musique,
+        movies: state.initialState.description.tastes.movies,
+        isLoading: false,
+      });
+    }, 2000);
+  }, []);
+
+  if (descriptionData.isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
+
   async function onPressSave(value) {
     const user_token = await deviceStorage.loadJWT();
     const patchProfile = await axios({
@@ -38,24 +68,15 @@ const EditProfile = () => {
           },
         },
       },
+    }).then(async () => {
+      await dispatch({ type: 'GET_PROFILE' });
+      console.log('\n\n\n____Edit profile', patchProfile);
     });
-    console.log('\n\n\n____Edit profile', patchProfile.data.description);
   }
   /* Here the user can edit his profile by
   adding/deleting/updating his informations
   */
-  const { state } = useContext(store);
 
-  const [descriptionData, setDescription] = useState({
-    height: state.description.phydesc.height,
-    weight: state.description.phydesc.weight,
-    eyecolor: state.description.phydesc.eyecolor,
-    haircolor: state.description.phydesc.haircolor,
-    style: state.description.phydesc.style,
-    sports: state.description.tastes.sports,
-    musique: state.description.tastes.musique,
-    movies: state.description.tastes.movies,
-  });
   const heightOnChange = (val) => {
     setDescription({
       ...descriptionData,

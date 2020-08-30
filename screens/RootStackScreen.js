@@ -19,46 +19,44 @@ const RootStackScreen = () => {
   };
 
   return (
-    <StateProvider>
-      <RootStack.Navigator mode="modal">
-        <RootStack.Screen
-          name="Main"
-          component={Home}
-          options={({ route, navigation }) => ({
-            headerShown: true,
-            headerStyle: styles.header,
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
-            headerTitle: getHeaderTitle(route),
-          })}
-        />
-        <RootStack.Screen
-          name="Settings"
-          component={Settings}
-          options={({ route, navigation }) => ({
-            headerShown: true,
-            headerStyle: styles.header,
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
-            headerTitle: getHeaderTitle(route),
-          })}
-        />
-        <RootStack.Screen
-          name="Edit profile"
-          component={EditProfile}
-          options={({ route, navigation }) => ({
-            headerShown: true,
-            headerStyle: styles.header,
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
-            headerTitle: getHeaderTitle(route),
-          })}
-        />
-      </RootStack.Navigator>
-    </StateProvider>
+    <RootStack.Navigator mode="modal">
+      <RootStack.Screen
+        name="Main"
+        component={Home}
+        options={({ route, navigation }) => ({
+          headerShown: true,
+          headerStyle: styles.header,
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerTitle: getHeaderTitle(route),
+        })}
+      />
+      <RootStack.Screen
+        name="Settings"
+        component={Settings}
+        options={({ route, navigation }) => ({
+          headerShown: true,
+          headerStyle: styles.header,
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerTitle: getHeaderTitle(route),
+        })}
+      />
+      <RootStack.Screen
+        name="Edit profile"
+        component={EditProfile}
+        options={({ route, navigation }) => ({
+          headerShown: true,
+          headerStyle: styles.header,
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerTitle: getHeaderTitle(route),
+        })}
+      />
+    </RootStack.Navigator>
   );
 };
 

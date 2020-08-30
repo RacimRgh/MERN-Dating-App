@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -9,8 +9,16 @@ import {
 import Icon from 'react-native-dynamic-vector-icons';
 import { store } from '../components/store';
 
-const DescriptionTab = () => {
-  const { state } = useContext(store);
+const DescriptionTab = (props) => {
+  const { fullState } = props;
+  // const { dispatch, state } = useContext(store);
+
+  // console.log('\n\n\n3________**______', state, '\n\n\n');
+
+  // setTimeout(() => {
+  //   setState(state);
+  // }, 5000);
+
   const DATA = [
     {
       title: 'Description',
@@ -24,10 +32,10 @@ const DescriptionTab = () => {
     {
       title: 'Apparence',
       data: [
-        { Yeux: state.description.phydesc.eyecolor },
-        { Cheveux: state.description.phydesc.haircolor },
-        { Taille: state.description.phydesc.height },
-        { Poids: state.description.phydesc.weight },
+        { Yeux: fullState.description.phydesc.eyecolor },
+        { Cheveux: fullState.description.phydesc.haircolor },
+        { Taille: fullState.description.phydesc.height },
+        { Poids: fullState.description.phydesc.weight },
       ],
     },
   ];
@@ -39,6 +47,7 @@ const DescriptionTab = () => {
     Taille: { iconType: 'MaterialCommunityIcons', name: 'human-male-height' },
     Poids: { iconType: 'MaterialCommunityIcons', name: 'weight' },
   };
+
   return (
     <View>
       <Text style={styles.tabTitle}>Informations générales</Text>

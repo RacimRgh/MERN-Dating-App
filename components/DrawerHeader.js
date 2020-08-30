@@ -10,8 +10,8 @@ import Icon from 'react-native-dynamic-vector-icons';
 import { store } from './store';
 import images from './/Images';
 const DrawerHeader = (props) => {
-  const { state } = useContext(store);
-  console.log('\n\n\n Drawer Header', state);
+  // const { state } = useContext(store);
+  // console.log('\n\n\n Drawer Header', state);
 
   return (
     <View style={styles.header}>

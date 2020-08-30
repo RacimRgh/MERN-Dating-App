@@ -4,18 +4,20 @@ import { View, Text, StyleSheet, SectionList, Image } from 'react-native';
 import { store } from './store';
 import { signs, signsIcons, planetsIcons } from './astrology';
 // Astrology tab in the user profile screen
-const AstroTab = () => {
+const AstroTab = (props) => {
   const { state } = useContext(store);
-
-  let houses = Object.keys(state.themeAstral.houses).map(function (key) {
+  const { fullState } = props;
+  let houses = Object.keys(fullState.themeAstral.houses).map(function (key) {
     return {
       title: 'House ' + key.slice(1),
-      data: [state.themeAstral.houses[key]],
+      data: [fullState.themeAstral.houses[key]],
     };
   });
 
-  let planetes = Object.keys(state.themeAstral.planetes).map(function (key) {
-    return { title: key, data: [state.themeAstral.planetes[key]] };
+  let planetes = Object.keys(fullState.themeAstral.planetes).map(function (
+    key,
+  ) {
+    return { title: key, data: [fullState.themeAstral.planetes[key]] };
   });
   const data = Array.prototype.concat(houses, planetes);
 

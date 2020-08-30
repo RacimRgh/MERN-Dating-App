@@ -4,6 +4,7 @@ import axios from 'axios';
 import deviceStorage from '../services/deviceStorage';
 
 let initialState = {
+  isLoading: true,
   email: '',
   firstname: '',
   lastname: '',
@@ -26,6 +27,7 @@ let initialState = {
   });
   console.log('\n\n\n Store: ', result.data.description);
   initialState = {
+    isLoading: true,
     email: result.data.email,
     firstname: result.data.prenom,
     lastname: result.data.nom,
@@ -42,29 +44,37 @@ const store = createContext(initialState);
 const { Provider } = store;
 
 const StateProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(async (state, action) => {
+  const [state, dispatch] = useReducer((state, action) => {
     switch (action.type) {
       case 'GET_PROFILE':
-        const user_token = await deviceStorage.loadJWT();
-        const result = await axios({
-          method: 'GET',
-          url: 'http://10.0.2.2:3000/users/me',
-          headers: {
-            Authorization: 'Bearer ' + user_token,
-          },
+        deviceStorage.loadJWT().then((user_token) => {
+          axios({
+            method: 'GET',
+            url: 'http://10.0.2.2:3000/users/me',
+            headers: {
+              Authorization: 'Bearer ' + user_token,
+            },
+          }).then((result) => {
+            return {
+              email: result.data.email,
+              firstname: result.data.prenom,
+              lastname: result.data.nom,
+              birthday: result.data.birthdaydate,
+              birthhour: result.data.birthHour,
+              country: result.data.countryName,
+              city: result.data.cityName,
+              description: result.data.description,
+              themeAstral: result.data.themeastral,
+              isLoading: false,
+            };
+          });
         });
-        console.log('\n\n\n*************', result.data, '\n\n\n');
-        return {
-          email: result.data.email,
-          firstname: result.data.prenom,
-          lastname: result.data.nom,
-          birthday: result.data.birthdaydate,
-          birthhour: result.data.birthHour,
-          country: result.data.countryName,
-          city: result.data.cityName,
-        }; // do something with the action
+        return { initialState };
       case 'SET_PROFILE':
-        return { isAuthorized: false }; // do something with the action
+        return {
+          isLoading: false,
+          description: action.data,
+        };
       default:
         throw new Error();
     }

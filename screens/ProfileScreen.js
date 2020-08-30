@@ -6,6 +6,7 @@ import {
   Text,
   ImageBackground,
   ScrollView,
+  ActivityIndicator,
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import images from '../components/Images';
@@ -21,17 +22,30 @@ const { width, height } = Dimensions.get('window');
 
 const ProfileScreen = ({ navigation }) => {
   const [activeIcon, setActiveIcon] = useState(3);
-
   const { dispatch, state } = useContext(store);
 
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     await dispatch({ type: 'GET_PROFILE' });
-  //     console.log('\n\n\n2________**______', state, '\n\n\n');
-  //   }
-  //   fetchData();
-  // }, []);
-  console.log('\n\n\nProfile Screen:______________\n', state, '\n\n\n');
+  const [fullState, setState] = useState(state);
+  useEffect(() => {
+    async function fetchData() {
+      await dispatch({ type: 'GET_PROFILE' });
+      // console.log('\n\n\n2________**______', state, '\n\n\n');
+    }
+    setTimeout(async () => {
+      await fetchData();
+      setState(state);
+    }, 2000);
+
+    console.log('\n\n\nProfile Screen:______________\n', fullState, '\n\n\n');
+  }, []);
+
+  if (state.isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
+
   return (
     <ScrollView style={{ flex: 1 }} contentContainerStyle={styles.container}>
       {/* <View style={styles.header}>
@@ -63,12 +77,13 @@ const ProfileScreen = ({ navigation }) => {
       <View style={styles.footer}>
         <View style={styles.divider} />
         <Text style={styles.footerText}>
-          {state.firstname} ,{' '}
-          {new Date().getFullYear() - new Date(state.birthday).getFullYear()}{' '}
+          {fullState.firstname} ,{' '}
+          {new Date().getFullYear() -
+            new Date(fullState.birthday).getFullYear()}{' '}
           ans
         </Text>
         <Text style={styles.footerTextLocalisation}>
-          {state.city.toUpperCase()}, {state.country.toUpperCase()}
+          {fullState.city.toUpperCase()}, {fullState.country.toUpperCase()}
         </Text>
         <View style={styles.profileBar}>
           <ProfileBar
@@ -106,7 +121,7 @@ const ProfileScreen = ({ navigation }) => {
             onPressTab={() => setActiveIcon(5)}
           />
         </View>
-        <ProfileTabs activeTab={activeIcon} />
+        <ProfileTabs activeTab={activeIcon} data={fullState} />
         <View style={styles.divider} />
       </View>
     </ScrollView>

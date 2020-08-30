@@ -11,6 +11,7 @@ import DrawerScreen from './screens/DrawerScreen';
 import RootStackScreen from './screens/RootStackScreen';
 // components
 import { AuthContext } from './components/context';
+import { StateProvider } from './components/store';
 // services
 import deviceStorage from './services/deviceStorage';
 
@@ -172,11 +173,13 @@ const App = () => {
     <AuthContext.Provider value={authContext}>
       <NavigationContainer style={styles.container}>
         {loginState.userToken !== null ? (
-          <Drawer.Navigator
-            initialRouteName="Home"
-            drawerContent={(props) => <DrawerScreen {...props} />}>
-            <Drawer.Screen name="Home" component={RootStackScreen} />
-          </Drawer.Navigator>
+          <StateProvider>
+            <Drawer.Navigator
+              initialRouteName="Home"
+              drawerContent={(props) => <DrawerScreen {...props} />}>
+              <Drawer.Screen name="Home" component={RootStackScreen} />
+            </Drawer.Navigator>
+          </StateProvider>
         ) : (
           <Stack.Navigator
             screenOptions={{
