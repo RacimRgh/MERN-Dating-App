@@ -114,12 +114,6 @@ const ProfileScreen = ({ navigation }) => {
             }
             onPressTab={() => setActiveIcon(4)}
           />
-          <ProfileBar
-            pathIcon={
-              activeIcon == 5 ? images.profile.sexeActif : images.profile.sexe
-            }
-            onPressTab={() => setActiveIcon(5)}
-          />
         </View>
         <ProfileTabs activeTab={activeIcon} data={fullState} />
         <View style={styles.divider} />
@@ -194,6 +188,7 @@ const styles = StyleSheet.create({
   },
   profileBar: {
     flexDirection: 'row',
+    justifyContent: 'center',
   },
 });
 export default ProfileScreen;

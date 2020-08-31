@@ -1,54 +1,61 @@
 import React, { useContext } from 'react';
-import { View, Text, StyleSheet, SectionList, Image } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  FlatList,
+  ImageBackground,
+} from 'react-native';
 
-import { store } from './store';
-import { signs, signsIcons, planetsIcons } from './astrology';
+import { signs, signsIcons } from './astrology';
+import images from './Images';
 // Astrology tab in the user profile screen
 const AstroTab = (props) => {
-  const { state } = useContext(store);
   const { fullState } = props;
+
   let houses = Object.keys(fullState.themeAstral.houses).map(function (key) {
     return {
-      title: 'House ' + key.slice(1),
-      data: [fullState.themeAstral.houses[key]],
+      id: key,
+      title: fullState.themeAstral.houses[key][0],
     };
   });
 
-  let planetes = Object.keys(fullState.themeAstral.planetes).map(function (
-    key,
-  ) {
-    return { title: key, data: [fullState.themeAstral.planetes[key]] };
-  });
-  const data = Array.prototype.concat(houses, planetes);
+  const Item = ({ item }) => (
+    <TouchableOpacity style={styles.content}>
+      <View style={{ flexDirection: 'row' }}>
+        <Text style={styles.title}>House {item.id.slice(1)}</Text>
+      </View>
+      <ImageBackground source={images.ellipseWhite} style={styles.ellipse}>
+        <View style={styles.item}>
+          <Image source={signsIcons[item.title]} style={styles.icons} />
+          <Text style={styles.contentText}>{signs[item.title]} </Text>
+        </View>
+        {/* <Text style={styles.text}>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+          ullamcorper purus sed risus condimentum pulvinar. Sed sit amet urna id
+          lacus eleifend tristique. Sed tristique placerat rhoncus.
+        </Text> */}
+      </ImageBackground>
+      <View style={styles.divider} />
+    </TouchableOpacity>
+  );
 
-  // console.log('\n\n\nAstro Tab :______________\n', state.themeAstral, '\n\n\n');
   return (
     <View style={styles.container}>
-      {/* <View style={styles.divider} />
-      <View style={styles.divider} /> */}
+      <View style={styles.divider} />
       <Text style={styles.tabTitle}> Maisons astrologiques</Text>
-      <SectionList
-        sections={houses}
-        keyExtractor={(item, index) => item + index}
-        renderItem={({ item }) => (
-          <View style={styles.content}>
-            <View style={styles.item}>
-              <Image source={signsIcons[item]} style={styles.icons} />
-              <Text style={styles.contentText}>{signs[item]}</Text>
-            </View>
-            <Text style={styles.text}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-              ullamcorper purus sed risus condimentum pulvinar. Sed sit amet
-              urna id lacus eleifend tristique. Sed tristique placerat rhoncus.
-            </Text>
-          </View>
-        )}
-        renderSectionHeader={({ section: { title } }) => (
-          <View>
-            <View style={styles.divider} />
-            <Text style={styles.title}>{title}:</Text>
-          </View>
-        )}
+      <View style={styles.divider} />
+      <FlatList
+        data={houses}
+        renderItem={({ item }) => <Item item={item} />}
+        keyExtractor={(item) => item.id}
+        numColumns={2}
+        columnWrapperStyle={{
+          justifyContent: 'space-around',
+          margin: 1,
+        }}
       />
     </View>
   );
@@ -56,20 +63,31 @@ const AstroTab = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'white',
-  },
-  content: {
-    backgroundColor: '#faf2dd',
-    borderRadius: 10,
-    margin: 8,
-    padding: 10,
-    paddingRight: 30,
-    paddingBottom: 15,
+    backgroundColor: '#fbe7c2',
+    marginTop: 20,
     shadowColor: '#000',
     shadowOffset: { width: 1, height: 1 },
     shadowOpacity: 0.3,
     shadowRadius: 1,
     elevation: 2,
+  },
+  content: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#faf2dd',
+    width: 200,
+    padding: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 1, height: 1 },
+    shadowOpacity: 0.3,
+    shadowRadius: 1,
+    elevation: 2,
+  },
+  ellipse: {
+    height: 120,
+    width: 120,
+    justifyContent: 'center',
+    resizeMode: 'center',
   },
   tabTitle: {
     fontWeight: 'bold',
@@ -84,9 +102,6 @@ const styles = StyleSheet.create({
     width: 45,
     resizeMode: 'contain',
   },
-  planetIcons: {
-    marginVertical: 20,
-  },
   title: {
     fontWeight: 'bold',
     fontSize: 25,
@@ -95,11 +110,12 @@ const styles = StyleSheet.create({
   },
   divider: {
     marginTop: 10,
-    borderBottomColor: '#ccffff',
+    borderBottomColor: 'white',
     borderBottomWidth: 1,
   },
   contentText: {
-    marginTop: 3,
+    marginTop: 6,
+    marginLeft: 10,
     fontWeight: 'bold',
     fontSize: 20,
   },
@@ -109,7 +125,8 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   item: {
-    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
