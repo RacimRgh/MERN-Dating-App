@@ -21,9 +21,10 @@ const AstroTab = (props) => {
     return { title: key, data: [fullState.themeAstral.planetes[key]] };
   });
   const data = Array.prototype.concat(houses, planetes);
-  // console.log('\n\naaaaaaaaaaaaaaaaaaa: ', data);
 
+  // console.log('\n\naaaaaaaaaaaaaaaaaaa: ', data);
   // console.log('\n\n\nAstro Tab :______________\n', state.themeAstral, '\n\n\n');
+
   return (
     <View style={styles.container}>
       {/* <View style={styles.divider} />
