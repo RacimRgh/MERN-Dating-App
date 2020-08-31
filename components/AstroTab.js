@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: 'bold',
     fontSize: 25,
-    marginLeft: 10,
+    marginLeft: 1,
     marginVertical: 5,
   },
   divider: {

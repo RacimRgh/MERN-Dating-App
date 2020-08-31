@@ -28,7 +28,7 @@ export default {
     marginLeft: 'auto',
   },
   signupTextStyle: {
-    color: '#fdfdfd',
+    color: 'black',
     fontWeight: '700',
   },
   signupButtonStyle: {
@@ -38,7 +38,7 @@ export default {
     marginLeft: 'auto',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(0,0,0,0.2)',
+    backgroundColor: '#f4e2e8',
   },
   ovalcontainer: {
     flexDirection: 'row',

@@ -18,6 +18,7 @@ import images from './Images';
 import deviceStorage from '../services/deviceStorage';
 import AstroTab from './AstroTab';
 import DescriptionTab from './DescriptionTab';
+import GoutsTab from './GoutsTab';
 
 const Match = () => {
   const [loading, setLoading] = useState(true);
@@ -70,8 +71,9 @@ const Match = () => {
                   {state[active].prenom.toUpperCase()}
                 </Text>
               </TouchableOpacity>
-              <DescriptionTab fullState={state[0]} />
-              <AstroTab fullState={state[0]} />
+              <DescriptionTab fullState={state[active]} />
+              <GoutsTab fullState={state[active]} />
+              <AstroTab fullState={state[active]} />
             </View>
           </View>
         </ScrollView>
@@ -249,7 +251,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     // backgroundColor: '#ece0e6',
-    backgroundColor: '#EEB9D5',
+    backgroundColor: 'white',
     marginTop: 3,
     width: width,
   },
@@ -286,6 +288,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#faf2dd',
     padding: 15,
     margin: 10,
+    borderRadius: 20,
     shadowColor: '#000',
     shadowOffset: { width: 1, height: 1 },
     shadowOpacity: 0.3,

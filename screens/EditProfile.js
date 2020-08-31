@@ -107,6 +107,24 @@ const EditProfile = () => {
       style: val,
     });
   };
+  const sportsOnChange = (val) => {
+    setDescription({
+      ...descriptionData,
+      sports: val,
+    });
+  };
+  const musiqueOnChange = (val) => {
+    setDescription({
+      ...descriptionData,
+      musique: val,
+    });
+  };
+  const moviesOnChange = (val) => {
+    setDescription({
+      ...descriptionData,
+      movies: val,
+    });
+  };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
