@@ -32,10 +32,10 @@ const deviceStorage = {
         for (let keyVal of keyValArray) {
           myStorage[keyVal[0]] = keyVal[1];
         }
-        // console.log(
-        //   '\n\n\n\n*************************CURRENT STORAGE: ',
-        //   myStorage,
-        // );
+        console.log(
+          '\n\n\n\n*************************CURRENT STORAGE: ',
+          myStorage,
+        );
       });
     });
   },

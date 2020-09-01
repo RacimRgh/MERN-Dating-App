@@ -40,6 +40,7 @@ const loginUser = (data) => {
       .then((response) => {
         deviceStorage.saveItem('id_token', response.data.token);
         console.log('\n**********LOGIN this: ', response.data);
+        deviceStorage.logCurrentStorage();
         return response;
       });
   } catch (error) {
@@ -117,6 +118,7 @@ const App = () => {
         });
         console.log('\n\n***********HERE IN LOGOUT**************\n\n');
         await deviceStorage.removeItemValue('id_token');
+        // deviceStorage.logCurrentStorage();
         dispatch({ type: 'LOGOUT' });
       },
       signUp: async ({
@@ -146,7 +148,6 @@ const App = () => {
         });
         console.log('\n\n***********HERE IN SIGNUP**************\n\n');
       },
-      profileInfo: () => {},
     }),
     [],
   );
@@ -154,8 +155,9 @@ const App = () => {
   useEffect(() => {
     setTimeout(async () => {
       const user_token = await deviceStorage.loadJWT();
+      // await deviceStorage.removeItemValue('id_token');
       // console.log('\n\n\n Retrieve: ', user_token);
-      deviceStorage.logCurrentStorage();
+      // deviceStorage.logCurrentStorage();
       if (user_token !== null)
         dispatch({ type: 'RETRIEVE_TOKEN', token: user_token });
     }, 1000);

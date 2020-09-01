@@ -66,7 +66,7 @@ const DescriptionTab = (props) => {
               />
               <Text style={styles.contentText}>
                 {Object.keys(item)} :{' '}
-                {Object.values(item)[0] === undefined
+                {Object.values(item)[0] === '' || Object.values(item)[0] === 0
                   ? 'Pas mentionné'
                   : Object.values(item)}
               </Text>

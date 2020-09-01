@@ -22,23 +22,25 @@ const { width, height } = Dimensions.get('window');
 
 const ProfileScreen = ({ navigation }) => {
   const [activeIcon, setActiveIcon] = useState(3);
+  const [isLoading, setIsLoading] = useState(true);
   const { dispatch, state } = useContext(store);
-
   const [fullState, setState] = useState(state);
+
   useEffect(() => {
     async function fetchData() {
       await dispatch({ type: 'GET_PROFILE' });
-      // console.log('\n\n\n2________**______', state, '\n\n\n');
     }
-    setTimeout(async () => {
-      await fetchData();
+    fetchData().then(() => {
       setState(state);
-    }, 2000);
-
-    console.log('\n\n\nProfile Screen:______________\n', fullState, '\n\n\n');
+      setTimeout(() => {
+        // console.log('\n\n\nProfile Screen 1:______________\n', state);
+        // console.log('\n\n\nProfile Screen 2:______________\n', fullState);
+        setIsLoading(false);
+      }, 5000);
+    });
   }, []);
 
-  if (state.isLoading) {
+  if (isLoading) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <ActivityIndicator size="large" />
@@ -77,7 +79,7 @@ const ProfileScreen = ({ navigation }) => {
       <View style={styles.footer}>
         <View style={styles.divider} />
         <Text style={styles.footerText}>
-          {fullState.firstname} ,{' '}
+          {fullState.lastname} ,{' '}
           {new Date().getFullYear() -
             new Date(fullState.birthday).getFullYear()}{' '}
           ans
