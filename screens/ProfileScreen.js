@@ -33,8 +33,11 @@ const ProfileScreen = ({ navigation }) => {
     fetchData().then(() => {
       setState(state);
       setTimeout(() => {
-        // console.log('\n\n\nProfile Screen 1:______________\n', state);
-        // console.log('\n\n\nProfile Screen 2:______________\n', fullState);
+        console.log('\n\n\nProfile Screen 1:______________\n', state.avatar);
+        console.log(
+          '\n\n\nProfile Screen 2:______________\n',
+          fullState.avatar,
+        );
         setIsLoading(false);
       }, 5000);
     });
@@ -55,7 +58,7 @@ const ProfileScreen = ({ navigation }) => {
         </View> */}
       <View style={styles.imageContainer}>
         <ImageBackground
-          source={images.userPic1}
+          source={fullState.avatar}
           imageStyle={{
             borderRadius: 200,
           }}

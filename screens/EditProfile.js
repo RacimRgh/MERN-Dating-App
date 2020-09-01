@@ -6,8 +6,11 @@ import {
   StyleSheet,
   Text,
   ActivityIndicator,
+  Button,
+  Image,
 } from 'react-native';
 import axios from 'axios';
+import ImagePicker from 'react-native-image-picker';
 // local imports
 import { store } from '../components/store';
 import deviceStorage from '../services/deviceStorage';
@@ -15,6 +18,7 @@ import EditSection from '../components/EditSection';
 
 const EditProfile = () => {
   const { dispatch, state } = useContext(store);
+  const [photo, setPhoto] = useState();
   const [descriptionData, setDescription] = useState({ isLoading: true });
   useEffect(() => {
     async function fetchData() {
@@ -126,8 +130,55 @@ const EditProfile = () => {
     });
   };
 
+  const handleChoosePhoto = () => {
+    const options = {
+      noData: true,
+    };
+    ImagePicker.launchImageLibrary(options, (response) => {
+      if (response.uri) {
+        setPhoto({ photo: response });
+        var data = new FormData();
+        data.append('my_photo', {
+          uri: response.uri, // your file path string
+          name: response.fileName,
+          type: response.type,
+        });
+        console.log('\n\n\nPIC: ', response);
+        deviceStorage.loadJWT().then((user_token) => {
+          axios({
+            method: 'POST',
+            url: 'http://10.0.2.2:3000/users/me/avatar',
+            headers: {
+              Authorization: 'Bearer ' + user_token,
+            },
+            data: {
+              avatars: response,
+            },
+          }).catch(function (error) {
+            if (error.response) {
+              // Request made and server responded
+              console.log(error.response.data);
+              console.log(error.response.status);
+              console.log(error.response.headers);
+            } else if (error.request) {
+              // The request was made but no response was received
+              console.log(error.request);
+            } else {
+              // Something happened in setting up the request that triggered an Error
+              console.log('Error', error.message);
+            }
+          });
+        });
+      }
+    });
+  };
   return (
     <ScrollView contentContainerStyle={styles.container}>
+      <View style={styles.section}>
+        <Text style={styles.title}>Photo de profil</Text>
+        <View style={styles.divider} />
+        <Button title="Choisir une photo" onPress={handleChoosePhoto} />
+      </View>
       <EditSection
         sectionTitle="Physique"
         data={descriptionData}

@@ -1,8 +1,8 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import {
   View,
   Text,
-  TouchableOpacity,
+  ActivityIndicator,
   StyleSheet,
   ImageBackground,
 } from 'react-native';
@@ -10,14 +10,26 @@ import Icon from 'react-native-dynamic-vector-icons';
 import { store } from './store';
 import images from './/Images';
 const DrawerHeader = (props) => {
-  // const { state } = useContext(store);
-  // console.log('\n\n\n Drawer Header', state);
-
+  const { state } = useContext(store);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+  }, []);
+  // console.log('\n\n\n Drawer Header', state.initialState.email);
+  if (loading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
   return (
     <View style={styles.header}>
       <View style={styles.account}>
         <ImageBackground
-          source={images.userPic1}
+          source={images.userPic3}
           imageStyle={{
             borderRadius: 200,
           }}
@@ -29,8 +41,14 @@ const DrawerHeader = (props) => {
         />
         <View>
           {/* <Text style={styles.textStyle}>Signed in as: </Text> */}
-          <Text style={styles.textStyle}> Racim RIGHI </Text>
-          <Text style={styles.textStyle}> Email: racim@gmail.com </Text>
+          <Text style={styles.textStyle}>
+            {' '}
+            {state.initialState.lastname} {state.initialState.firstname}{' '}
+          </Text>
+          <Text style={styles.textStyle}>
+            {' '}
+            Email: {state.initialState.email}{' '}
+          </Text>
         </View>
         {/* <TouchableOpacity
           onPress={() => props.navigation.navigate('Settings')}

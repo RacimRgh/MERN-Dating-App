@@ -25,7 +25,12 @@ const Match = () => {
   const [state, setState] = useState([]);
   const [active, setActive] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
-  const pics = [images.userPic, images.userPic1, images.userPic2];
+  const pics = [
+    images.userPic1,
+    images.userPic4,
+    images.userPic3,
+    images.userPic2,
+  ];
 
   useEffect(() => {
     deviceStorage.loadJWT().then((user_token) => {

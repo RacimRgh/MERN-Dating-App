@@ -13,6 +13,7 @@ let initialState = {
   city: '',
   themeAstral: {},
   description: {},
+  avatar: [],
 };
 
 // (async function () {
@@ -64,6 +65,7 @@ const StateProvider = ({ children }) => {
             initialState.city = result.data.cityName;
             initialState.description = result.data.description;
             initialState.themeAstral = result.data.themeastral;
+            initialState.avatar = result.data.avatars;
             // };
           });
           // console.log('\n\nSTATE: ', initialState);
