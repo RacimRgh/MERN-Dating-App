@@ -1,31 +1,34 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, Image } from 'react-native';
 import Icon from 'react-native-dynamic-vector-icons';
+import images from './Images';
 
 const Logo = (props) => {
-  const { logoText, logoComponent } = props;
+  const { logoText, logoComponent, cardState } = props;
   return (
     <View style={styles.container}>
       {logoComponent || (
         <View style={styles.row}>
           <Text style={styles.textStyle}>{logoText}</Text>
-          <View style={styles.iconStyle}>
-            <Icon size={30} color="white" type="AntDesign" />
-          </View>
+          {cardState ? (
+            <View style={styles.iconStyle}>
+              <Image
+                source={images.logo}
+                style={{
+                  height: 180,
+                  width: 180,
+                  marginRight: 30,
+                  marginTop: 10,
+                }}
+              />
+            </View>
+          ) : undefined}
         </View>
       )}
     </View>
   );
 };
 
-Logo.propTypes = {
-  logoText: PropTypes.string,
-};
-
-Logo.defaultProps = {
-  logoText: 'Dating App',
-};
 const styles = StyleSheet.create({
   container: {
     marginTop: 18,
@@ -33,12 +36,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   textStyle: {
-    fontSize: 30,
+    fontSize: 50,
     color: 'white',
+    fontFamily: 'DancingScript-Bold',
   },
   row: {
     alignItems: 'center',
-    flexDirection: 'row',
+    justifyContent: 'center',
   },
   iconStyle: { marginLeft: 12 },
 });

@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect, useContext } from 'react';
-import { StyleSheet, View, ActivityIndicator } from 'react-native';
+import { StyleSheet, View, ActivityIndicator, Image } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -9,6 +9,7 @@ import axios from 'axios';
 import LoginScreen from './screens/LoginScreen';
 import DrawerScreen from './screens/DrawerScreen';
 import RootStackScreen from './screens/RootStackScreen';
+import images from './components/Images';
 // components
 import { AuthContext } from './components/context';
 import { StateProvider } from './components/store';
@@ -21,31 +22,53 @@ const Drawer = createDrawerNavigator();
 console.disableYellowBox = true;
 // Function to send a post request to sign up a user
 const signInUser = (data) => {
-  try {
-    return axios.post('http://10.0.2.2:3000/users', data).then((response) => {
+  return axios
+    .post('http://10.0.2.2:3000/users', data)
+    .then((response) => {
       deviceStorage.saveItem('id_token', response.data.token);
       console.log('\n**********SIGNUP this: ', response.data);
       return response;
+    })
+    .catch((error) => {
+      if (error.response) {
+        // Request made and server responded
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.log(error.request);
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log('Error', error.message);
+      }
     });
-  } catch (error) {
-    console.log('Error in SIGN UP ', error.response);
-  }
 };
 
 // Function to send a post request to login a user
 const loginUser = (data) => {
-  try {
-    return axios
-      .post('http://10.0.2.2:3000/users/login', data)
-      .then((response) => {
-        deviceStorage.saveItem('id_token', response.data.token);
-        console.log('\n**********LOGIN this: ', response.data);
-        deviceStorage.logCurrentStorage();
-        return response;
-      });
-  } catch (error) {
-    console.log('\n\n\nError in LOGIN ', error.response);
-  }
+  return axios
+    .post('http://10.0.2.2:3000/users/login', data)
+    .then((response) => {
+      deviceStorage.saveItem('id_token', response.data.token);
+      console.log('\n**********LOGIN this: ', response.data);
+      deviceStorage.logCurrentStorage();
+      return response;
+    })
+    .catch((error) => {
+      if (error.response) {
+        // Request made and server responded
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.log(error.request);
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log('Error', error.message);
+      }
+    });
 };
 
 const App = () => {
@@ -159,7 +182,7 @@ const App = () => {
       // console.log('\n\n\n Retrieve: ', user_token);
       // deviceStorage.logCurrentStorage();
       if (user_token !== null)
-        dispatch({ type: 'RETRIEVE_TOKEN', token: user_token });
+        dispatch({ type: 'RETRIEVE_TOKEN', token: null });
     }, 1000);
   }, []);
 

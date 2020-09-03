@@ -60,7 +60,21 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   loginContainer: {
-    marginTop: 24,
+    margin: 24,
+  },
+  modal: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    alignSelf: 'center',
+    margin: 20,
+    padding: 20,
+    borderRadius: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 1, height: 1 },
+    shadowOpacity: 0.3,
+    shadowRadius: 1,
+    elevation: 2,
   },
 });
 

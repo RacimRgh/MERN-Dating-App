@@ -7,8 +7,10 @@ import {
   ImageBackground,
   ScrollView,
   ActivityIndicator,
+  Image,
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import Icon from 'react-native-dynamic-vector-icons';
 import images from '../components/Images';
 import ProfileBar from '../components/ProfileBar';
 import ProfileTabs from '../components/ProfileTabs';
@@ -26,6 +28,13 @@ const ProfileScreen = ({ navigation }) => {
   const { dispatch, state } = useContext(store);
   const [fullState, setState] = useState(state);
 
+  // async function fetchData() {
+  //   await dispatch({ type: 'GET_PROFILE' });
+  // }
+  // fetchData().then(() => {
+  //   setState(state);
+  // });
+
   useEffect(() => {
     async function fetchData() {
       await dispatch({ type: 'GET_PROFILE' });
@@ -33,10 +42,13 @@ const ProfileScreen = ({ navigation }) => {
     fetchData().then(() => {
       setState(state);
       setTimeout(() => {
-        console.log('\n\n\nProfile Screen 1:______________\n', state.avatar);
+        // console.log(
+        //   '\n\n\nProfile Screen 1:______________\n',
+        //   state.description,
+        // );
         console.log(
           '\n\n\nProfile Screen 2:______________\n',
-          fullState.avatar,
+          fullState.description.avatar,
         );
         setIsLoading(false);
       }, 5000);
@@ -46,6 +58,14 @@ const ProfileScreen = ({ navigation }) => {
   if (isLoading) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Image
+          source={images.logo}
+          style={{
+            height: 180,
+            width: 180,
+          }}
+        />
+        <Text> LOADING ...</Text>
         <ActivityIndicator size="large" />
       </View>
     );
@@ -53,9 +73,6 @@ const ProfileScreen = ({ navigation }) => {
 
   return (
     <ScrollView style={{ flex: 1 }} contentContainerStyle={styles.container}>
-      {/* <View style={styles.header}>
-          <Text style={styles.headerText}>YOUR PROFILE</Text>
-        </View> */}
       <View style={styles.imageContainer}>
         <ImageBackground
           source={fullState.avatar}

@@ -1,22 +1,90 @@
-import React, { useContext } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useContext, useState } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Switch,
+  Modal,
+} from 'react-native';
 import Icon from 'react-native-dynamic-vector-icons';
+import axios from 'axios';
 import { store } from '../components/store';
+import { AuthContext } from '../components/context';
+import deviceStorage from '../services/deviceStorage';
+
 /* 
   This is the settings screen (modal)
   The user can modify his account information and more to come
 */
-const Settings = ({ navigation }) => {
-  const DATA = [
-    {
-      email: 'racim45@gmail.com',
-      password: 'xxxxx',
-      name: 'racim',
-      lastname: 'righi',
-    },
-  ];
+const Settings = () => {
   const { state } = useContext(store);
-  console.log('\n\n\n Settings: ', state);
+  const { signOut } = React.useContext(AuthContext);
+  const [notifications, setNotifications] = useState(true);
+  // console.log('\n\n\n Settings: ', state);
+
+  const onPressDelete = () => {
+    const user_token = deviceStorage.loadJWT().then(() => {
+      signOut();
+    });
+
+    axios({
+      method: 'DELETE',
+      url: 'http://10.0.2.2:3000/users/me',
+      headers: {
+        Authorization: 'Bearer ' + user_token,
+      },
+    }).then(() => {
+      setTimeout(() => {}, 2000);
+    });
+  };
+  const [modalVisible, setModalVisible] = useState(false);
+  const Delete = () => {
+    return (
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+        }}>
+        <View style={styles.modal}>
+          <Text style={styles.cardText}>
+            {' '}
+            Etes vous sur de vouloir supprimer votre compte?
+          </Text>
+          <View style={{ flexDirection: 'row' }}>
+            <TouchableOpacity
+              style={styles.deleteButtons}
+              onPress={() => {
+                onPressDelete();
+              }}>
+              <Icon
+                name="pistol"
+                type="MaterialCommunityIcons"
+                size={35}
+                color="green"
+              />
+              <Text style={{ fontWeight: 'bold' }}>OUI</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.deleteButtons}
+              onPress={() => {
+                setModalVisible(false);
+              }}>
+              <Icon
+                name="circle-with-cross"
+                type="Entypo"
+                size={35}
+                color="red"
+              />
+              <Text style={{ fontWeight: 'bold' }}>NON</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+    );
+  };
 
   const Card = (props) => {
     const { title, iconName, iconType, data, edit } = props;
@@ -41,6 +109,7 @@ const Settings = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <Delete />
       <View>
         <View style={styles.titleContainer}>
           <Text style={styles.titleStyle}>Mon compte</Text>
@@ -49,53 +118,68 @@ const Settings = ({ navigation }) => {
           title="Email:"
           iconName="email-edit"
           iconType="MaterialCommunityIcons"
-          data={state.email}
+          data={state.initialState.email}
           edit={true}
         />
         <Card
           title="Nom:"
           iconName="account-group"
           iconType="MaterialCommunityIcons"
-          data={state.lastname}
+          data={state.initialState.lastname}
           edit={true}
         />
         <Card
           title="Prenom:"
           iconName="person"
           iconType="MaterialIcons"
-          data={state.firstname}
+          data={state.initialState.firstname}
           edit={true}
         />
-        <View style={styles.divider} />
       </View>
       <View>
         <View style={styles.titleContainer}>
           <Text style={styles.titleStyle}>Notifications</Text>
         </View>
-        <View style={styles.divider} />
-        <Card
-          title="Activer/désactiver les notifications"
-          iconName="bell"
-          iconType="MaterialCommunityIcons"
-          edit={false}
-        />
+        <View style={{ flexDirection: 'row' }}>
+          <Card
+            title="Activer/désactiver les notifications"
+            iconName="bell"
+            iconType="MaterialCommunityIcons"
+            edit={false}
+          />
+          <Switch
+            trackColor={{ false: '#767577', true: '#81b0ff' }}
+            thumbColor={notifications ? '#f5e5fd' : '#f4f3f4'}
+            ios_backgroundColor="#3e3e3e"
+            onValueChange={() => setNotifications(!notifications)}
+            value={notifications}
+          />
+        </View>
       </View>
       <View>
         <View style={styles.titleContainer}>
           <Text style={styles.titleStyle}>Sécurité</Text>
         </View>
-        <View style={styles.divider} />
         <Card
           title="Changer mon mot de passe"
           iconName="pencil-lock"
           iconType="MaterialCommunityIcons"
         />
+        <TouchableOpacity
+          onPress={() => {
+            setModalVisible(true);
+          }}>
+          <Card
+            title="Supprimer mon compte"
+            iconName="delete"
+            iconType="MaterialCommunityIcons"
+          />
+        </TouchableOpacity>
       </View>
       <View>
         <View style={styles.titleContainer}>
           <Text style={styles.titleStyle}>Mentions légales et règlements</Text>
         </View>
-        <View style={styles.divider} />
         <Card
           title="Termes d'utilisation"
           iconName="file-outline"
@@ -153,6 +237,26 @@ const styles = StyleSheet.create({
     borderRadius: 200,
     backgroundColor: '#faf2dd',
     padding: 10,
+  },
+  modal: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    alignSelf: 'center',
+    margin: 20,
+    padding: 20,
+    borderRadius: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 1, height: 1 },
+    shadowOpacity: 0.3,
+    shadowRadius: 1,
+    elevation: 2,
+  },
+  deleteButtons: {
+    padding: 20,
+    margin: 10,
+    alignItems: 'center',
+    flexDirection: 'row',
   },
 });
 export default Settings;

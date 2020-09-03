@@ -8,8 +8,8 @@ export const container = (backgroundColor, cardState) => {
     width: width * 0.9,
     alignSelf: 'center',
     position: 'absolute',
-    bottom: cardState ? height * 0.25 : height * 0.14,
-    height: cardState ? 300 : 550,
+    bottom: cardState ? height * 0.15 : height * 0.1,
+    height: cardState ? 350 : 550,
   };
 };
 
@@ -59,5 +59,11 @@ export default {
     marginTop: 12,
     fontSize: 15,
     fontWeight: '700',
+  },
+  errorMessage: {
+    color: 'red',
+    fontWeight: 'bold',
+    fontSize: 15,
+    marginLeft: 25,
   },
 };

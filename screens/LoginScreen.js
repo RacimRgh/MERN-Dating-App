@@ -6,8 +6,12 @@ import {
   ImageBackground,
   TouchableOpacity,
   KeyboardAvoidingView,
+  ScrollView,
+  Modal,
+  Button,
 } from 'react-native';
 import Spinner from 'react-native-spinkit';
+import Icon from 'react-native-dynamic-vector-icons';
 // Local imports
 import styles from './LoginScreen.style';
 import Logo from '../components/Logo';
@@ -26,9 +30,18 @@ const defaultBackground =
 const LoginScreen = (props) => {
   // cardState is to either show Login cards or SignUp cards
   const [cardState, setCardState] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
   const [spinnerVisibility, setSpinnerVisibility] = useState(false);
   const { signIn, signUp, signOut } = React.useContext(AuthContext);
-
+  const [isValidLogin, setIsValidLogin] = useState({
+    email: true,
+    nom: true,
+    prenom: true,
+    country: true,
+    city: true,
+  });
+  const [isValidEmail, setIsValidEmail] = useState(true);
+  const [isValidPassword, setIsValidPassword] = useState(true);
   const [data, setData] = React.useState({
     email: '',
     firstname: '',
@@ -137,9 +150,36 @@ const LoginScreen = (props) => {
       onPress={
         cardState
           ? () => {
-              signIn({ userEmail: data.email, password: data.password });
+              setIsValidLogin({ ...isValidLogin, email: true });
+              setIsValidPassword(true);
+              signIn({ userEmail: data.email, password: data.password }).catch(
+                (response) => {
+                  setIsValidLogin({ ...isValidLogin, email: false });
+                  setIsValidPassword(false);
+                  console.log(('\n\n\nSIGNIN RESP: ', response));
+                },
+              );
             }
           : async () => {
+              data.email.length < 7
+                ? setIsValidLogin({ ...isValidLogin, email: false })
+                : setIsValidLogin({ ...isValidLogin, email: true });
+              data.firstname.length < 7
+                ? setIsValidLogin({ ...isValidLogin, prenom: false })
+                : setIsValidLogin({ ...isValidLogin, prenom: true });
+              data.lastname.length < 7
+                ? setIsValidLogin({ ...isValidLogin, nom: false })
+                : setIsValidLogin({ ...isValidLogin, nom: true });
+              console.log('\n\n cunt: ', data.country.length);
+              data.country.length == 0
+                ? setIsValidLogin({ ...isValidLogin, country: false })
+                : setIsValidLogin({ ...isValidLogin, country: true });
+              data.city.length == 0
+                ? setIsValidLogin({ ...isValidLogin, city: false })
+                : setIsValidLogin({ ...isValidLogin, city: true });
+              data.password.length < 7
+                ? setIsValidPassword(false)
+                : setIsValidPassword(true);
               await signUp({
                 userEmail: data.email,
                 firstname: data.firstname,
@@ -149,7 +189,13 @@ const LoginScreen = (props) => {
                 birthhour: data.birthday.toISOString().slice(11, 16),
                 country: data.country,
                 city: data.city,
-              });
+              })
+                .then(() => {
+                  setModalVisible(true);
+                })
+                .catch((response) => {
+                  console.log(('\n\n\nSINGUP RESP: ', response));
+                });
               signOut();
               setCardState(!cardState);
             }
@@ -160,8 +206,39 @@ const LoginScreen = (props) => {
     </TouchableOpacity>
   );
 
+  const SuccessSignUp = () => {
+    return (
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+        }}>
+        <View style={styles.modal}>
+          <TouchableOpacity
+            onPress={() => {
+              setModalVisible(false);
+            }}>
+            <Text style={{ fontWeight: 'bold', fontSize: 40 }}>
+              Inscription réussie ! vous pouvez vous connecter à votre compte.
+            </Text>
+            <Icon
+              name="done"
+              type="ionicons"
+              size={50}
+              color="green"
+              style={{ alignSelf: 'center' }}
+            />
+          </TouchableOpacity>
+        </View>
+      </Modal>
+    );
+  };
+
   return (
     <KeyboardAvoidingView behavior="position" style={styles.container}>
+      <SuccessSignUp />
       <View style={styles.container}>
         <ImageBackground
           source={{ uri: defaultBackground }}
@@ -171,9 +248,12 @@ const LoginScreen = (props) => {
           <View style={styles.blackoverlay}>
             <SafeAreaView style={styles.safeAreaViewStyle}>
               <View style={styles.loginContainer}>
-                <Logo logoText="OurApp" />
+                <Logo logoText="Astro-Attraction" cardState={cardState} />
               </View>
               <BottomContainer
+                validLogin={isValidLogin}
+                validEmail={isValidEmail}
+                validPassword={isValidPassword}
                 cardState={cardState}
                 emailOnChange={(val) => emailInputChange(val)}
                 firstnameOnChange={(val) => firstnameInputChange(val)}

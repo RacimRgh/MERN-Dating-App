@@ -1,4 +1,5 @@
 const images = {
+  logo: require('../assets/LoveAttraction/header-angie2.png'),
   userPic: require('../assets/LoveAttraction/profile/man.png'),
   userPic1: require('../assets/LoveAttraction/photo-racim.png'),
   userPic2: require('../assets/pexels-leah-kelley.jpg'),

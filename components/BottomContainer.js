@@ -11,6 +11,9 @@ import { s_a, country_arr } from '../services/countries';
 const BottomContainer = (props) => {
   const [numCountry, setNumCountry] = useState(0);
   const {
+    validLogin,
+    validEmail,
+    validPassword,
     cardState,
     onPressChange,
     backgroundColor,
@@ -51,13 +54,16 @@ const BottomContainer = (props) => {
           secureText={secureText}
           isPassword={true}
         />
+        {validPassword && validEmail ? null : (
+          <Text style={styles.errorMessage}>Email ou mot de passe éronné</Text>
+        )}
       </View>
     );
   };
 
   renderSignupCards = () => {
     return (
-      <ScrollView>
+      <View>
         <Card
           nameIcon="envelope-open"
           title="E-mail"
@@ -65,6 +71,9 @@ const BottomContainer = (props) => {
           onChangeText={emailOnChange}
           isPassword={false}
         />
+        {validLogin.email ? null : (
+          <Text style={styles.errorMessage}>Email incorrect.</Text>
+        )}
         <Card
           nameIcon="user"
           title="Prénom"
@@ -72,6 +81,9 @@ const BottomContainer = (props) => {
           onChangeText={firstnameOnChange}
           isPassword={false}
         />
+        {validLogin.prenom ? null : (
+          <Text style={styles.errorMessage}>Veuillez saisir votre prénom.</Text>
+        )}
         <Card
           nameIcon="user"
           title="Nom"
@@ -79,6 +91,9 @@ const BottomContainer = (props) => {
           onChangeText={lastnameOnChange}
           isPassword={false}
         />
+        {validLogin.nom ? null : (
+          <Text style={styles.errorMessage}>Veuillez saisir votre nom.</Text>
+        )}
         <Card
           nameIcon="lock"
           title="Mot de passe"
@@ -88,6 +103,11 @@ const BottomContainer = (props) => {
           secureText={secureText}
           isPassword={true}
         />
+        {validPassword ? null : (
+          <Text style={styles.errorMessage}>
+            Votre mot de passe doit contenir au moins 7 caractères
+          </Text>
+        )}
         <Card
           nameIcon="lock"
           title="Confirmation du mot de passe"
@@ -153,6 +173,11 @@ const BottomContainer = (props) => {
             />
           </View>
         </View>
+        {validLogin.country ? null : (
+          <Text style={styles.errorMessage}>
+            Veuillez saisir votre pays de naissance.
+          </Text>
+        )}
         {/* CITY PICKER */}
         <View style={styles.ovalcontainer}>
           <View style={styles.ovalcontainerglue}>
@@ -184,8 +209,13 @@ const BottomContainer = (props) => {
             />
           </View>
         </View>
+        {validLogin.city ? null : (
+          <Text style={styles.errorMessage}>
+            Veuillez saisir votre ville de naissance.
+          </Text>
+        )}
         <DateHourPicker onChangeDate={dateOnChange} />
-      </ScrollView>
+      </View>
     );
   };
 

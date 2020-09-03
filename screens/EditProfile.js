@@ -20,12 +20,13 @@ const EditProfile = () => {
   const { dispatch, state } = useContext(store);
   const [photo, setPhoto] = useState();
   const [descriptionData, setDescription] = useState({ isLoading: true });
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     async function fetchData() {
       await dispatch({ type: 'GET_PROFILE' });
     }
     fetchData();
-    console.log('\n\n\nEditProfile: ', state);
+    // console.log('\n\n\nEditProfile: ', state);
     setTimeout(() => {
       setDescription({
         height: state.initialState.description.phydesc.height,
@@ -50,31 +51,35 @@ const EditProfile = () => {
   }
 
   async function onPressSave(value) {
-    const user_token = await deviceStorage.loadJWT();
-    const patchProfile = await axios({
-      method: 'PATCH',
-      url: 'http://10.0.2.2:3000/users/add',
-      headers: {
-        Authorization: 'Bearer ' + user_token,
-      },
-      data: {
-        description: {
-          phydesc: {
-            height: value.height,
-            weight: value.weight,
-            eyecolor: value.eyecolor,
-            haircolor: value.haircolor,
-            style: value.style,
-          },
-          tastes: {
-            sports: ['Football', 'Tennis'],
-            musique: ['Dragonforce'],
+    deviceStorage.loadJWT().then((user_token) => {
+      axios({
+        method: 'PATCH',
+        url: 'http://10.0.2.2:3000/users/add',
+        headers: {
+          Authorization: 'Bearer ' + user_token,
+        },
+        data: {
+          description: {
+            phydesc: {
+              height: value.height,
+              weight: value.weight,
+              eyecolor: value.eyecolor,
+              haircolor: value.haircolor,
+              style: value.style,
+            },
+            tastes: {
+              sports: ['Football', 'Tennis'],
+              musique: ['Dragonforce'],
+            },
           },
         },
-      },
-    }).then(async () => {
-      await dispatch({ type: 'GET_PROFILE' });
-      console.log('\n\n\n____Edit profile', patchProfile);
+      }).then(async () => {
+        await dispatch({ type: 'GET_PROFILE' });
+        console.log(
+          '\n\n\n____Edit profile',
+          state.initialState.description.phydesc,
+        );
+      });
     });
   }
   /* Here the user can edit his profile by
@@ -143,7 +148,7 @@ const EditProfile = () => {
           name: response.fileName,
           type: response.type,
         });
-        console.log('\n\n\nPIC: ', response);
+        // console.log('\n\n\nPIC: ', response);
         deviceStorage.loadJWT().then((user_token) => {
           axios({
             method: 'POST',
@@ -154,20 +159,24 @@ const EditProfile = () => {
             data: {
               avatars: response,
             },
-          }).catch(function (error) {
-            if (error.response) {
-              // Request made and server responded
-              console.log(error.response.data);
-              console.log(error.response.status);
-              console.log(error.response.headers);
-            } else if (error.request) {
-              // The request was made but no response was received
-              console.log(error.request);
-            } else {
-              // Something happened in setting up the request that triggered an Error
-              console.log('Error', error.message);
-            }
-          });
+          })
+            .then(async () => {
+              await dispatch({ type: 'GET_PROFILE' });
+            })
+            .catch(function (error) {
+              if (error.response) {
+                // Request made and server responded
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+              } else if (error.request) {
+                // The request was made but no response was received
+                console.log(error.request);
+              } else {
+                // Something happened in setting up the request that triggered an Error
+                console.log('Error', error.message);
+              }
+            });
         });
       }
     });
@@ -177,7 +186,15 @@ const EditProfile = () => {
       <View style={styles.section}>
         <Text style={styles.title}>Photo de profil</Text>
         <View style={styles.divider} />
-        <Button title="Choisir une photo" onPress={handleChoosePhoto} />
+        <Button
+          title="Choisir une photo"
+          onPress={() => {
+            handleChoosePhoto();
+            setTimeout(async () => {
+              await dispatch({ type: 'GET_PROFILE' });
+            }, 500);
+          }}
+        />
       </View>
       <EditSection
         sectionTitle="Physique"
@@ -192,6 +209,16 @@ const EditProfile = () => {
         <TouchableOpacity
           style={styles.saveButtonStyle}
           onPress={() => {
+            setLoading(true);
+            setTimeout(() => {
+              onPressSave({
+                height: descriptionData.height,
+                weight: descriptionData.weight,
+                eyecolor: descriptionData.eyecolor,
+                haircolor: descriptionData.haircolor,
+                style: descriptionData.style,
+              });
+            }, 1000);
             onPressSave({
               height: descriptionData.height,
               weight: descriptionData.weight,
@@ -199,8 +226,20 @@ const EditProfile = () => {
               haircolor: descriptionData.haircolor,
               style: descriptionData.style,
             });
+            setLoading(false);
           }}>
-          <Text style={styles.title}>Save</Text>
+          {loading ? (
+            <View
+              style={{
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <ActivityIndicator size="large" />
+            </View>
+          ) : (
+            <Text style={styles.title}>Save</Text>
+          )}
         </TouchableOpacity>
       </View>
     </ScrollView>

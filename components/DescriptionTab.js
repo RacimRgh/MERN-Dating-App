@@ -36,6 +36,7 @@ const DescriptionTab = (props) => {
         { Cheveux: fullState.description.phydesc.haircolor },
         { Taille: fullState.description.phydesc.height },
         { Poids: fullState.description.phydesc.weight },
+        { Style: fullState.description.phydesc.style },
       ],
     },
   ];
@@ -43,8 +44,9 @@ const DescriptionTab = (props) => {
   const icons = {
     Bio: { iconType: 'ionicons', name: 'person' },
     Yeux: { iconType: 'FontAwesome', name: 'eye' },
-    Cheveux: { iconType: 'MaterialCommunityIcons', name: 'head' },
+    Cheveux: { iconType: 'Entypo', name: 'user' },
     Taille: { iconType: 'MaterialCommunityIcons', name: 'human-male-height' },
+    Style: { iconType: 'MaterialCommunityIcons', name: 'tshirt-crew' },
     Poids: { iconType: 'MaterialCommunityIcons', name: 'weight' },
   };
 
