@@ -24,20 +24,6 @@ const Home = ({ navigation }) => {
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
-
-          // if (route.name === 'Profile') {
-          //   iconName = focused ? 'face-profile' : 'face-profile';
-          // } else if (route.name === 'Recherche') {
-          //   iconName = focused ? 'account-search' : 'account-search';
-          // } else if (route.name === 'Drawer') {
-          //   iconName = focused ? 'menu' : 'menu';
-          // } else if (route.name === 'Messages') {
-          //   iconName = focused
-          //     ? 'message-text-outline'
-          //     : 'message-text-outline';
-          // } else if (route.name === 'Notifications') {
-          //   iconName = focused ? 'bell' : 'bell';
-          // }
           if (route.name === 'Profile') {
             iconName = focused ? images.profilHommeActif : images.profilHomme;
           } else if (route.name === 'Recherche') {

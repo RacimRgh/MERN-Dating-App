@@ -27,7 +27,7 @@ const DrawerScreen = (props) => {
       <View style={styles.container}>
         <DrawerItem
           label="Abonnement premium"
-          labelStyle={{ fontSize: 16, fontFamily: 'OpenSans-SemiBold' }}
+          labelStyle={{ fontSize: 16, fontWeight: 'bold' }}
           style={styles.abonnement}
           inactiveBackgroundColor="#a2a6ac"
           icon={({ focused, color, size }) => (
@@ -40,8 +40,9 @@ const DrawerScreen = (props) => {
           )}
         />
         <DrawerItem
-          label="Settings"
-          onPress={() => props.navigation.navigate('Settings')}
+          label="Paramètres"
+          onPress={() => props.navigation.navigate('Paramètres')}
+          labelStyle={{ fontSize: 18 }}
           icon={({ focused, color, size }) => (
             <Icon
               size={25}
@@ -54,6 +55,7 @@ const DrawerScreen = (props) => {
         <DrawerItem
           label="Edit my profile"
           onPress={() => props.navigation.navigate('Edit profile')}
+          labelStyle={{ fontSize: 18 }}
           icon={({ focused, color, size }) => (
             <Icon
               size={25}
@@ -64,12 +66,25 @@ const DrawerScreen = (props) => {
           )}
         />
         <DrawerItem
-          label="Sign out"
+          label="Filtrer les utilisateurs"
+          onPress={() => props.navigation.navigate('Filtrer')}
+          labelStyle={{ fontSize: 18 }}
+          icon={({ focused, color, size }) => (
+            <Icon
+              size={25}
+              name="filter"
+              color="black"
+              type="MaterialCommunityIcons"
+            />
+          )}
+        />
+        <DrawerItem
+          label="Se déconnecter"
           onPress={() => {
             signOut();
           }}
           style={styles.signOutButton}
-          labelStyle={{ fontSize: 16, fontFamily: 'OpenSans-SemiBold' }}
+          labelStyle={{ fontSize: 18, fontWeight: 'bold' }}
           inactiveBackgroundColor="#a2a6ac"
           icon={({ focused, color, size }) => (
             <Icon

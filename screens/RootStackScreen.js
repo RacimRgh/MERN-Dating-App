@@ -5,6 +5,7 @@ import { StyleSheet } from 'react-native';
 import Settings from './Settings';
 import EditProfile from './EditProfile';
 import Home from './HomeTabs';
+import FilterScreen from './FilterScreen';
 import { StateProvider } from '../components/store';
 
 const RootStack = createStackNavigator();
@@ -21,7 +22,7 @@ const RootStackScreen = () => {
   return (
     <RootStack.Navigator mode="modal">
       <RootStack.Screen
-        name="Main"
+        name="Profil"
         component={Home}
         options={({ route, navigation }) => ({
           headerShown: true,
@@ -34,7 +35,7 @@ const RootStackScreen = () => {
         })}
       />
       <RootStack.Screen
-        name="Settings"
+        name="Paramètres"
         component={Settings}
         options={({ route, navigation }) => ({
           headerShown: true,
@@ -49,6 +50,19 @@ const RootStackScreen = () => {
       <RootStack.Screen
         name="Edit profile"
         component={EditProfile}
+        options={({ route, navigation }) => ({
+          headerShown: true,
+          headerStyle: styles.header,
+          headerTitleStyle: {
+            fontSize: 30,
+            fontFamily: 'DancingScript-Bold',
+          },
+          headerTitle: getHeaderTitle(route),
+        })}
+      />
+      <RootStack.Screen
+        name="Filtre"
+        component={FilterScreen}
         options={({ route, navigation }) => ({
           headerShown: true,
           headerStyle: styles.header,

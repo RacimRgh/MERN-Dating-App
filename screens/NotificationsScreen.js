@@ -1,73 +1,25 @@
 import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-dynamic-vector-icons';
-import ModalDropdown from 'react-native-modal-dropdown';
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import images from '../components/Images';
-import { s_a, country_arr } from '../services/countries';
 
-// Messages screens
-// Work in progress
+// Notifications screens
 const NotificationsScreen = ({ navigation }) => {
-  const [numCountry, setNumCountry] = useState(0);
   return (
     <View style={styles.container}>
       <View style={styles.section}>
-        <Text style={styles.tabTitle}>Recherche par région</Text>
+        <Text style={styles.tabTitle}> Vous avez 0 Notifications</Text>
+        <Text style={styles.tabTitle}>
+          Likez des utilisateurs pour avoir des matchs !
+        </Text>
         <View style={styles.divider} />
-        <View style={styles.content}>
-          <Text style={styles.titles}>Pays</Text>
-          <ModalDropdown
-            options={country_arr}
-            textStyle={styles.titles}
-            style={{ width: '60%' }}
-            dropdownStyle={{
-              width: '60%',
-              shadowColor: '#000',
-              shadowOffset: { width: 1, height: 1 },
-              shadowOpacity: 0.3,
-              shadowRadius: 1,
-              elevation: 2,
-            }}
-            dropdownTextStyle={styles.titles}
-            onSelect={(idx, data) => {
-              setNumCountry(idx + 1);
-            }}
-          />
-        </View>
-        <View style={styles.content}>
-          <Text style={styles.titles}>Ville</Text>
-          <ModalDropdown
-            options={s_a[numCountry]}
-            textStyle={styles.titles}
-            style={{ width: '60%' }}
-            dropdownStyle={{
-              width: '60%',
-              shadowColor: '#000',
-              shadowOffset: { width: 1, height: 1 },
-              shadowOpacity: 0.3,
-              shadowRadius: 1,
-              elevation: 2,
-            }}
-            dropdownTextStyle={styles.titles}
-            onSelect={(idx, data) => {}}
-          />
-        </View>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.titles}>Rechercher</Text>
-          <Icon name="search" type="ionicons" size={35} />
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            navigation.navigate('Recherche');
+          }}>
+          <Text style={styles.titles}>Aller</Text>
         </TouchableOpacity>
-      </View>
-      <View style={styles.mapContainer}>
-        <MapView
-          provider={PROVIDER_GOOGLE} // remove if not using Google Maps
-          style={styles.map}
-          region={{
-            latitude: 37.78825,
-            longitude: -122.4324,
-            latitudeDelta: 0.015,
-            longitudeDelta: 0.0121,
-          }}></MapView>
       </View>
     </View>
   );
@@ -80,8 +32,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   section: {
-    // backgroundColor: '#fbe7c2',
-    // backgroundColor: '#ECCFC3',
     backgroundColor: '#D2CBCB',
     borderRadius: 10,
     margin: 8,
@@ -115,19 +65,6 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     padding: 10,
     width: '50%',
-    shadowColor: '#000',
-    shadowOffset: { width: 1, height: 1 },
-    shadowOpacity: 0.3,
-    shadowRadius: 1,
-    elevation: 2,
-  },
-  map: {
-    ...StyleSheet.absoluteFillObject,
-    margin: 5,
-  },
-  mapContainer: {
-    height: 400,
-    width: 400,
     shadowColor: '#000',
     shadowOffset: { width: 1, height: 1 },
     shadowOpacity: 0.3,
