@@ -46,10 +46,7 @@ const ProfileScreen = ({ navigation }) => {
         //   '\n\n\nProfile Screen 1:______________\n',
         //   state.description,
         // );
-        console.log(
-          '\n\n\nProfile Screen 2:______________\n',
-          fullState.description.avatar,
-        );
+        console.log('\n\n\nProfile Screen 2:______________\n', fullState);
         setIsLoading(false);
       }, 5000);
     });
@@ -75,7 +72,10 @@ const ProfileScreen = ({ navigation }) => {
     <ScrollView style={{ flex: 1 }} contentContainerStyle={styles.container}>
       <View style={styles.imageContainer}>
         <ImageBackground
-          source={fullState.avatar}
+          defaultSource={images.userPic3}
+          source={
+            fullState.avatar == undefined ? images.userPic3 : fullState.avatar
+          }
           imageStyle={{
             borderRadius: 200,
           }}

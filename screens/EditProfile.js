@@ -15,6 +15,7 @@ import ImagePicker from 'react-native-image-picker';
 import { store } from '../components/store';
 import deviceStorage from '../services/deviceStorage';
 import EditSection from '../components/EditSection';
+import images from '../components/Images';
 
 const EditProfile = () => {
   const { dispatch, state } = useContext(store);
@@ -37,6 +38,7 @@ const EditProfile = () => {
         sports: state.initialState.description.tastes.sports,
         musique: state.initialState.description.tastes.musique,
         movies: state.initialState.description.tastes.movies,
+        avatar: state.initialState.avatar,
         isLoading: false,
       });
     }, 2000);
@@ -142,12 +144,12 @@ const EditProfile = () => {
     ImagePicker.launchImageLibrary(options, (response) => {
       if (response.uri) {
         setPhoto({ photo: response });
-        var data = new FormData();
-        data.append('my_photo', {
-          uri: response.uri, // your file path string
-          name: response.fileName,
-          type: response.type,
-        });
+        // var data = new FormData();
+        // data.append('my_photo', {
+        //   uri: response.uri, // your file path string
+        //   name: response.fileName,
+        //   type: response.type,
+        // });
         // console.log('\n\n\nPIC: ', response);
         deviceStorage.loadJWT().then((user_token) => {
           axios({
@@ -160,8 +162,16 @@ const EditProfile = () => {
               avatars: response,
             },
           })
-            .then(async () => {
-              await dispatch({ type: 'GET_PROFILE' });
+            .then(() => {
+              dispatch({ type: 'GET_PROFILE' });
+              console.log('\n\n\n', state);
+              setTimeout(() => {
+                dispatch({ type: 'GET_PROFILE' });
+                setDescription({
+                  ...descriptionData,
+                  avatar: state.initialState.avatar,
+                });
+              }, 1000);
             })
             .catch(function (error) {
               if (error.response) {
@@ -194,6 +204,15 @@ const EditProfile = () => {
               await dispatch({ type: 'GET_PROFILE' });
             }, 500);
           }}
+        />
+
+        <Image
+          source={
+            descriptionData.avatar == undefined
+              ? images.userPic4
+              : descriptionData.avatar
+          }
+          style={{ height: 100, width: 100 }}
         />
       </View>
       <EditSection

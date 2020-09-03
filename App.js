@@ -182,7 +182,7 @@ const App = () => {
       // console.log('\n\n\n Retrieve: ', user_token);
       // deviceStorage.logCurrentStorage();
       if (user_token !== null)
-        dispatch({ type: 'RETRIEVE_TOKEN', token: null });
+        dispatch({ type: 'RETRIEVE_TOKEN', token: user_token });
     }, 1000);
   }, []);
 

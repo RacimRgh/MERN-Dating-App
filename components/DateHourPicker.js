@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Icon from 'react-native-dynamic-vector-icons';
 import {
   View,
-  Button,
   Platform,
   StyleSheet,
   TouchableOpacity,
@@ -20,14 +19,14 @@ const DateHourPicker = (props) => {
   const { onChangeDate } = props;
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
-    setShow(Platform.OS === 'ios');
+    setShow(!show);
     setDate(currentDate);
     onChangeDate(currentDate);
   };
 
   const showMode = (currentMode) => {
     setMode(currentMode);
-    setShow(true);
+    setShow(!show);
   };
 
   const showDatepicker = () => {
