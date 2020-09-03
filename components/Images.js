@@ -1,4 +1,7 @@
 const images = {
+  bell: require('../assets/LoveAttraction/bell.png'),
+  bell_ring: require('../assets/LoveAttraction/bell-ring.png'),
+  messages: require('../assets/LoveAttraction/message.png'),
   logo: require('../assets/LoveAttraction/header-angie2.png'),
   userPic: require('../assets/LoveAttraction/profile/man.png'),
   userPic1: require('../assets/LoveAttraction/photo-racim.png'),

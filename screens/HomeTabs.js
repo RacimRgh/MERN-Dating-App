@@ -25,14 +25,27 @@ const Home = ({ navigation }) => {
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
 
+          // if (route.name === 'Profile') {
+          //   iconName = focused ? 'face-profile' : 'face-profile';
+          // } else if (route.name === 'Recherche') {
+          //   iconName = focused ? 'account-search' : 'account-search';
+          // } else if (route.name === 'Drawer') {
+          //   iconName = focused ? 'menu' : 'menu';
+          // } else if (route.name === 'Messages') {
+          //   iconName = focused
+          //     ? 'message-text-outline'
+          //     : 'message-text-outline';
+          // } else if (route.name === 'Notifications') {
+          //   iconName = focused ? 'bell' : 'bell';
+          // }
           if (route.name === 'Profile') {
             iconName = focused ? images.profilHommeActif : images.profilHomme;
           } else if (route.name === 'Recherche') {
-            iconName = focused ? images.rechercheActif : images.recherche;
+            iconName = focused ? images.logo : images.logo;
           } else if (route.name === 'Drawer') {
             iconName = focused ? images.menuIconActif : images.menuIcon;
           } else if (route.name === 'Messages') {
-            iconName = focused ? images.messageActif : images.message;
+            iconName = focused ? images.messages : images.messages;
           } else if (route.name === 'Notifications') {
             iconName = focused
               ? images.notificationsActif
@@ -54,7 +67,8 @@ const Home = ({ navigation }) => {
       tabBarOptions={{
         showLabel: false,
         style: {
-          backgroundColor: '#6D6E67',
+          backgroundColor: '#7D938A',
+          // backgroundColor: '#6D6E67',
           height: 60,
         },
       }}>

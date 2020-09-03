@@ -164,7 +164,7 @@ const EditProfile = () => {
           })
             .then(() => {
               dispatch({ type: 'GET_PROFILE' });
-              console.log('\n\n\n', state);
+              // console.log('\n\n\n', state);
               setTimeout(() => {
                 dispatch({ type: 'GET_PROFILE' });
                 setDescription({
@@ -205,25 +205,27 @@ const EditProfile = () => {
             }, 500);
           }}
         />
-
+        <View style={styles.divider} />
         <Image
           source={
             descriptionData.avatar == undefined
               ? images.userPic4
               : descriptionData.avatar
           }
-          style={{ height: 100, width: 100 }}
+          style={{ height: 150, width: 180, alignSelf: 'center' }}
         />
       </View>
-      <EditSection
-        sectionTitle="Physique"
-        data={descriptionData}
-        heightOnChange={(val) => heightOnChange(val)}
-        weightOnChange={(val) => weightOnChange(val)}
-        eyecolorOnChange={(val) => eyecolorOnChange(val)}
-        haircolorOnChange={(val) => haircolorOnChange(val)}
-        styleOnChange={(val) => styleOnChange(val)}
-      />
+      <View>
+        <EditSection
+          sectionTitle="Physique"
+          data={descriptionData}
+          heightOnChange={(val) => heightOnChange(val)}
+          weightOnChange={(val) => weightOnChange(val)}
+          eyecolorOnChange={(val) => eyecolorOnChange(val)}
+          haircolorOnChange={(val) => haircolorOnChange(val)}
+          styleOnChange={(val) => styleOnChange(val)}
+        />
+      </View>
       <View>
         <TouchableOpacity
           style={styles.saveButtonStyle}
@@ -267,7 +269,6 @@ const EditProfile = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: 'white',
   },
   section: {
@@ -314,16 +315,13 @@ const styles = StyleSheet.create({
     fontSize: 17,
   },
   saveButtonStyle: {
-    left: 140,
-    right: 140,
-    zIndex: 9,
-    height: 50,
+    width: '30%',
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
     padding: 10,
     borderRadius: 20,
     backgroundColor: '#fbe7c2',
-    position: 'absolute',
-    alignItems: 'center',
-    justifyContent: 'center',
     marginBottom: 10,
     shadowColor: '#000',
     shadowOffset: { width: 1, height: 1 },

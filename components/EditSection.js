@@ -1,14 +1,5 @@
 import React, { useContext } from 'react';
-import {
-  View,
-  ScrollView,
-  SectionList,
-  TouchableOpacity,
-  StyleSheet,
-  Text,
-  TextInput,
-} from 'react-native';
-import Icon from 'react-native-dynamic-vector-icons';
+import { View, StyleSheet, Text, TextInput } from 'react-native';
 import EditCard from './EditCard';
 
 const EditSection = (props) => {

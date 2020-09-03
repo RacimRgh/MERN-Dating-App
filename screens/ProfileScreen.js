@@ -46,7 +46,7 @@ const ProfileScreen = ({ navigation }) => {
         //   '\n\n\nProfile Screen 1:______________\n',
         //   state.description,
         // );
-        console.log('\n\n\nProfile Screen 2:______________\n', fullState);
+        // console.log('\n\n\nProfile Screen 2:______________\n', fullState);
         setIsLoading(false);
       }, 5000);
     });

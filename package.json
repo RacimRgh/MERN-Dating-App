@@ -31,6 +31,7 @@
     "react-native-gesture-handler": "^1.6.1",
     "react-native-image-picker": "^2.3.3",
     "react-native-improved-text-input": "0.0.1",
+    "react-native-maps": "0.27.1",
     "react-native-modal-dropdown": "git+https://github.com/siemiatj/react-native-modal-dropdown.git",
     "react-native-reanimated": "^1.9.0",
     "react-native-safe-area-context": "^3.0.7",

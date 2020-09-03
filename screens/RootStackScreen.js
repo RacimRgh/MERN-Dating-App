@@ -27,7 +27,8 @@ const RootStackScreen = () => {
           headerShown: true,
           headerStyle: styles.header,
           headerTitleStyle: {
-            fontWeight: 'bold',
+            fontSize: 30,
+            fontFamily: 'DancingScript-Bold',
           },
           headerTitle: getHeaderTitle(route),
         })}
@@ -39,7 +40,8 @@ const RootStackScreen = () => {
           headerShown: true,
           headerStyle: styles.header,
           headerTitleStyle: {
-            fontWeight: 'bold',
+            fontSize: 30,
+            fontFamily: 'DancingScript-Bold',
           },
           headerTitle: getHeaderTitle(route),
         })}
@@ -51,7 +53,8 @@ const RootStackScreen = () => {
           headerShown: true,
           headerStyle: styles.header,
           headerTitleStyle: {
-            fontWeight: 'bold',
+            fontSize: 30,
+            fontFamily: 'DancingScript-Bold',
           },
           headerTitle: getHeaderTitle(route),
         })}
@@ -65,7 +68,9 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0,
     shadowColor: 'transparent',
     elevation: 0,
-    backgroundColor: '#FFE2F1',
+    backgroundColor: '#F9E7E7',
+    // backgroundColor: '#ECCFC3',
+    // backgroundColor: '#FFE2F1',
     shadowColor: '#000',
     shadowOffset: { width: 1, height: 1 },
     shadowOpacity: 0.3,

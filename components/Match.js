@@ -9,6 +9,7 @@ import {
   ImageBackground,
   Modal,
   ScrollView,
+  Image,
 } from 'react-native';
 const { width, height } = Dimensions.get('window');
 import Icon from 'react-native-dynamic-vector-icons';
@@ -24,6 +25,7 @@ const Match = () => {
   const [loading, setLoading] = useState(true);
   const [state, setState] = useState([]);
   const [active, setActive] = useState(0);
+  const [noMatch, setNoMatch] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const pics = [
     images.userPic1,
@@ -41,7 +43,7 @@ const Match = () => {
           Authorization: 'Bearer ' + user_token,
         },
       }).then((result) => {
-        console.log('\n\nMatch: ', result.data);
+        console.log('\n\nMatch: ', result.data.length);
         setState(result.data);
         setTimeout(() => {
           setLoading(false);
@@ -88,17 +90,21 @@ const Match = () => {
 
   const onPressNext = () => {
     setLoading(true);
+    setActive(active + 1);
     setTimeout(() => {
       setLoading(false);
     }, 500);
-    setActive(active + 1);
+    console.log('\n\n active3456: ', active);
+    if (active == state.length - 1) setNoMatch(true);
   };
   const onPressLast = () => {
     setLoading(true);
+    setActive(active - 1);
     setTimeout(() => {
       setLoading(false);
     }, 500);
-    setActive(active - 1);
+    console.log('\n\n active12: ', active);
+    if (active < 0) setNoMatch(true);
   };
 
   if (loading) {
@@ -108,6 +114,26 @@ const Match = () => {
       </View>
     );
   }
+
+  if (noMatch) {
+    console.log('\n\n\n HERE\n\n\n');
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Image source={images.logo} style={{ height: 100, width: 100 }} />
+        <Text
+          style={{
+            marginHorizontal: 5,
+            fontSize: 30,
+            color: 'black',
+            fontFamily: 'DancingScript-Bold',
+          }}>
+          Aucune nouvelle personne à proximité. Vous pouvez acheter un
+          abonnement premium pour revoir les utilisateurs.
+        </Text>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       <SeeMoreModal />
@@ -119,7 +145,11 @@ const Match = () => {
           flexDirection: 'column-reverse',
         }}
         imageStyle={{ borderRadius: 30 }}
-        source={pics[active]}>
+        source={
+          state[active].avatar == undefined || state[active].avatar.length == 0
+            ? pics[2]
+            : state[active].avatar
+        }>
         <View style={styles.infoContainer}>
           <View style={styles.divider} />
           <View
@@ -183,7 +213,14 @@ const Match = () => {
             <Icon size={50} name="report" type="MaterialIcons" color="black" />
           </View>
         </TouchableOpacity>
-        <View style={styles.compatIcon}>
+        <ImageBackground
+          source={images.ellipseWhite}
+          style={{
+            width: 120,
+            height: 120,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
           <Icon
             size={40}
             name="percent"
@@ -191,7 +228,7 @@ const Match = () => {
             color="black"
           />
           <Text style={styles.iconText}>{state[active].compatibility}</Text>
-        </View>
+        </ImageBackground>
         <TouchableOpacity>
           <View style={styles.choiceIcon}>
             <Icon size={50} name="like" type="SimpleLineIcons" color="black" />
