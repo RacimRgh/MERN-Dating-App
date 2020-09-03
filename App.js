@@ -144,6 +144,11 @@ const App = () => {
         // deviceStorage.logCurrentStorage();
         dispatch({ type: 'LOGOUT' });
       },
+      deleteProfile: async () => {
+        await deviceStorage.removeItemValue('id_token');
+        deviceStorage.logCurrentStorage();
+        dispatch({ type: 'LOGOUT' });
+      },
       signUp: async ({
         userEmail,
         firstname,

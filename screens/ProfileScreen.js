@@ -87,7 +87,9 @@ const ProfileScreen = ({ navigation }) => {
         />
         <View style={styles.editButton}>
           <TouchableOpacity onPress={() => navigation.navigate('Edit profile')}>
-            <ImageBackground source={images.ellipse} style={styles.ellipseIcon}>
+            <ImageBackground
+              source={images.ellipseGrey}
+              style={styles.ellipseIcon}>
               <ImageBackground
                 source={images.pencil}
                 style={styles.pencilIcon}

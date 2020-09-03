@@ -61,7 +61,7 @@ const GoutsTab = (props) => {
 
 const styles = StyleSheet.create({
   section: {
-    backgroundColor: '#fbe7c2',
+    backgroundColor: '#D2CBCB',
     borderRadius: 10,
     margin: 8,
     padding: 10,
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
   },
   content: {
     flexDirection: 'row',
-    backgroundColor: '#faf2dd',
+    backgroundColor: '#F9E7E7',
     borderRadius: 10,
     margin: 8,
     padding: 10,

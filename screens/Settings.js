@@ -6,12 +6,15 @@ import {
   TouchableOpacity,
   Switch,
   Modal,
+  ActivityIndicator,
+  Image,
 } from 'react-native';
 import Icon from 'react-native-dynamic-vector-icons';
 import axios from 'axios';
 import { store } from '../components/store';
 import { AuthContext } from '../components/context';
 import deviceStorage from '../services/deviceStorage';
+import images from '../components/Images';
 
 /* 
   This is the settings screen (modal)
@@ -19,23 +22,28 @@ import deviceStorage from '../services/deviceStorage';
 */
 const Settings = () => {
   const { state } = useContext(store);
-  const { signOut } = React.useContext(AuthContext);
+  const { deleteProfile } = React.useContext(AuthContext);
   const [notifications, setNotifications] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   // console.log('\n\n\n Settings: ', state);
 
   const onPressDelete = () => {
-    const user_token = deviceStorage.loadJWT().then(() => {
-      signOut();
-    });
-
-    axios({
-      method: 'DELETE',
-      url: 'http://10.0.2.2:3000/users/me',
-      headers: {
-        Authorization: 'Bearer ' + user_token,
-      },
-    }).then(() => {
-      setTimeout(() => {}, 2000);
+    setTimeout(() => {
+      setIsLoading(true);
+    }, 500);
+    deviceStorage.loadJWT().then((user_token) => {
+      axios({
+        method: 'DELETE',
+        url: 'http://10.0.2.2:3000/users/me',
+        headers: {
+          Authorization: 'Bearer ' + user_token,
+        },
+      }).then(() => {
+        setTimeout(() => {
+          setIsLoading(false);
+          deleteProfile();
+        }, 2000);
+      });
     });
   };
   const [modalVisible, setModalVisible] = useState(false);
@@ -51,7 +59,8 @@ const Settings = () => {
         <View style={styles.modal}>
           <Text style={styles.cardText}>
             {' '}
-            Etes vous sur de vouloir supprimer votre compte?
+            Etes vous sur de vouloir supprimer votre compte? Cette opération est
+            irréversible.
           </Text>
           <View style={{ flexDirection: 'row' }}>
             <TouchableOpacity
@@ -106,6 +115,22 @@ const Settings = () => {
       </View>
     );
   };
+
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Image
+          source={images.logo}
+          style={{
+            height: 180,
+            width: 180,
+          }}
+        />
+        <Text> Déconnexion ...</Text>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>

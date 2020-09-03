@@ -10,6 +10,7 @@ const images = {
   userPic4: require('../assets/LoveAttraction/photo-stock-female.jpg'),
   ellipse: require('../assets/LoveAttraction/Ellipse.png'),
   ellipseWhite: require('../assets/LoveAttraction/EllipseWhite.png'),
+  ellipseGrey: require('../assets/LoveAttraction/EllipseGrey.png'),
   pencil: require('../assets/LoveAttraction/pencil.png'),
   menuIcon: require('../assets/LoveAttraction/TabBar/menu.png'),
   menuIconActif: require('../assets/LoveAttraction/TabBar/menu-actif.png'),

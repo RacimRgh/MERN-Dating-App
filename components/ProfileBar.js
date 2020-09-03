@@ -11,7 +11,7 @@ import images from './Images';
 const ProfileBar = (props) => {
   const { pathIcon, onPressTab } = props;
   return (
-    <ImageBackground source={images.ellipseWhite} style={styles.ellipseIcon}>
+    <ImageBackground source={images.ellipseGrey} style={styles.ellipseIcon}>
       <TabBarIcon pathIcon={pathIcon} onPressTab={onPressTab} />
     </ImageBackground>
   );

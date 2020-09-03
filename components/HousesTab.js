@@ -63,7 +63,7 @@ const AstroTab = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#fbe7c2',
+    backgroundColor: '#D2CBCB',
     marginTop: 20,
     shadowColor: '#000',
     shadowOffset: { width: 1, height: 1 },
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
   content: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#faf2dd',
+    backgroundColor: '#F9E7E7',
     width: 200,
     padding: 5,
     shadowColor: '#000',
