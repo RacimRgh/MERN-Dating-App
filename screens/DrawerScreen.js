@@ -53,8 +53,8 @@ const DrawerScreen = (props) => {
           )}
         />
         <DrawerItem
-          label="Edit my profile"
-          onPress={() => props.navigation.navigate('Edit profile')}
+          label="Modifier mon profil"
+          onPress={() => props.navigation.navigate('Modifier mon profil')}
           labelStyle={{ fontSize: 18 }}
           icon={({ focused, color, size }) => (
             <Icon

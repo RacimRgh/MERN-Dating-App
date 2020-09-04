@@ -48,7 +48,7 @@ const RootStackScreen = () => {
         })}
       />
       <RootStack.Screen
-        name="Edit profile"
+        name="Modifier mon profil"
         component={EditProfile}
         options={({ route, navigation }) => ({
           headerShown: true,
