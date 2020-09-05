@@ -11,8 +11,8 @@ import {
   ImageBackground,
 } from 'react-native';
 
-import { signs, signsIcons, planetsIcons } from './astrology';
-import images from './Images';
+import { signs, signsIcons, planetsIcons } from '../services/astrology';
+import images from '../services/Images';
 // Astrology tab in the user profile screens
 
 const AstroTab = (props) => {

@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-dynamic-vector-icons';
-import images from '../components/Images';
+import images from '../services/Images';
 
 // Messages screens
 // Work in progress

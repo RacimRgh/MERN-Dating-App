@@ -15,7 +15,7 @@ const { width, height } = Dimensions.get('window');
 import Icon from 'react-native-dynamic-vector-icons';
 import axios from 'axios';
 // Local components
-import images from './Images';
+import images from '../services/Images';
 import deviceStorage from '../services/deviceStorage';
 import AstroTab from './AstroTab';
 import DescriptionTab from './DescriptionTab';

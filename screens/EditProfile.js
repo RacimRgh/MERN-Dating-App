@@ -12,10 +12,10 @@ import {
 import axios from 'axios';
 import ImagePicker from 'react-native-image-picker';
 // local imports
-import { store } from '../components/store';
+import { store } from '../services/store';
 import deviceStorage from '../services/deviceStorage';
 import EditSection from '../components/EditSection';
-import images from '../components/Images';
+import images from '../services/Images';
 
 const EditProfile = () => {
   const { dispatch, state } = useContext(store);

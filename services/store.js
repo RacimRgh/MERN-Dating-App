@@ -1,7 +1,7 @@
 // store.js
 import React, { createContext, useReducer, useState } from 'react';
 import axios from 'axios';
-import deviceStorage from '../services/deviceStorage';
+import deviceStorage from './deviceStorage';
 
 let initialState = {
   email: '',

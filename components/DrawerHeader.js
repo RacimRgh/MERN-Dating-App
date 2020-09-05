@@ -7,8 +7,8 @@ import {
   ImageBackground,
 } from 'react-native';
 import Icon from 'react-native-dynamic-vector-icons';
-import { store } from './store';
-import images from './/Images';
+import { store } from '../services/store';
+import images from '../services/Images';
 const DrawerHeader = (props) => {
   const { state } = useContext(store);
   const [loading, setLoading] = useState(true);

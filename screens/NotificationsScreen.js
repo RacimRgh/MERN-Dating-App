@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-dynamic-vector-icons';
-import images from '../components/Images';
+import images from '../services/Images';
 
 // Notifications screens
 const NotificationsScreen = ({ navigation }) => {

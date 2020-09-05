@@ -6,7 +6,7 @@ import Settings from './Settings';
 import EditProfile from './EditProfile';
 import Home from './HomeTabs';
 import FilterScreen from './FilterScreen';
-import { StateProvider } from '../components/store';
+import { StateProvider } from '../services/store';
 
 const RootStack = createStackNavigator();
 /* The RootStackScreen has the Home (the mains app tabs), 

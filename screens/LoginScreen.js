@@ -16,7 +16,7 @@ import Icon from 'react-native-dynamic-vector-icons';
 import styles from './LoginScreen.style';
 import Logo from '../components/Logo';
 import BottomContainer from '../components/BottomContainer';
-import { AuthContext } from '../components/context';
+import { AuthContext } from '../services/context';
 
 const defaultBackground =
   'https://images.unsplash.com/photo-1535635790206-6960f6eaacff?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80';

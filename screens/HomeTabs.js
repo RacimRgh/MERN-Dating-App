@@ -5,7 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Icon from 'react-native-dynamic-vector-icons';
 // components
 import TabBarIcon from '../components/TabBarIcon';
-import images from '../components/Images';
+import images from '../services/Images';
 import ProfileScreen from './ProfileScreen';
 import NotificationsScreen from './NotificationsScreen';
 import MessagesScreen from './MessagesScreen';

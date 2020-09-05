@@ -9,10 +9,10 @@ import axios from 'axios';
 import LoginScreen from './screens/LoginScreen';
 import DrawerScreen from './screens/DrawerScreen';
 import RootStackScreen from './screens/RootStackScreen';
-import images from './components/Images';
+import images from './services/Images';
 // components
-import { AuthContext } from './components/context';
-import { StateProvider } from './components/store';
+import { AuthContext } from './services/context';
+import { StateProvider } from './services/store';
 // services
 import deviceStorage from './services/deviceStorage';
 

@@ -7,7 +7,7 @@ import {
 } from '@react-navigation/drawer';
 import Icon from 'react-native-dynamic-vector-icons';
 import DrawerHeader from '../components/DrawerHeader';
-import { AuthContext } from '../components/context';
+import { AuthContext } from '../services/context';
 const { width, height } = Dimensions.get('window');
 /* The Drawer screens that pops up when swiping right 
 or clicking the drawer button in the tab navigator

@@ -7,7 +7,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 import Icon from 'react-native-dynamic-vector-icons';
-import { store } from '../components/store';
+import { store } from '../services/store';
 
 const DescriptionTab = (props) => {
   const { fullState } = props;

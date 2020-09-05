@@ -3,7 +3,7 @@ import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-dynamic-vector-icons';
 import ModalDropdown from 'react-native-modal-dropdown';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
-import images from '../components/Images';
+import images from '../services/Images';
 import { s_a, country_arr } from '../services/countries';
 
 // Messages screens

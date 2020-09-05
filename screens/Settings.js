@@ -11,10 +11,10 @@ import {
 } from 'react-native';
 import Icon from 'react-native-dynamic-vector-icons';
 import axios from 'axios';
-import { store } from '../components/store';
-import { AuthContext } from '../components/context';
+import { store } from '../services/store';
+import { AuthContext } from '../services/context';
 import deviceStorage from '../services/deviceStorage';
-import images from '../components/Images';
+import images from '../services/Images';
 
 /* 
   This is the settings screen (modal)

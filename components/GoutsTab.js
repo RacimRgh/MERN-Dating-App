@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { View, Text, StyleSheet, SectionList } from 'react-native';
 import Icon from 'react-native-dynamic-vector-icons';
 
-import { store } from '../components/store';
+import { store } from '../services/store';
 
 const GoutsTab = (props) => {
   const { state } = useContext(store);

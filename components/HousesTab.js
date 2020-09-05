@@ -9,8 +9,8 @@ import {
   ImageBackground,
 } from 'react-native';
 
-import { signs, signsIcons } from './astrology';
-import images from './Images';
+import { signs, signsIcons } from '../services/astrology';
+import images from '../services/Images';
 // Astrology tab in the user profile screen
 const AstroTab = (props) => {
   const { fullState } = props;

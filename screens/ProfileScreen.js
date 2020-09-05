@@ -11,10 +11,10 @@ import {
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-dynamic-vector-icons';
-import images from '../components/Images';
+import images from '../services/Images';
 import ProfileBar from '../components/ProfileBar';
 import ProfileTabs from '../components/ProfileTabs';
-import { store } from '../components/store';
+import { store } from '../services/store';
 
 const { width, height } = Dimensions.get('window');
 /* this is the user profile screen

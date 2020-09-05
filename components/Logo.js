@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View, StyleSheet, Image } from 'react-native';
 import Icon from 'react-native-dynamic-vector-icons';
-import images from './Images';
+import images from '../services/Images';
 
 const Logo = (props) => {
   const { logoText, logoComponent, cardState } = props;

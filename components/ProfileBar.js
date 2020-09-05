@@ -6,7 +6,7 @@ import {
   Image,
 } from 'react-native';
 import TabBarIcon from './TabBarIcon';
-import images from './Images';
+import images from '../services/Images';
 
 const ProfileBar = (props) => {
   const { pathIcon, onPressTab } = props;
