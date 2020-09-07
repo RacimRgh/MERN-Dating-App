@@ -27,6 +27,7 @@ const ProfileScreen = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(true);
   const { dispatch, state } = useContext(store);
   const [fullState, setState] = useState(state);
+  const [photo, setPhoto] = useState({});
 
   // async function fetchData() {
   //   await dispatch({ type: 'GET_PROFILE' });
@@ -46,7 +47,11 @@ const ProfileScreen = ({ navigation }) => {
         //   '\n\n\nProfile Screen 1:______________\n',
         //   state.description,
         // );
-        // console.log('\n\n\nProfile Screen 2:______________\n', fullState);
+        console.log(
+          '\n\n\nProfile Screen 2:______________\n',
+          fullState.avatar,
+        );
+        setPhoto(fullState.avatar);
         setIsLoading(false);
       }, 5000);
     });

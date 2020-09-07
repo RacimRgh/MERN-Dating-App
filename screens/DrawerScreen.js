@@ -14,7 +14,7 @@ or clicking the drawer button in the tab navigator
 (Bottom left button in the home menu)
 */
 const DrawerScreen = (props) => {
-  const { onPressLogout } = props;
+  const { onPressLogout, navigation } = props;
   const { signOut } = React.useContext(AuthContext);
   /* comment to explain all the drawer items later
    */
@@ -81,6 +81,7 @@ const DrawerScreen = (props) => {
         <DrawerItem
           label="Se déconnecter"
           onPress={() => {
+            navigation.closeDrawer();
             signOut();
           }}
           style={styles.signOutButton}

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -8,6 +8,7 @@ import {
   Modal,
   ActivityIndicator,
   Image,
+  ScrollView,
 } from 'react-native';
 import Icon from 'react-native-dynamic-vector-icons';
 import axios from 'axios';
@@ -15,17 +16,65 @@ import { store } from '../services/store';
 import { AuthContext } from '../services/context';
 import deviceStorage from '../services/deviceStorage';
 import images from '../services/Images';
+import SettingsCard from '../components/SettingsCard';
 
 /* 
   This is the settings screen (modal)
   The user can modify his account information and more to come
 */
 const Settings = () => {
-  const { state } = useContext(store);
+  const { state, dispatch } = useContext(store);
   const { deleteProfile } = React.useContext(AuthContext);
   const [notifications, setNotifications] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  // console.log('\n\n\n Settings: ', state);
+  const [info, setInfo] = useState({
+    email: state.initialState.email,
+    nom: state.initialState.lastname,
+    prenom: state.initialState.firstname,
+  });
+
+  console.log('\n\n\n Settings: ', info);
+
+  const emailInputChange = (val) => {
+    setInfo({
+      ...info,
+      email: val,
+    });
+  };
+
+  const firstnameInputChange = (val) => {
+    setInfo({
+      ...info,
+      prenom: val,
+    });
+  };
+  const lastnameInputChange = (val) => {
+    setInfo({
+      ...info,
+      nom: val,
+    });
+  };
+
+  const onPressSubmit = async (value) => {
+    console.log('\n\n Submit: ', value);
+    deviceStorage.loadJWT().then((user_token) => {
+      axios({
+        method: 'PATCH',
+        url: 'http://10.0.2.2:3000/users/me',
+        headers: {
+          Authorization: 'Bearer ' + user_token,
+        },
+        data: {
+          email: value.email,
+          nom: value.nom,
+          prenom: value.prenom,
+        },
+      }).then(async () => {
+        await dispatch({ type: 'GET_PROFILE' });
+        console.log('\n\n\n____Update profile', state.initialState);
+      });
+    });
+  };
 
   const onPressDelete = () => {
     setTimeout(() => {
@@ -46,6 +95,7 @@ const Settings = () => {
       });
     });
   };
+
   const [modalVisible, setModalVisible] = useState(false);
   const Delete = () => {
     return (
@@ -95,27 +145,6 @@ const Settings = () => {
     );
   };
 
-  const Card = (props) => {
-    const { title, iconName, iconType, data, edit } = props;
-    return (
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <View style={styles.cards}>
-          <Icon name={iconName} size={25} type={iconType} />
-          <Text style={styles.cardText}>
-            {title} {data}
-          </Text>
-        </View>
-        {edit ? (
-          <TouchableOpacity>
-            <View style={styles.editButton}>
-              <Icon name="pencil" size={30} type="MaterialCommunityIcons" />
-            </View>
-          </TouchableOpacity>
-        ) : undefined}
-      </View>
-    );
-  };
-
   if (isLoading) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -133,32 +162,38 @@ const Settings = () => {
   }
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <Delete />
       <View>
         <View style={styles.titleContainer}>
           <Text style={styles.titleStyle}>Mon compte</Text>
         </View>
-        <Card
-          title="Email:"
+        <SettingsCard
+          title="Email"
           iconName="email-edit"
           iconType="MaterialCommunityIcons"
           data={state.initialState.email}
           edit={true}
+          onChangeText={(val) => emailInputChange(val)}
+          onPressSubmit={() => onPressSubmit(info)}
         />
-        <Card
-          title="Nom:"
+        <SettingsCard
+          title="Nom"
           iconName="account-group"
           iconType="MaterialCommunityIcons"
           data={state.initialState.lastname}
           edit={true}
+          onChangeText={(val) => lastnameInputChange(val)}
+          onPressSubmit={() => onPressSubmit(info)}
         />
-        <Card
-          title="Prenom:"
+        <SettingsCard
+          title="Prenom"
           iconName="person"
           iconType="MaterialIcons"
           data={state.initialState.firstname}
           edit={true}
+          onChangeText={(val) => firstnameInputChange(val)}
+          onPressSubmit={() => onPressSubmit(info)}
         />
       </View>
       <View>
@@ -166,7 +201,7 @@ const Settings = () => {
           <Text style={styles.titleStyle}>Notifications</Text>
         </View>
         <View style={{ flexDirection: 'row' }}>
-          <Card
+          <SettingsCard
             title="Activer/désactiver les notifications"
             iconName="bell"
             iconType="MaterialCommunityIcons"
@@ -185,7 +220,7 @@ const Settings = () => {
         <View style={styles.titleContainer}>
           <Text style={styles.titleStyle}>Sécurité</Text>
         </View>
-        <Card
+        <SettingsCard
           title="Changer mon mot de passe"
           iconName="pencil-lock"
           iconType="MaterialCommunityIcons"
@@ -194,7 +229,7 @@ const Settings = () => {
           onPress={() => {
             setModalVisible(true);
           }}>
-          <Card
+          <SettingsCard
             title="Supprimer mon compte"
             iconName="delete"
             iconType="MaterialCommunityIcons"
@@ -205,20 +240,20 @@ const Settings = () => {
         <View style={styles.titleContainer}>
           <Text style={styles.titleStyle}>Mentions légales et règlements</Text>
         </View>
-        <Card
+        <SettingsCard
           title="Termes d'utilisation"
           iconName="file-outline"
           iconType="MaterialCommunityIcons"
           edit={false}
         />
-        <Card
+        <SettingsCard
           title="A propos"
           iconName="information-outline"
           iconType="MaterialCommunityIcons"
           edit={false}
         />
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -233,7 +268,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
   },
   titleContainer: {
-    backgroundColor: '#CCC6BD',
+    backgroundColor: '#D2CBCB',
     shadowColor: '#000',
     shadowOffset: { width: 1, height: 1 },
     shadowOpacity: 0.3,
@@ -249,7 +284,7 @@ const styles = StyleSheet.create({
   cards: {
     padding: 10,
     width: '80%',
-    backgroundColor: '#faf2dd',
+    backgroundColor: '#F9E7E7',
     marginHorizontal: 10,
     marginVertical: 5,
     flexDirection: 'row',
@@ -260,7 +295,7 @@ const styles = StyleSheet.create({
   },
   editButton: {
     borderRadius: 200,
-    backgroundColor: '#faf2dd',
+    backgroundColor: '#F9E7E7',
     padding: 10,
   },
   modal: {
