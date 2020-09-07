@@ -27,15 +27,13 @@ const Home = ({ navigation }) => {
           if (route.name === 'Profile') {
             iconName = focused ? images.profilHommeActif : images.profilHomme;
           } else if (route.name === 'Recherche') {
-            iconName = focused ? images.logo : images.logo;
+            iconName = focused ? images.rechercheActif : images.recherche;
           } else if (route.name === 'Drawer') {
-            iconName = focused ? images.menuIconActif : images.menuIcon;
+            iconName = focused ? images.menuIconActif : images.menu;
           } else if (route.name === 'Messages') {
             iconName = focused ? images.messages : images.messages;
           } else if (route.name === 'Notifications') {
-            iconName = focused
-              ? images.notificationsActif
-              : images.notifications;
+            iconName = focused ? images.match : images.match;
           }
           return route.name === 'Drawer' ? (
             <TabBarIcon

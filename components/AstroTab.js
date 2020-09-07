@@ -96,8 +96,8 @@ const styles = StyleSheet.create({
     resizeMode: 'center',
   },
   tabTitle: {
-    fontWeight: 'bold',
-    fontSize: 30,
+    fontFamily: 'DancingScript-Bold',
+    fontSize: 40,
     marginVertical: 5,
     alignSelf: 'center',
   },
@@ -109,8 +109,8 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   title: {
-    fontWeight: 'bold',
-    fontSize: 25,
+    fontFamily: 'DancingScript-Bold',
+    fontSize: 30,
     marginLeft: 1,
     marginVertical: 5,
   },

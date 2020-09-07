@@ -117,8 +117,8 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   titles: {
-    fontWeight: 'bold',
-    fontSize: 20,
+    fontFamily: 'DancingScript-Bold',
+    fontSize: 25,
     marginHorizontal: 10,
   },
   divider: {
@@ -127,8 +127,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
   },
   tabTitle: {
-    fontWeight: 'bold',
-    fontSize: 30,
+    fontFamily: 'DancingScript-Bold',
+    fontSize: 40,
     marginVertical: 5,
     alignSelf: 'center',
   },

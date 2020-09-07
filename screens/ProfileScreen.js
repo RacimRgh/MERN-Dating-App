@@ -72,7 +72,22 @@ const ProfileScreen = ({ navigation }) => {
       </View>
     );
   }
+  const age = (birthDate) => {
+    birthDate = new Date(birthDate);
+    const otherDate = new Date();
 
+    var years = otherDate.getFullYear() - birthDate.getFullYear();
+
+    if (
+      otherDate.getMonth() < birthDate.getMonth() ||
+      (otherDate.getMonth() == birthDate.getMonth() &&
+        otherDate.getDate() < birthDate.getDate())
+    ) {
+      years--;
+    }
+
+    return years;
+  };
   return (
     <ScrollView style={{ flex: 1 }} contentContainerStyle={styles.container}>
       <View style={styles.imageContainer}>
@@ -105,10 +120,7 @@ const ProfileScreen = ({ navigation }) => {
       <View style={styles.footer}>
         <View style={styles.divider} />
         <Text style={styles.footerText}>
-          {fullState.lastname} ,{' '}
-          {new Date().getFullYear() -
-            new Date(fullState.birthday).getFullYear()}{' '}
-          ans
+          {fullState.firstname} , {age(fullState.birthday)} ans
         </Text>
         <Text style={styles.footerTextLocalisation}>
           {fullState.city.toUpperCase()}, {fullState.country.toUpperCase()}

@@ -20,6 +20,7 @@ import deviceStorage from '../services/deviceStorage';
 import AstroTab from './AstroTab';
 import DescriptionTab from './DescriptionTab';
 import GoutsTab from './GoutsTab';
+import HousesTab from './HousesTab';
 
 const Match = () => {
   const [loading, setLoading] = useState(true);
@@ -70,18 +71,32 @@ const Match = () => {
                 <Icon
                   name="circle-with-cross"
                   type="Entypo"
-                  size={35}
+                  size={40}
                   color="red"
                 />
-                <Text style={{ fontSize: 25, fontWeight: 'bold' }}>
-                  {state[active].nom.toUpperCase()}{' '}
-                  {state[active].prenom.toUpperCase()}
+                <Text
+                  style={{
+                    fontSize: 25,
+                    fontFamily: 'DancingScript-Bold',
+                  }}>
+                  {state[active].nom.toUpperCase()} {state[active].prenom}
                 </Text>
               </TouchableOpacity>
               <DescriptionTab fullState={state[active]} />
               <GoutsTab fullState={state[active]} />
               <AstroTab fullState={state[active]} />
+              <HousesTab fullState={state[active]} />
             </View>
+            <TouchableOpacity
+              onPress={() => setModalVisible(false)}
+              style={styles.account}>
+              <Icon
+                name="circle-with-cross"
+                type="Entypo"
+                size={40}
+                color="red"
+              />
+            </TouchableOpacity>
           </View>
         </ScrollView>
       </Modal>
@@ -94,7 +109,6 @@ const Match = () => {
     setTimeout(() => {
       setLoading(false);
     }, 500);
-    console.log('\n\n active3456: ', active);
     if (active == state.length - 1) setNoMatch(true);
   };
   const onPressLast = () => {
@@ -105,6 +119,23 @@ const Match = () => {
     }, 500);
     console.log('\n\n active12: ', active);
     if (active < 0) setNoMatch(true);
+  };
+
+  const age = (birthDate) => {
+    birthDate = new Date(birthDate);
+    const otherDate = new Date();
+
+    var years = otherDate.getFullYear() - birthDate.getFullYear();
+
+    if (
+      otherDate.getMonth() < birthDate.getMonth() ||
+      (otherDate.getMonth() == birthDate.getMonth() &&
+        otherDate.getDate() < birthDate.getDate())
+    ) {
+      years--;
+    }
+
+    return years;
   };
 
   if (loading) {
@@ -143,6 +174,7 @@ const Match = () => {
           height: height * 0.66,
           borderRadius: 30,
           flexDirection: 'column-reverse',
+          justifyContent: 'space-between',
         }}
         imageStyle={{ borderRadius: 30 }}
         source={
@@ -179,10 +211,7 @@ const Match = () => {
                   size={25}
                   color="white"
                 />
-                {state[active].nom},
-                {new Date().getFullYear() -
-                  new Date(state[active].birthday).getFullYear()}{' '}
-                ans
+                {state[active].prenom}, {age(state[active].birthday)} ans
               </Text>
               <Text style={styles.textInfo}>
                 <Icon
@@ -191,57 +220,74 @@ const Match = () => {
                   size={25}
                   color="white"
                 />
-                {state[active].city},{state[active].country}
+                {state[active].city}, {state[active].country}
               </Text>
             </View>
           </View>
+        </View>
+        <View
+          // source={images.ellipseWhite}
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            alignSelf: 'center',
+            backgroundColor: 'white',
+            borderBottomStartRadius: 20,
+            borderBottomEndRadius: 20,
+            flexDirection: 'row',
+            padding: 10,
+            paddingTop: 0,
+          }}>
+          <Text style={styles.iconText}>{state[active].compatibility}</Text>
+          <Icon
+            size={30}
+            name="percent"
+            type="MaterialCommunityIcons"
+            color="black"
+          />
         </View>
       </ImageBackground>
       <View style={styles.iconsContainer}>
         <TouchableOpacity onPress={onPressLast}>
           <View style={styles.choiceIcon}>
-            <Icon
-              size={35}
-              name="rewind"
-              type="MaterialCommunityIcons"
-              color="black"
-            />
+            <Image source={images.undo} style={{ width: 40, height: 40 }} />
+            <Text style={styles.iconText}>Revenir</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity>
+        {/* <TouchableOpacity>
           <View style={styles.choiceIcon}>
             <Icon size={50} name="report" type="MaterialIcons" color="black" />
+            <Text style={{ fontFamily: 'DancingScript-Bold', fontSize: 20 }}>
+              Signaler
+            </Text>
           </View>
-        </TouchableOpacity>
-        <ImageBackground
+        </TouchableOpacity> */}
+        {/* <ImageBackground
           source={images.ellipseWhite}
           style={{
-            width: 120,
-            height: 120,
+            width: 80,
+            height: 90,
             justifyContent: 'center',
             alignItems: 'center',
           }}>
           <Icon
-            size={40}
+            size={30}
             name="percent"
             type="MaterialCommunityIcons"
             color="black"
           />
           <Text style={styles.iconText}>{state[active].compatibility}</Text>
-        </ImageBackground>
+        </ImageBackground> */}
         <TouchableOpacity>
           <View style={styles.choiceIcon}>
-            <Icon size={50} name="like" type="SimpleLineIcons" color="black" />
+            <Image source={images.like} style={{ width: 40, height: 40 }} />
+            <Text style={styles.iconText}>Like</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={onPressNext}>
           <View style={styles.choiceIcon}>
-            <Icon
-              size={35}
-              name="navigate-next"
-              type="MaterialIcons"
-              color="black"
-            />
+            <Image source={images.next} style={{ width: 40, height: 40 }} />
+            <Text style={styles.iconText}>Prochain</Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -269,8 +315,8 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   iconText: {
-    fontWeight: 'bold',
-    fontSize: 30,
+    fontFamily: 'DancingScript-Bold',
+    fontSize: 25,
   },
   divider: {
     marginVertical: 10,
@@ -299,8 +345,8 @@ const styles = StyleSheet.create({
   },
   choiceIcon: {
     padding: 10,
-    marginHorizontal: 5,
     borderRadius: 50,
+    width: 120,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#FFE2F1',
@@ -313,7 +359,6 @@ const styles = StyleSheet.create({
   compatIcon: {
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 10,
     marginBottom: 20,
     marginTop: 5,
     backgroundColor: '#FFE2F1',
@@ -327,7 +372,7 @@ const styles = StyleSheet.create({
   account: {
     flexDirection: 'row-reverse',
     justifyContent: 'space-between',
-    backgroundColor: '#faf2dd',
+    backgroundColor: '#D2CBCB',
     padding: 15,
     margin: 10,
     borderRadius: 20,

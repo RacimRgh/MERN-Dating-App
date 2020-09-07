@@ -1,4 +1,9 @@
 const images = {
+  like: require('../assets/like.png'),
+  next: require('../assets/next.png'),
+  undo: require('../assets/undo.png'),
+  match: require('../assets/match.png'),
+  menu: require('../assets/menu.png'),
   bell: require('../assets/LoveAttraction/bell.png'),
   bell_ring: require('../assets/LoveAttraction/bell-ring.png'),
   messages: require('../assets/LoveAttraction/message.png'),
