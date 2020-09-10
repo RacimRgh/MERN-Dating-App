@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   FlatList,
+  TextInput,
 } from 'react-native';
 import Icon from 'react-native-dynamic-vector-icons';
 import axios from 'axios';
@@ -16,14 +17,13 @@ import axios from 'axios';
 import images from '../services/Images';
 import deviceStorage from '../services/deviceStorage';
 import BuyPremium from '../components/BuyPremium';
-
 // Messages screens
-// Work in progress
 
-const MessagesScreen = () => {
+const MessagesScreen = ({ navigation }) => {
   const [premium, setPremium] = useState(true);
   const [loading, setLoading] = useState(true);
   const [state, setState] = useState([]);
+
   useEffect(() => {
     deviceStorage.loadJWT().then((user_token) => {
       axios({
@@ -37,6 +37,7 @@ const MessagesScreen = () => {
         setState(result.data);
         const DATA = result.data.map((value) => {
           return {
+            id: value.id,
             name: value.prenom,
             photo: value.avatar,
           };
@@ -60,7 +61,15 @@ const MessagesScreen = () => {
 
   const renderItem = ({ item }) => {
     return (
-      <View style={styles.userContainer}>
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate('ChatRoom', {
+            id: item.id,
+            name: item.name,
+            photo: item.photo,
+          })
+        }
+        style={styles.userContainer}>
         <View>
           <Image
             source={
@@ -81,7 +90,7 @@ const MessagesScreen = () => {
           <Icon type="AntDesign" name="message1" size={35} />
           <Icon type="MaterialCommunityIcons" name="link-off" size={35} />
         </View>
-      </View>
+      </TouchableOpacity>
     );
   };
 
@@ -102,6 +111,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
+    justifyContent: 'space-between',
+    padding: 20,
   },
   userContainer: {
     padding: 10,
@@ -133,6 +144,12 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     borderBottomColor: 'black',
     borderBottomWidth: 1,
+  },
+  textInputStyle: {
+    fontSize: 14,
+    fontWeight: '800',
+    borderColor: 'black',
+    borderWidth: 1,
   },
 });
 
