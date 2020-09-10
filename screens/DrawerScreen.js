@@ -67,7 +67,7 @@ const DrawerScreen = (props) => {
         />
         <DrawerItem
           label="Filtrer les utilisateurs"
-          onPress={() => props.navigation.navigate('Filtrer')}
+          onPress={() => props.navigation.navigate('Filtre')}
           labelStyle={{ fontSize: 18 }}
           icon={({ focused, color, size }) => (
             <Icon

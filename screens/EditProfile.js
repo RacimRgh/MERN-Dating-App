@@ -206,14 +206,14 @@ const EditProfile = () => {
           }}
         />
         <View style={styles.divider} />
-        <Image
+        {/* <Image
           source={
             descriptionData.avatar == undefined
               ? images.userPic4
               : descriptionData.avatar
           }
           style={{ height: 150, width: 180, alignSelf: 'center' }}
-        />
+        /> */}
       </View>
       <View>
         <EditSection
@@ -272,7 +272,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   section: {
-    backgroundColor: '#fbe7c2',
+    backgroundColor: '#D2CBCB',
     borderRadius: 10,
     margin: 8,
     padding: 10,
@@ -321,7 +321,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 10,
     borderRadius: 20,
-    backgroundColor: '#fbe7c2',
+    backgroundColor: '#D2CBCB',
     marginBottom: 10,
     shadowColor: '#000',
     shadowOffset: { width: 1, height: 1 },

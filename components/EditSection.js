@@ -50,7 +50,7 @@ const EditSection = (props) => {
 
 const styles = StyleSheet.create({
   section: {
-    backgroundColor: '#fbe7c2',
+    backgroundColor: '#D2CBCB',
     borderRadius: 10,
     margin: 8,
     padding: 10,

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -7,110 +7,116 @@ import {
   Button,
   Modal,
   TouchableOpacity,
+  ActivityIndicator,
+  FlatList,
 } from 'react-native';
 import Icon from 'react-native-dynamic-vector-icons';
+import axios from 'axios';
+// Local imports
 import images from '../services/Images';
+import deviceStorage from '../services/deviceStorage';
+import BuyPremium from '../components/BuyPremium';
 
 // Messages screens
 // Work in progress
 
-const MessagesScreen = ({ navigation }) => {
-  const [modalVisible, setModalVisible] = useState(false);
-  const Premium = () => {
+const MessagesScreen = () => {
+  const [premium, setPremium] = useState(true);
+  const [loading, setLoading] = useState(true);
+  const [state, setState] = useState([]);
+  useEffect(() => {
+    deviceStorage.loadJWT().then((user_token) => {
+      axios({
+        method: 'GET',
+        url: 'http://10.0.2.2:3000/users/me/compatibles',
+        headers: {
+          Authorization: 'Bearer ' + user_token,
+        },
+      }).then((result) => {
+        // console.log('\n\nMatch: ', result.data);
+        setState(result.data);
+        const DATA = result.data.map((value) => {
+          return {
+            name: value.prenom,
+            photo: value.avatar,
+          };
+        });
+        setTimeout(() => {
+          setState(DATA);
+          console.log('\n\n matches: ', state);
+          setLoading(false);
+        }, 2000);
+      });
+    });
+  }, []);
+
+  if (loading) {
     return (
-      <Modal
-        animationType="fade"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-        }}>
-        <View style={styles.modalView}>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-            }}>
-            <Text style={styles.text}>Avantages premium</Text>
-            <TouchableOpacity
-              onPress={() => {
-                setModalVisible(false);
-              }}>
-              <Icon
-                name="close-circle"
-                type="MaterialCommunityIcons"
-                size={40}
-                color="red"
-              />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.divider} />
-          <Text style={styles.textInfo}>- Envoyer des messages</Text>
-          <Text style={styles.textInfo}>
-            - Filtrer les utilisateurs selon plusieurs paramètres
-          </Text>
-          <Text style={styles.textInfo}>- Revoir les utilisateurs passés</Text>
-          <Text style={styles.text}> Prix: xx/mois</Text>
-          <View style={{ marginTop: 100 }}>
-            <Button
-              title="Procéder au payement"
-              onPress={() => {
-                setModalVisible(false);
-              }}
-            />
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
+
+  const renderItem = ({ item }) => {
+    return (
+      <View style={styles.userContainer}>
+        <View>
+          <Image
+            source={
+              item.photo === undefined || item.photo.length == 0
+                ? images.userPic3
+                : item.photo
+            }
+            style={{ height: 50, width: 50, borderRadius: 50 }}
+          />
+        </View>
+        <View style={{ width: '70%' }}>
+          <Text style={styles.textInfo}>{item.name}</Text>
+          <View style={styles.messageContainer}>
+            <Text> 1 NOUVEAU MESSAGE</Text>
           </View>
         </View>
-      </Modal>
+        <View style={{ justifyContent: 'space-between' }}>
+          <Icon type="AntDesign" name="message1" size={35} />
+          <Icon type="MaterialCommunityIcons" name="link-off" size={35} />
+        </View>
+      </View>
     );
   };
 
-  return (
+  return premium ? (
     <View style={styles.container}>
-      <Premium />
-      <Icon name="lock" type="MaterialCommunityIcons" size={100} />
-      <View>
-        <Text style={styles.text}>
-          Cette fonctionnalité est réservée aux membres premium seulement
-        </Text>
-      </View>
-      <Image
-        source={images.logo}
-        style={{ height: 200, width: 200, marginVertical: 10 }}
-      />
-      <Button
-        title="Acheter premium"
-        onPress={() => {
-          setModalVisible(true);
-        }}
+      <FlatList
+        data={state}
+        keyExtractor={(item) => item.id}
+        renderItem={renderItem}
       />
     </View>
+  ) : (
+    <BuyPremium />
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    alignContent: 'center',
     backgroundColor: 'white',
   },
-  modalView: {
-    height: '80%',
-    margin: 20,
-    width: '90%',
-    backgroundColor: '#F9E7E7',
-    borderRadius: 20,
+  userContainer: {
     padding: 10,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    margin: 5,
+    borderColor: 'black',
+    borderWidth: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    backgroundColor: '#F9E7E7',
+  },
+  messageContainer: {
+    justifyContent: 'center',
+    borderRadius: 20,
+    backgroundColor: 'white',
+    padding: 10,
   },
   text: {
     fontFamily: 'DancingScript-Bold',
@@ -120,13 +126,12 @@ const styles = StyleSheet.create({
   textInfo: {
     fontFamily: 'monospace',
     color: 'black',
-    fontSize: 20,
-    marginHorizontal: 5,
-    marginVertical: 20,
+    fontSize: 17,
+    marginHorizontal: 10,
   },
   divider: {
     marginVertical: 10,
-    borderBottomColor: 'white',
+    borderBottomColor: 'black',
     borderBottomWidth: 1,
   },
 });

@@ -31,9 +31,9 @@ const Home = ({ navigation }) => {
           } else if (route.name === 'Drawer') {
             iconName = focused ? images.menuIconActif : images.menu;
           } else if (route.name === 'Messages') {
-            iconName = focused ? images.messages : images.messages;
+            iconName = focused ? images.messagesActif : images.messages;
           } else if (route.name === 'Notifications') {
-            iconName = focused ? images.match : images.match;
+            iconName = focused ? images.matchActif : images.match;
           }
           return route.name === 'Drawer' ? (
             <TabBarIcon

@@ -211,7 +211,16 @@ const Match = () => {
                   size={25}
                   color="white"
                 />
-                {state[active].prenom}, {age(state[active].birthday)} ans
+                {state[active].prenom}
+              </Text>
+              <Text style={styles.textInfo}>
+                <Icon
+                  name="face-profile"
+                  type="MaterialCommunityIcons"
+                  size={25}
+                  color="white"
+                />
+                {age(state[active].birthday)} ans
               </Text>
               <Text style={styles.textInfo}>
                 <Icon
