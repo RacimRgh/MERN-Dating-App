@@ -7,7 +7,7 @@ import Icon from 'react-native-dynamic-vector-icons';
 import TabBarIcon from '../components/TabBarIcon';
 import images from '../services/Images';
 import ProfileScreen from './ProfileScreen';
-import NotificationsScreen from './NotificationsScreen';
+import MatchesScreen from './MatchesScreen';
 import MessagesScreen from './MessagesScreen';
 import SearchScreen from './SearchScreen';
 import DrawerScreen from './DrawerScreen';
@@ -32,7 +32,7 @@ const Home = ({ navigation }) => {
             iconName = focused ? images.menuIconActif : images.menu;
           } else if (route.name === 'Messages') {
             iconName = focused ? images.messagesActif : images.messages;
-          } else if (route.name === 'Notifications') {
+          } else if (route.name === 'Compatibles') {
             iconName = focused ? images.matchActif : images.match;
           }
           return route.name === 'Drawer' ? (
@@ -64,7 +64,7 @@ const Home = ({ navigation }) => {
       />
       <Tab.Screen name="Recherche" component={SearchScreen} />
       <Tab.Screen name="Messages" component={MessagesScreen} />
-      <Tab.Screen name="Notifications" component={NotificationsScreen} />
+      <Tab.Screen name="Compatibles" component={MatchesScreen} />
     </Tab.Navigator>
   );
 };

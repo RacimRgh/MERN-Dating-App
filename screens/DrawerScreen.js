@@ -1,21 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet, Dimensions, Text } from 'react-native';
 import {
   DrawerContentScrollView,
   DrawerItemList,
   DrawerItem,
 } from '@react-navigation/drawer';
-import Icon from 'react-native-dynamic-vector-icons';
-import DrawerHeader from '../components/DrawerHeader';
-import { AuthContext } from '../services/context';
 const { width, height } = Dimensions.get('window');
+import Icon from 'react-native-dynamic-vector-icons';
+import { AuthContext } from '../services/context';
+import DrawerHeader from '../components/DrawerHeader';
+import NotificationsScreen from './NotificationsScreen';
 /* The Drawer screens that pops up when swiping right 
 or clicking the drawer button in the tab navigator
 (Bottom left button in the home menu)
 */
+
 const DrawerScreen = (props) => {
   const { onPressLogout, navigation } = props;
   const { signOut } = React.useContext(AuthContext);
+  const [modal, setModal] = useState(false);
+
+  const ManageModal = () => {
+    setModal(!modal);
+  };
   /* comment to explain all the drawer items later
    */
   return (
@@ -23,6 +30,7 @@ const DrawerScreen = (props) => {
       contentContainerStyle={styles.content}
       style={styles.drawerContainer}
       {...props}>
+      <NotificationsScreen closeModal={ManageModal} modalVisible={modal} />
       <DrawerHeader {...props} />
       <View style={styles.container}>
         <DrawerItem
@@ -37,6 +45,14 @@ const DrawerScreen = (props) => {
               color="black"
               type="SimpleLineIcons"
             />
+          )}
+        />
+        <DrawerItem
+          label="Notifications"
+          onPress={() => setModal(true)}
+          labelStyle={{ fontSize: 18 }}
+          icon={({ focused, color, size }) => (
+            <Icon size={25} name="bell" color="black" type="SimpleLineIcons" />
           )}
         />
         <DrawerItem

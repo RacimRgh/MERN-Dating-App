@@ -1,42 +1,33 @@
 import React, { useState } from 'react';
-import { View, Text, Modal, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-dynamic-vector-icons';
 import images from '../services/Images';
 
 // Notifications screens
-const NotificationsScreen = (props) => {
-  const { closeModal, modalVisible } = props;
+const MatchesScreen = ({ navigation }) => {
   return (
-    <Modal
-      animationType="slide"
-      transparent={true}
-      visible={modalVisible}
-      onRequestClose={() => {
-        Alert.alert('Modal has been closed.');
-      }}>
-      <View style={styles.container}>
-        <View style={styles.section}>
-          <Text style={styles.tabTitle}> Vous avez 0 Notifications</Text>
-          <Text style={styles.tabTitle}>
-            Likez des utilisateurs pour avoir des matchs !
-          </Text>
-          <View style={styles.divider} />
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              // navigation.navigate('Recherche');
-              closeModal();
-            }}>
-            <Text style={styles.titles}>Fermer</Text>
-          </TouchableOpacity>
-        </View>
+    <View style={styles.container}>
+      <View style={styles.section}>
+        <Text style={styles.tabTitle}> Vous avez 0 Notifications</Text>
+        <Text style={styles.tabTitle}>
+          Likez des utilisateurs pour avoir des matchs !
+        </Text>
+        <View style={styles.divider} />
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            navigation.navigate('Recherche');
+          }}>
+          <Text style={styles.titles}>Aller</Text>
+        </TouchableOpacity>
       </View>
-    </Modal>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     alignItems: 'center',
     backgroundColor: 'white',
   },
@@ -102,4 +93,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NotificationsScreen;
+export default MatchesScreen;
