@@ -28,6 +28,7 @@ const Match = () => {
   const [active, setActive] = useState(0);
   const [noMatch, setNoMatch] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
+  const [matchModal, setMatchModal] = useState(false);
   const pics = [
     images.userPic1,
     images.userPic4,
@@ -44,7 +45,7 @@ const Match = () => {
           Authorization: 'Bearer ' + user_token,
         },
       }).then((result) => {
-        console.log('\n\nMatch: ', result.data.length);
+        console.log('\n\nMatch: ', result.data);
         setState(result.data);
         setTimeout(() => {
           setLoading(false);
@@ -52,6 +53,97 @@ const Match = () => {
       });
     });
   }, []);
+
+  const SendLike = ({ id }) => {
+    console.log(id);
+    deviceStorage.loadJWT().then((user_token) => {
+      axios({
+        method: 'POST',
+        url: 'http://10.0.2.2:3000/compatibles',
+        headers: {
+          Authorization: 'Bearer ' + user_token,
+        },
+        data: {
+          userliked: id,
+        },
+      }).then((result) => {
+        console.log('\n\nLiked: ', typeof result.data);
+        if (typeof result.data == 'object') {
+          setMatchModal(true);
+        }
+        // setState(result.data);
+        setTimeout(() => {
+          // setLoading(false);
+        }, 2000);
+      });
+    });
+  };
+
+  const MatchModal = () => {
+    return (
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={matchModal}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+        }}>
+        <View style={styles.modalView}>
+          <View style={styles.container}>
+            <Text
+              style={{
+                fontSize: 25,
+                fontFamily: 'DancingScript-Bold',
+              }}>
+              VOUS AVEZ UN COMPATIBLE !
+            </Text>
+            <Image source={images.logo} style={{ height: 100, width: 100 }} />
+          </View>
+          <View style={styles.container}>
+            <Image
+              style={{
+                width: 350,
+                height: 350,
+                borderRadius: 100,
+              }}
+              imageStyle={{ borderRadius: 100 }}
+              source={
+                state[active].avatar == undefined ||
+                state[active].avatar.length == 0
+                  ? pics[2]
+                  : state[active].avatar
+              }
+            />
+            <Text
+              style={{
+                fontSize: 25,
+                fontFamily: 'DancingScript-Bold',
+              }}>
+              {state[active].nom.toUpperCase()} {state[active].prenom}
+            </Text>
+          </View>
+          <View
+            style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+            <TouchableOpacity style={{ alignItems: 'center' }}>
+              <Icon name="new-message" type="Entypo" size={40} color="red" />
+              <Text>Envoyer un message</Text>
+            </TouchableOpacity>
+          </View>
+          <TouchableOpacity
+            style={{ alignItems: 'center' }}
+            onPress={() => setMatchModal(false)}>
+            <Icon
+              name="circle-with-cross"
+              type="Entypo"
+              size={40}
+              color="red"
+            />
+            <Text>Fermer</Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
+    );
+  };
 
   const SeeMoreModal = () => {
     return (
@@ -168,6 +260,7 @@ const Match = () => {
   return (
     <View style={styles.container}>
       <SeeMoreModal />
+      <MatchModal />
       <ImageBackground
         style={{
           width: width * 0.95,
@@ -204,33 +297,37 @@ const Match = () => {
               </View>
             </TouchableOpacity>
             <View>
-              <Text style={styles.textInfo}>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <Icon
                   name="face-profile"
                   type="MaterialCommunityIcons"
                   size={25}
                   color="white"
                 />
-                {state[active].prenom}
-              </Text>
-              <Text style={styles.textInfo}>
+                <Text style={styles.textInfo}>{state[active].prenom}</Text>
+              </View>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <Icon
-                  name="face-profile"
-                  type="MaterialCommunityIcons"
+                  name="birthday-cake"
+                  type="FontAwesome"
                   size={25}
                   color="white"
                 />
-                {age(state[active].birthday)} ans
-              </Text>
-              <Text style={styles.textInfo}>
+                <Text style={styles.textInfo}>
+                  {age(state[active].birthday)} ans
+                </Text>
+              </View>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <Icon
                   name="location-on"
                   type="MaterialIcons"
                   size={25}
                   color="white"
                 />
-                {state[active].city}, {state[active].country}
-              </Text>
+                <Text style={styles.textInfo}>
+                  {state[active].city}, {state[active].country}
+                </Text>
+              </View>
             </View>
           </View>
         </View>
@@ -263,31 +360,7 @@ const Match = () => {
             <Text style={styles.iconText}>Revenir</Text>
           </View>
         </TouchableOpacity>
-        {/* <TouchableOpacity>
-          <View style={styles.choiceIcon}>
-            <Icon size={50} name="report" type="MaterialIcons" color="black" />
-            <Text style={{ fontFamily: 'DancingScript-Bold', fontSize: 20 }}>
-              Signaler
-            </Text>
-          </View>
-        </TouchableOpacity> */}
-        {/* <ImageBackground
-          source={images.ellipseWhite}
-          style={{
-            width: 80,
-            height: 90,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-          <Icon
-            size={30}
-            name="percent"
-            type="MaterialCommunityIcons"
-            color="black"
-          />
-          <Text style={styles.iconText}>{state[active].compatibility}</Text>
-        </ImageBackground> */}
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => SendLike({ id: state[active].id })}>
           <View style={styles.choiceIcon}>
             <Image source={images.like} style={{ width: 40, height: 40 }} />
             <Text style={styles.iconText}>Like</Text>

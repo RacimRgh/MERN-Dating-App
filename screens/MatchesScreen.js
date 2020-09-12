@@ -1,14 +1,55 @@
-import React, { useState } from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  ActivityIndicator,
+  FlatList,
+} from 'react-native';
+import axios from 'axios';
 import Icon from 'react-native-dynamic-vector-icons';
+// Local imports
 import images from '../services/Images';
+import deviceStorage from '../services/deviceStorage';
+import { age } from './ProfileScreen';
 
-// Notifications screens
+// Matches screens
 const MatchesScreen = ({ navigation }) => {
-  return (
-    <View style={styles.container}>
+  const [loading, setLoading] = useState(true);
+  const [state, setState] = useState([]);
+  useEffect(() => {
+    deviceStorage.loadJWT().then((user_token) => {
+      axios({
+        method: 'GET',
+        url: 'http://10.0.2.2:3000/compatibles',
+        headers: {
+          Authorization: 'Bearer ' + user_token,
+        },
+      }).then((result) => {
+        console.log('\n\nMatches: ', result.data);
+        setState(result.data);
+        setTimeout(() => {
+          setLoading(false);
+        }, 2000);
+      });
+    });
+  }, []);
+
+  if (loading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
+  const NoMatch = () => {
+    return (
       <View style={styles.section}>
-        <Text style={styles.tabTitle}> Vous avez 0 Notifications</Text>
+        <Text style={styles.tabTitle}>
+          Vous n'avez pas de compatibles pour le moment
+        </Text>
         <Text style={styles.tabTitle}>
           Likez des utilisateurs pour avoir des matchs !
         </Text>
@@ -21,20 +62,76 @@ const MatchesScreen = ({ navigation }) => {
           <Text style={styles.titles}>Aller</Text>
         </TouchableOpacity>
       </View>
+    );
+  };
+
+  const Item = ({ item }) => {
+    return (
+      <View style={styles.item}>
+        <Image
+          style={{ height: 150, width: '90%', borderRadius: 90 }}
+          source={
+            item.avatar == undefined || item.avatar.length == 0
+              ? images.userPic3
+              : item.avatar
+          }
+        />
+        <Text style={styles.contentText}>{item.prenom}</Text>
+        <Text style={styles.contentText}>{age(item.birthdaydate)} ans</Text>
+        <Text style={styles.contentText}>
+          {item.cityName}, {item.countryName}
+        </Text>
+        <View
+          style={{
+            flexDirection: 'row',
+          }}>
+          <TouchableOpacity style={styles.button}>
+            <Icon name="unlink" type="FontAwesome" size={35} color="black" />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              navigation.navigate('Messages');
+            }}>
+            <Icon name="message" type="Feather" size={35} color="black" />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button}>
+            <Icon name="profile" type="AntDesign" size={35} color="black" />
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  };
+
+  return (
+    <View style={styles.container}>
+      {state.length == 0 ? (
+        <NoMatch />
+      ) : (
+        <FlatList
+          data={state}
+          renderItem={({ item }) => <Item item={item} />}
+          keyExtractor={(item) => item.id}
+          numColumns={2}
+          columnWrapperStyle={{
+            justifyContent: 'space-around',
+            margin: 1,
+          }}
+        />
+      )}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: '#D2CBCB',
     flex: 1,
-    alignItems: 'center',
     backgroundColor: 'white',
   },
   section: {
     backgroundColor: '#D2CBCB',
-    borderRadius: 10,
-    margin: 8,
+    width: '100%',
     padding: 10,
     paddingBottom: 15,
     shadowColor: '#000',
@@ -61,10 +158,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     alignSelf: 'center',
-    backgroundColor: '#F9E7E7',
-    borderRadius: 50,
     padding: 10,
-    width: '50%',
+    marginHorizontal: 5,
+    backgroundColor: '#D2CBCB',
+    borderRadius: 50,
     shadowColor: '#000',
     shadowOffset: { width: 1, height: 1 },
     shadowOpacity: 0.3,
@@ -72,13 +169,13 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   titles: {
-    fontWeight: 'bold',
-    fontSize: 20,
+    fontFamily: 'DancingScript-Bold',
+    fontSize: 30,
     marginHorizontal: 10,
   },
   divider: {
     marginVertical: 10,
-    borderBottomColor: 'white',
+    borderBottomColor: 'black',
     borderBottomWidth: 1,
   },
   tabTitle: {
@@ -88,8 +185,21 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   contentText: {
-    fontSize: 18,
-    alignSelf: 'center',
+    fontSize: 25,
+    fontFamily: 'DancingScript-Bold',
+    alignSelf: 'flex-start',
+    marginLeft: 10,
+  },
+  item: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: 20,
+    paddingVertical: 20,
+    width: '48%',
+    borderRadius: 50,
+    backgroundColor: '#F9E7E7',
+    borderWidth: 1,
+    borderColor: '#D2CBCB',
   },
 });
 

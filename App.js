@@ -160,8 +160,8 @@ const App = () => {
         city,
       }) => {
         const results = await signInUser({
-          nom: firstname,
-          prenom: lastname,
+          nom: lastname,
+          prenom: firstname,
           email: userEmail,
           password: password,
           birthdaydate: birthday,

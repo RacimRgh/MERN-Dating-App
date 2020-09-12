@@ -22,6 +22,23 @@ const { width, height } = Dimensions.get('window');
   there are 5 different tabs: General info, Astrology, Taste, LifeStyle and 
 */
 
+export const age = (birthDate) => {
+  birthDate = new Date(birthDate);
+  const otherDate = new Date();
+
+  var years = otherDate.getFullYear() - birthDate.getFullYear();
+
+  if (
+    otherDate.getMonth() < birthDate.getMonth() ||
+    (otherDate.getMonth() == birthDate.getMonth() &&
+      otherDate.getDate() < birthDate.getDate())
+  ) {
+    years--;
+  }
+
+  return years;
+};
+
 const ProfileScreen = ({ navigation }) => {
   const [activeIcon, setActiveIcon] = useState(3);
   const [isLoading, setIsLoading] = useState(true);
@@ -72,22 +89,7 @@ const ProfileScreen = ({ navigation }) => {
       </View>
     );
   }
-  const age = (birthDate) => {
-    birthDate = new Date(birthDate);
-    const otherDate = new Date();
 
-    var years = otherDate.getFullYear() - birthDate.getFullYear();
-
-    if (
-      otherDate.getMonth() < birthDate.getMonth() ||
-      (otherDate.getMonth() == birthDate.getMonth() &&
-        otherDate.getDate() < birthDate.getDate())
-    ) {
-      years--;
-    }
-
-    return years;
-  };
   return (
     <ScrollView style={{ flex: 1 }} contentContainerStyle={styles.container}>
       <View style={styles.imageContainer}>
@@ -231,4 +233,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
 export default ProfileScreen;

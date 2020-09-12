@@ -38,11 +38,6 @@ const AstroTab = (props) => {
           <Image source={signsIcons[item.title]} style={styles.icons} />
           <Text style={styles.contentText}>{signs[item.title]} </Text>
         </View>
-        {/* <Text style={styles.text}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-          ullamcorper purus sed risus condimentum pulvinar. Sed sit amet urna id
-          lacus eleifend tristique. Sed tristique placerat rhoncus.
-        </Text> */}
       </ImageBackground>
       <View style={styles.divider} />
     </TouchableOpacity>
