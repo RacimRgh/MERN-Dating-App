@@ -73,8 +73,9 @@ const Match = () => {
         }
         // setState(result.data);
         setTimeout(() => {
+          onPressNext();
           // setLoading(false);
-        }, 2000);
+        }, 1000);
       });
     });
   };
@@ -332,7 +333,6 @@ const Match = () => {
           </View>
         </View>
         <View
-          // source={images.ellipseWhite}
           style={{
             justifyContent: 'center',
             alignItems: 'center',

@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   FlatList,
+  TextInput,
 } from 'react-native';
 import axios from 'axios';
 import Icon from 'react-native-dynamic-vector-icons';
@@ -19,6 +20,7 @@ import { age } from './ProfileScreen';
 const MatchesScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
   const [state, setState] = useState([]);
+  const [searchValue, setSearchValue] = useState('');
   useEffect(() => {
     deviceStorage.loadJWT().then((user_token) => {
       axios({
@@ -108,16 +110,40 @@ const MatchesScreen = ({ navigation }) => {
       {state.length == 0 ? (
         <NoMatch />
       ) : (
-        <FlatList
-          data={state}
-          renderItem={({ item }) => <Item item={item} />}
-          keyExtractor={(item) => item.id}
-          numColumns={2}
-          columnWrapperStyle={{
-            justifyContent: 'space-around',
-            margin: 1,
-          }}
-        />
+        <View>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <TextInput
+              placeholder="Rechercher un compatible"
+              style={{
+                borderRadius: 50,
+                margin: 10,
+                borderWidth: 1,
+                borderColor: '#D2CBCB',
+                paddingLeft: 10,
+                width: '80%',
+              }}
+              onChangeText={(val) => setSearchValue(val)}
+            />
+            <TouchableOpacity>
+              <Icon type="AntDesign" name="search1" size={35} />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.divider} />
+          <Text style={styles.titles}>
+            Nombre de compatibles: {state.length}
+          </Text>
+          <View style={styles.divider} />
+          <FlatList
+            data={state}
+            renderItem={({ item }) => <Item item={item} />}
+            keyExtractor={(item) => item.id}
+            numColumns={2}
+            columnWrapperStyle={{
+              justifyContent: 'space-around',
+              margin: 1,
+            }}
+          />
+        </View>
       )}
     </View>
   );
@@ -175,7 +201,7 @@ const styles = StyleSheet.create({
   },
   divider: {
     marginVertical: 10,
-    borderBottomColor: 'black',
+    borderBottomColor: '#D2CBCB',
     borderBottomWidth: 1,
   },
   tabTitle: {
