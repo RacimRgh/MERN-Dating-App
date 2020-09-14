@@ -46,7 +46,7 @@ const Match = () => {
         },
       }).then((result) => {
         console.log('\n\nMatch: ', result.data);
-        setState(result.data);
+        result.data.length == 0 ? setNoMatch(true) : setState(result.data);
         setTimeout(() => {
           setLoading(false);
         }, 2000);
@@ -111,7 +111,9 @@ const Match = () => {
               source={
                 state[active].avatar == undefined ||
                 state[active].avatar.length == 0
-                  ? pics[2]
+                  ? state[active].gender == 'Homme'
+                    ? images.userPic3
+                    : images.userPic4
                   : state[active].avatar
               }
             />
@@ -273,7 +275,9 @@ const Match = () => {
         imageStyle={{ borderRadius: 30 }}
         source={
           state[active].avatar == undefined || state[active].avatar.length == 0
-            ? pics[2]
+            ? state[active].gender == 'Homme'
+              ? images.userPic3
+              : images.userPic4
             : state[active].avatar
         }>
         <View style={styles.infoContainer}>

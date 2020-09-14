@@ -29,7 +29,13 @@ const DrawerHeader = (props) => {
     <View style={styles.header}>
       <View style={styles.account}>
         <ImageBackground
-          source={state.initialState.avatar}
+          source={
+            state.initialState.avatar == undefined
+              ? state.initialState.gender == 'Homme'
+                ? images.userPic3
+                : images.userPic4
+              : state.initialState.avatar
+          }
           imageStyle={{
             borderRadius: 200,
           }}

@@ -11,6 +11,7 @@ let initialState = {
   birthhour: '',
   country: '',
   city: '',
+  gender: '',
   themeAstral: {},
   description: {},
   avatar: [],
@@ -66,6 +67,7 @@ const StateProvider = ({ children }) => {
             initialState.description = result.data.description;
             initialState.themeAstral = result.data.themeastral;
             initialState.avatar = result.data.avatars;
+            initialState.gender = result.data.Gender;
             // };
           });
           // console.log('\n\nSTATE: ', initialState);

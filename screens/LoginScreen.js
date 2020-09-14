@@ -52,6 +52,7 @@ const LoginScreen = (props) => {
     birthhour: '',
     country: '',
     city: '',
+    gender: '',
     check_textInputChange: false,
     secureTextEntry: true,
     confirm_secureTextEntry: true,
@@ -101,6 +102,12 @@ const LoginScreen = (props) => {
     setData({
       ...data,
       city: val,
+    });
+  };
+  const genderInputChange = (val) => {
+    setData({
+      ...data,
+      gender: val,
     });
   };
   const handlePasswordChange = (val) => {
@@ -189,6 +196,7 @@ const LoginScreen = (props) => {
                 birthhour: data.birthday.toISOString().slice(11, 16),
                 country: data.country,
                 city: data.city,
+                gender: data.gender,
               })
                 .then(() => {
                   setModalVisible(true);
@@ -263,6 +271,7 @@ const LoginScreen = (props) => {
                 dateOnChange={(val) => dateInputChange(val)}
                 countryOnChange={(val) => countryInputChange(val)}
                 cityOnChange={(val) => cityInputChange(val)}
+                genderInputChange={(val) => genderInputChange(val)}
                 updateSecureTextEntry={() => updateSecureTextEntry()}
                 updateConfirmSecureTextEntry={() =>
                   updateConfirmSecureTextEntry()

@@ -64,10 +64,7 @@ const ProfileScreen = ({ navigation }) => {
         //   '\n\n\nProfile Screen 1:______________\n',
         //   state.description,
         // );
-        console.log(
-          '\n\n\nProfile Screen 2:______________\n',
-          fullState.avatar,
-        );
+        console.log('\n\n\nProfile Screen 2:______________\n', fullState);
         setPhoto(fullState.avatar);
         setIsLoading(false);
       }, 5000);
@@ -96,7 +93,11 @@ const ProfileScreen = ({ navigation }) => {
         <ImageBackground
           defaultSource={images.userPic3}
           source={
-            fullState.avatar == undefined ? images.userPic3 : fullState.avatar
+            fullState.avatar == undefined
+              ? fullState.gender == 'Homme'
+                ? images.userPic3
+                : images.userPic4
+              : fullState.avatar
           }
           imageStyle={{
             borderRadius: 200,

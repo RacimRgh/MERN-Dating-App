@@ -158,6 +158,7 @@ const App = () => {
         birthhour,
         country,
         city,
+        gender,
       }) => {
         const results = await signInUser({
           nom: lastname,
@@ -168,6 +169,7 @@ const App = () => {
           birthHour: birthhour,
           countryName: country,
           cityName: city,
+          Gender: gender,
         });
         dispatch({
           type: 'REGISTER',

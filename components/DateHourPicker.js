@@ -1,40 +1,27 @@
 import React, { useState } from 'react';
 import Icon from 'react-native-dynamic-vector-icons';
-import {
-  View,
-  Platform,
-  StyleSheet,
-  TouchableOpacity,
-  Text,
-  TextInput,
-} from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { isAndroid, isIPhoneXFamily } from '@freakycoder/react-native-helpers';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 const DateHourPicker = (props) => {
   const [date, setDate] = useState(new Date());
-  const [mode, setMode] = useState('date');
-  const [show, setShow] = useState(false);
+  const [mode, setMode] = useState({ mode: 'date', show: false });
 
   const { onChangeDate } = props;
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
-    setShow(!show);
+    setMode({ ...mode, show: !mode.show });
     setDate(currentDate);
     onChangeDate(currentDate);
   };
 
-  const showMode = (currentMode) => {
-    setMode(currentMode);
-    setShow(!show);
-  };
-
   const showDatepicker = () => {
-    showMode('date');
+    setMode({ mode: 'date', show: !mode.show });
   };
 
   const showTimepicker = () => {
-    showMode('time');
+    setMode({ mode: 'time', show: !mode.show });
   };
 
   return (
@@ -58,11 +45,11 @@ const DateHourPicker = (props) => {
             </View>
           </View>
         </TouchableOpacity>
-        {show && (
+        {mode.show && (
           <DateTimePicker
             testID="dateTimePicker"
             value={date}
-            mode={mode}
+            mode={mode.mode}
             is24Hour={true}
             display="default"
             onChange={onChange}
@@ -88,11 +75,11 @@ const DateHourPicker = (props) => {
             </View>
           </View>
         </TouchableOpacity>
-        {show && (
+        {mode.show && (
           <DateTimePicker
             testID="dateTimePicker"
             value={date}
-            mode={mode}
+            mode={mode.mode}
             is24Hour={true}
             display="default"
             onChange={onChange}

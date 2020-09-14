@@ -27,6 +27,7 @@ const BottomContainer = (props) => {
     dateOnChange,
     countryOnChange,
     cityOnChange,
+    genderInputChange,
 
     updateSecureTextEntry,
     updateConfirmSecureTextEntry,
@@ -137,7 +138,9 @@ const BottomContainer = (props) => {
                 elevation: 2,
               }}
               dropdownTextStyle={styles.textStyle}
-              onSelect={(idx, data) => {}}
+              onSelect={(idx, data) => {
+                genderInputChange(data);
+              }}
             />
           </View>
         </View>
