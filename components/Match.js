@@ -29,12 +29,6 @@ const Match = () => {
   const [noMatch, setNoMatch] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [matchModal, setMatchModal] = useState(false);
-  const pics = [
-    images.userPic1,
-    images.userPic4,
-    images.userPic3,
-    images.userPic2,
-  ];
 
   useEffect(() => {
     deviceStorage.loadJWT().then((user_token) => {
@@ -64,7 +58,7 @@ const Match = () => {
           Authorization: 'Bearer ' + user_token,
         },
         data: {
-          userliked: id,
+          _id: id,
         },
       }).then((result) => {
         console.log('\n\nLiked: ', typeof result.data);

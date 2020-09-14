@@ -245,7 +245,7 @@ const LoginScreen = (props) => {
   };
 
   return (
-    <KeyboardAvoidingView behavior="position" style={styles.container}>
+    <KeyboardAvoidingView behavior="height" style={styles.container}>
       <SuccessSignUp />
       <View style={styles.container}>
         <ImageBackground
