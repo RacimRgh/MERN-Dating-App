@@ -38,7 +38,7 @@ const DateHourPicker = (props) => {
               />
             </View>
             <View style={styles.textContainer}>
-              <Text style={styles.textStyle}>Date of birth</Text>
+              <Text style={styles.textStyle}>Date de naissance *</Text>
               <Text style={styles.textTime}>
                 {date.toISOString().slice(0, 10)}
               </Text>
@@ -68,7 +68,7 @@ const DateHourPicker = (props) => {
               />
             </View>
             <View style={styles.textContainer}>
-              <Text style={styles.textStyle}>Hour of birth</Text>
+              <Text style={styles.textStyle}>Heure de naissance</Text>
               <Text style={styles.textTime}>
                 {date.toISOString().slice(11, 16)}
               </Text>

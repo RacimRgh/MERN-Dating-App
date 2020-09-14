@@ -14,6 +14,7 @@ const BottomContainer = (props) => {
     validLogin,
     validEmail,
     validPassword,
+    validConfirmation,
     cardState,
     onPressChange,
     backgroundColor,
@@ -34,6 +35,8 @@ const BottomContainer = (props) => {
     secureText,
     confirmSecureText,
   } = props;
+
+  console.log('\n\nvalidation: ', validLogin);
 
   renderLoginCards = () => {
     return (
@@ -65,9 +68,10 @@ const BottomContainer = (props) => {
   renderSignupCards = () => {
     return (
       <View>
+        <Text style={styles.errorMessage}>*obligatoire</Text>
         <Card
           nameIcon="envelope-open"
-          title="E-mail"
+          title="E-mail *"
           placeholder="john@doe.com"
           onChangeText={emailOnChange}
           isPassword={false}
@@ -77,7 +81,7 @@ const BottomContainer = (props) => {
         )}
         <Card
           nameIcon="user"
-          title="Prénom"
+          title="Prénom *"
           placeholder="Entrez votre prénom"
           onChangeText={firstnameOnChange}
           isPassword={false}
@@ -87,7 +91,7 @@ const BottomContainer = (props) => {
         )}
         <Card
           nameIcon="user"
-          title="Nom"
+          title="Nom *"
           placeholder="Entrez votre nom de famille"
           onChangeText={lastnameOnChange}
           isPassword={false}
@@ -97,7 +101,7 @@ const BottomContainer = (props) => {
         )}
         <Card
           nameIcon="lock"
-          title="Mot de passe"
+          title="Mot de passe *"
           placeholder="Entrez votre mot de passe"
           onChangeText={passwordOnChange}
           onPressSecure={updateSecureTextEntry}
@@ -111,20 +115,30 @@ const BottomContainer = (props) => {
         )}
         <Card
           nameIcon="lock"
-          title="Confirmation du mot de passe"
+          title="Confirmation du mot de passe *"
           placeholder="Retapez votre mot de passe"
           onChangeText={repasswordOnChange}
           onPressSecure={updateConfirmSecureTextEntry}
           secureText={confirmSecureText}
           isPassword={true}
         />
+        {validLogin.confirmPass ? null : (
+          <Text style={styles.errorMessage}>
+            Veuillez confirmer votre mot de passe.
+          </Text>
+        )}
+        {validConfirmation ? null : (
+          <Text style={styles.errorMessage}>
+            Vos mots de passe ne correspondent pas.
+          </Text>
+        )}
         {/* GENDER PICKER */}
         <View style={styles.ovalcontainer}>
           <View style={styles.ovalcontainerglue}>
             <Icon size={25} type="SimpleLineIcons" name="list" color="black" />
           </View>
           <View style={{ width: '80%' }}>
-            <Text style={styles.textStyle}>Gendre</Text>
+            <Text style={styles.textStyle}>Gendre *</Text>
             <ModalDropdown
               options={['Homme', 'Femme']}
               textStyle={styles.textStyle}
@@ -144,6 +158,11 @@ const BottomContainer = (props) => {
             />
           </View>
         </View>
+        {validLogin.gender ? null : (
+          <Text style={styles.errorMessage}>
+            Veuillez selectionner votre gendre.
+          </Text>
+        )}
         {/* COUNTRY PICKER */}
         <View style={styles.ovalcontainer}>
           <View style={styles.ovalcontainerglue}>
@@ -155,8 +174,9 @@ const BottomContainer = (props) => {
             />
           </View>
           <View style={{ width: '80%' }}>
-            <Text style={styles.textStyle}>Pays de naissance</Text>
+            <Text style={styles.textStyle}>Pays de naissance *</Text>
             <ModalDropdown
+              defaultValue="Veillez choisir"
               options={country_arr}
               textStyle={styles.textStyle}
               style={{ width: '90%' }}
@@ -178,7 +198,7 @@ const BottomContainer = (props) => {
         </View>
         {validLogin.country ? null : (
           <Text style={styles.errorMessage}>
-            Veuillez saisir votre pays de naissance.
+            Veuillez selectionner votre pays de naissance.
           </Text>
         )}
         {/* CITY PICKER */}
@@ -192,8 +212,9 @@ const BottomContainer = (props) => {
             />
           </View>
           <View style={{ width: '80%' }}>
-            <Text style={styles.textStyle}>Ville de naissance</Text>
+            <Text style={styles.textStyle}>Ville de naissance *</Text>
             <ModalDropdown
+              defaultValue="Veillez choisir"
               options={s_a[numCountry]}
               textStyle={styles.textStyle}
               style={{ width: '90%' }}
@@ -214,7 +235,7 @@ const BottomContainer = (props) => {
         </View>
         {validLogin.city ? null : (
           <Text style={styles.errorMessage}>
-            Veuillez saisir votre ville de naissance.
+            Veuillez selectionner votre ville de naissance.
           </Text>
         )}
         <DateHourPicker onChangeDate={dateOnChange} />

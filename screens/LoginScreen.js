@@ -39,9 +39,12 @@ const LoginScreen = (props) => {
     prenom: true,
     country: true,
     city: true,
+    gender: true,
+    confirmPass: true,
   });
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [isValidPassword, setIsValidPassword] = useState(true);
+  const [validConfirmation, setValidConfirmation] = useState(true);
   const [data, setData] = React.useState({
     email: '',
     firstname: '',
@@ -168,25 +171,50 @@ const LoginScreen = (props) => {
               );
             }
           : async () => {
-              data.email.length < 7
-                ? setIsValidLogin({ ...isValidLogin, email: false })
-                : setIsValidLogin({ ...isValidLogin, email: true });
-              data.firstname.length < 7
-                ? setIsValidLogin({ ...isValidLogin, prenom: false })
-                : setIsValidLogin({ ...isValidLogin, prenom: true });
-              data.lastname.length < 7
-                ? setIsValidLogin({ ...isValidLogin, nom: false })
-                : setIsValidLogin({ ...isValidLogin, nom: true });
-              console.log('\n\n cunt: ', data.country.length);
+              data.email.length == 0
+                ? setIsValidLogin({ email: false })
+                : setIsValidLogin({ email: true });
+              console.log('\n\n Email: ', data.email.length);
+
+              data.firstname.length == 0
+                ? setIsValidLogin({ prenom: false })
+                : setIsValidLogin({ prenom: true });
+              console.log('\n\n firstname: ', data.firstname.length);
+
+              data.lastname.length == 0
+                ? setIsValidLogin({ nom: false })
+                : setIsValidLogin({ nom: true });
+              console.log('\n\n lastname: ', data.lastname.length);
+
               data.country.length == 0
-                ? setIsValidLogin({ ...isValidLogin, country: false })
-                : setIsValidLogin({ ...isValidLogin, country: true });
+                ? setIsValidLogin({ country: false })
+                : setIsValidLogin({ country: true });
+              console.log('\n\n country: ', data.country.length);
+
               data.city.length == 0
-                ? setIsValidLogin({ ...isValidLogin, city: false })
-                : setIsValidLogin({ ...isValidLogin, city: true });
+                ? setIsValidLogin({ city: false })
+                : setIsValidLogin({ city: true });
+              console.log('\n\n city: ', data.city.length);
+
+              data.gender.length == 0
+                ? setIsValidLogin({ gender: false })
+                : setIsValidLogin({ gender: true });
+              console.log('\n\n gender: ', data.gender.length);
+
+              data.confirm_password.length == 0
+                ? setIsValidLogin({ confirmPass: false })
+                : setIsValidLogin({ confirmPass: true });
+              console.log('\n\n confirm: ', data.confirm_password.length);
+
               data.password.length < 7
                 ? setIsValidPassword(false)
                 : setIsValidPassword(true);
+              console.log('\n\n password: ', data.password.length);
+
+              data.password != data.confirm_password
+                ? setValidConfirmation(false)
+                : setValidConfirmation(true);
+
               await signUp({
                 userEmail: data.email,
                 firstname: data.firstname,
@@ -197,13 +225,10 @@ const LoginScreen = (props) => {
                 country: data.country,
                 city: data.city,
                 gender: data.gender,
-              })
-                .then(() => {
-                  setModalVisible(true);
-                })
-                .catch((response) => {
-                  console.log(('\n\n\nSINGUP RESP: ', response));
-                });
+              }).catch((response) => {
+                console.log(('\n\n\nSINGUP RESP: ', response));
+              });
+              setModalVisible(true);
               signOut();
               setCardState(!cardState);
             }
@@ -262,6 +287,7 @@ const LoginScreen = (props) => {
                 validLogin={isValidLogin}
                 validEmail={isValidEmail}
                 validPassword={isValidPassword}
+                validConfirmation={validConfirmation}
                 cardState={cardState}
                 emailOnChange={(val) => emailInputChange(val)}
                 firstnameOnChange={(val) => firstnameInputChange(val)}
