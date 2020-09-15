@@ -2,11 +2,12 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import { StyleSheet } from 'react-native';
-import Settings from './Settings';
+import { StateProvider } from '../services/store';
 import EditProfile from './EditProfile';
 import Home from './HomeTabs';
+import Settings from './Settings';
 import FilterScreen from './FilterScreen';
-import { StateProvider } from '../services/store';
+import ChatRoom from './ChatRoom';
 
 const RootStack = createStackNavigator();
 /* The RootStackScreen has the Home (the mains app tabs), 
@@ -63,6 +64,19 @@ const RootStackScreen = () => {
       <RootStack.Screen
         name="Filtre"
         component={FilterScreen}
+        options={({ route, navigation }) => ({
+          headerShown: true,
+          headerStyle: styles.header,
+          headerTitleStyle: {
+            fontSize: 30,
+            fontFamily: 'DancingScript-Bold',
+          },
+          headerTitle: getHeaderTitle(route),
+        })}
+      />
+      <RootStack.Screen
+        name="ChatRoom"
+        component={ChatRoom}
         options={({ route, navigation }) => ({
           headerShown: true,
           headerStyle: styles.header,
