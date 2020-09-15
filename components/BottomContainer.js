@@ -36,7 +36,7 @@ const BottomContainer = (props) => {
     confirmSecureText,
   } = props;
 
-  console.log('\n\nvalidation: ', validLogin);
+  // console.log('\n\nvalidation: ', validLogin);
 
   renderLoginCards = () => {
     return (

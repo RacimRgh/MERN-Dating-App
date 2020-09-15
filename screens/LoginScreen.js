@@ -234,7 +234,7 @@ const LoginScreen = (props) => {
             }
       }>
       <Text style={styles.loginButtonTextStyle}>
-        {cardState ? 'LOGIN NOW' : 'SIGN ME UP'}
+        {cardState ? 'CONNEXION' : "M'INSCRIRE"}
       </Text>
     </TouchableOpacity>
   );

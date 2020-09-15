@@ -67,7 +67,6 @@ const Match = () => {
         }
         // setState(result.data);
         setTimeout(() => {
-          onPressNext();
           // setLoading(false);
         }, 1000);
       });
@@ -128,7 +127,10 @@ const Match = () => {
           </View>
           <TouchableOpacity
             style={{ alignItems: 'center' }}
-            onPress={() => setMatchModal(false)}>
+            onPress={() => {
+              setMatchModal(false);
+              onPressNext();
+            }}>
             <Icon
               name="circle-with-cross"
               type="Entypo"
@@ -268,11 +270,11 @@ const Match = () => {
         }}
         imageStyle={{ borderRadius: 30 }}
         source={
-          state[active].avatar == undefined || state[active].avatar.length == 0
+          state[active].photo == undefined || state[active].photo.length == 0
             ? state[active].gender == 'Homme'
               ? images.userPic3
               : images.userPic4
-            : state[active].avatar
+            : state[active].photo
         }>
         <View style={styles.infoContainer}>
           <View style={styles.divider} />

@@ -30,7 +30,7 @@ const MatchesScreen = ({ navigation }) => {
           Authorization: 'Bearer ' + user_token,
         },
       }).then((result) => {
-        console.log('\n\nMatches: ', result.data);
+        console.log('\n\nMatches: ', result);
         setState(result.data);
         setTimeout(() => {
           setLoading(false);
