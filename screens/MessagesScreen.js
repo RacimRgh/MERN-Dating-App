@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
   View,
   Text,
@@ -17,18 +17,20 @@ import axios from 'axios';
 import images from '../services/Images';
 import deviceStorage from '../services/deviceStorage';
 import BuyPremium from '../components/BuyPremium';
+import { store } from '../services/store';
 // Messages screens
 
 const MessagesScreen = ({ navigation }) => {
   const [premium, setPremium] = useState(true);
   const [loading, setLoading] = useState(true);
   const [state, setState] = useState([]);
-
+  const current = useContext(store);
+  console.log(current.state.initialState.id);
   useEffect(() => {
     deviceStorage.loadJWT().then((user_token) => {
       axios({
         method: 'GET',
-        url: 'http://10.0.2.2:3000/users/me/compatibles',
+        url: 'http://10.0.2.2:3000/compatibles',
         headers: {
           Authorization: 'Bearer ' + user_token,
         },
@@ -37,14 +39,15 @@ const MessagesScreen = ({ navigation }) => {
         setState(result.data);
         const DATA = result.data.map((value) => {
           return {
-            id: value.id,
+            otherId: value._id,
+            currentId: current.state.initialState.id,
             name: value.prenom,
             photo: value.avatar,
           };
         });
         setTimeout(() => {
           setState(DATA);
-          console.log('\n\n matches: ', state);
+          // console.log('\n\n matches: ', state);
           setLoading(false);
         }, 2000);
       });
@@ -64,7 +67,8 @@ const MessagesScreen = ({ navigation }) => {
       <TouchableOpacity
         onPress={() =>
           navigation.navigate('ChatRoom', {
-            id: item.id,
+            currentId: item.currentId,
+            otherId: item.otherId,
             name: item.name,
             photo: item.photo,
           })

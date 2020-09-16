@@ -242,7 +242,7 @@ const LoginScreen = (props) => {
   const SuccessSignUp = () => {
     return (
       <Modal
-        animationType="slide"
+        animationType="fade"
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
@@ -253,7 +253,7 @@ const LoginScreen = (props) => {
             onPress={() => {
               setModalVisible(false);
             }}>
-            <Text style={{ fontWeight: 'bold', fontSize: 40 }}>
+            <Text style={{ fontFamily: 'DancingScript-Bold', fontSize: 40 }}>
               Inscription réussie ! vous pouvez vous connecter à votre compte.
             </Text>
             <Icon

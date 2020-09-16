@@ -238,7 +238,6 @@ const Match = () => {
   }
 
   if (noMatch) {
-    console.log('\n\n\n HERE\n\n\n');
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Image source={images.logo} style={{ height: 100, width: 100 }} />

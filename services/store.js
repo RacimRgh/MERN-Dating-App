@@ -4,6 +4,7 @@ import axios from 'axios';
 import deviceStorage from './deviceStorage';
 
 let initialState = {
+  id: '',
   email: '',
   firstname: '',
   lastname: '',
@@ -57,6 +58,7 @@ const StateProvider = ({ children }) => {
           }).then((result) => {
             // console.log('\n\nSTATE: ', result.data);
             // return {
+            initialState.id = result.data._id;
             initialState.email = result.data.email;
             initialState.firstname = result.data.prenom;
             initialState.lastname = result.data.nom;

@@ -26,7 +26,7 @@ const signInUser = (data) => {
     .post('http://10.0.2.2:3000/users', data)
     .then((response) => {
       deviceStorage.saveItem('id_token', response.data.token);
-      console.log('\n**********SIGNUP this: ', response.data);
+      console.log('\n**********SIGNUP this: ', typeof response.data.user);
       return response;
     })
     .catch((error) => {

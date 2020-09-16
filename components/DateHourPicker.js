@@ -23,7 +23,7 @@ const DateHourPicker = (props) => {
   const showTimepicker = () => {
     setMode({ mode: 'time', show: !mode.show });
   };
-
+  console.log('\n\ndate: ', date);
   return (
     <>
       <View style={styles.container}>
