@@ -36,9 +36,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   textStyle: {
-    fontSize: 50,
+    fontSize: 40,
     color: 'white',
-    fontFamily: 'DancingScript-Bold',
+    fontFamily: 'Florence-Regular',
   },
   row: {
     alignItems: 'center',

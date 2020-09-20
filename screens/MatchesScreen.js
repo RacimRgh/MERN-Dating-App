@@ -30,7 +30,7 @@ const MatchesScreen = ({ navigation }) => {
           Authorization: 'Bearer ' + user_token,
         },
       }).then((result) => {
-        console.log('\n\nMatches: ', result);
+        console.log('\n\nMatches: ', result.data);
         setState(result.data);
         setTimeout(() => {
           setLoading(false);
@@ -73,9 +73,9 @@ const MatchesScreen = ({ navigation }) => {
         <Image
           style={{ height: 150, width: '90%', borderRadius: 90 }}
           source={
-            item.avatar == undefined || item.avatar.length == 0
+            item.avatars == undefined || item.avatars.length == 0
               ? images.userPic3
-              : item.avatar
+              : item.avatars
           }
         />
         <Text style={styles.contentText}>{item.prenom}</Text>

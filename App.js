@@ -185,7 +185,7 @@ const App = () => {
   useEffect(() => {
     setTimeout(async () => {
       const user_token = await deviceStorage.loadJWT();
-      // await deviceStorage.removeItemValue('id_token');
+      await deviceStorage.removeItemValue('id_token');
       // console.log('\n\n\n Retrieve: ', user_token);
       // deviceStorage.logCurrentStorage();
       if (user_token !== null)

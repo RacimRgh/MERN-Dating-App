@@ -140,6 +140,7 @@ const BottomContainer = (props) => {
           <View style={{ width: '80%' }}>
             <Text style={styles.textStyle}>Gendre *</Text>
             <ModalDropdown
+              defaultValue="Veuillez sélectionner"
               options={['Homme', 'Femme']}
               textStyle={styles.textStyle}
               style={{ width: '90%' }}
@@ -176,7 +177,7 @@ const BottomContainer = (props) => {
           <View style={{ width: '80%' }}>
             <Text style={styles.textStyle}>Pays de naissance *</Text>
             <ModalDropdown
-              defaultValue="Veillez choisir"
+              defaultValue="Veillez sélectionner"
               options={country_arr}
               textStyle={styles.textStyle}
               style={{ width: '90%' }}
@@ -214,7 +215,7 @@ const BottomContainer = (props) => {
           <View style={{ width: '80%' }}>
             <Text style={styles.textStyle}>Ville de naissance *</Text>
             <ModalDropdown
-              defaultValue="Veillez choisir"
+              defaultValue="Veillez sélectionner"
               options={s_a[numCountry]}
               textStyle={styles.textStyle}
               style={{ width: '90%' }}

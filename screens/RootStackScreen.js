@@ -30,7 +30,8 @@ const RootStackScreen = () => {
           headerStyle: styles.header,
           headerTitleStyle: {
             fontSize: 30,
-            fontFamily: 'DancingScript-Bold',
+            fontFamily: 'Timeless',
+            // fontFamily: 'DancingScript-Bold',
           },
           headerTitle: getHeaderTitle(route),
         })}

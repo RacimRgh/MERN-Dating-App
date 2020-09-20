@@ -25,7 +25,7 @@ const AstroTab = (props) => {
   const Item = ({ item }) => (
     <TouchableOpacity style={styles.content}>
       <View style={{ flexDirection: 'row' }}>
-        <Text style={styles.title}>House {item.id.slice(1)}</Text>
+        <Text style={styles.title}>Maison {item.id.slice(1)}</Text>
       </View>
       <ImageBackground source={images.ellipseWhite} style={styles.ellipse}>
         <View style={styles.item}>

@@ -23,10 +23,12 @@ const styles = StyleSheet.create({
   loginButtonStyle: {
     // left: 140,
     // right: 140,
+    flexDirection: 'row',
     zIndex: 9,
-    height: 50,
-    width: 200,
+    height: 70,
+    width: 220,
     borderRadius: 20,
+    padding: 10,
     backgroundColor: '#f4e2e8',
     position: 'absolute',
     alignItems: 'center',
@@ -42,8 +44,8 @@ const styles = StyleSheet.create({
   },
   loginButtonTextStyle: {
     color: 'black',
-    fontSize: 25,
-    fontFamily: 'DancingScript-Bold',
+    fontSize: 22,
+    fontFamily: 'Florence-Regular',
   },
   imagebackgroundStyle: {
     flex: 1,

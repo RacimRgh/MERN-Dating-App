@@ -236,6 +236,12 @@ const LoginScreen = (props) => {
       <Text style={styles.loginButtonTextStyle}>
         {cardState ? 'CONNEXION' : "M'INSCRIRE"}
       </Text>
+      <Icon
+        type="MaterialCommunityIcons"
+        name="login"
+        size={35}
+        color="black"
+      />
     </TouchableOpacity>
   );
 

@@ -25,7 +25,7 @@ const DescriptionTab = (props) => {
       data: [
         {
           Bio:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer porttitor metus nibh, et finibus massa pharetra ornare. Vivamus vitaeest interdum, bibendum metus sit amet, elementum nisl. In ac arcu ut mi placerat ultrices non sed nibh.',
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer porttitor metus nibh..',
         },
       ],
     },
@@ -117,7 +117,8 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   titles: {
-    fontFamily: 'DancingScript-Bold',
+    fontFamily: 'Timeless',
+    // fontFamily: 'DancingScript-Bold',
     fontSize: 25,
     marginHorizontal: 10,
   },
@@ -127,6 +128,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
   },
   tabTitle: {
+    // fontFamily: 'Timeless',
     fontFamily: 'DancingScript-Bold',
     fontSize: 40,
     marginVertical: 5,
