@@ -2,17 +2,31 @@ import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-dynamic-vector-icons';
 import ModalDropdown from 'react-native-modal-dropdown';
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import images from '../services/Images';
 import { s_a, country_arr } from '../services/countries';
 
-// Messages screens
-// Work in progress
+const CustomMarker = () => {
+  return (
+    <View style={styles.marker}>
+      <Image
+        source={images.userPic4}
+        style={{
+          width: '85%',
+          height: '85%',
+          resizeMode: 'center',
+          borderRadius: 200,
+        }}
+      />
+    </View>
+  );
+};
+
 const FilterScreen = ({ navigation }) => {
   const [numCountry, setNumCountry] = useState(0);
   return (
     <View style={styles.container}>
-      <View style={styles.section}>
+      {/* <View style={styles.section}>
         <Text style={styles.tabTitle}>Recherche par région</Text>
         <View style={styles.divider} />
         <View style={styles.content}>
@@ -57,17 +71,27 @@ const FilterScreen = ({ navigation }) => {
           <Text style={styles.titles}>Rechercher</Text>
           <Icon name="search" type="ionicons" size={35} />
         </TouchableOpacity>
-      </View>
+      </View> */}
       <View style={styles.mapContainer}>
         <MapView
           provider={PROVIDER_GOOGLE} // remove if not using Google Maps
           style={styles.map}
           region={{
-            latitude: 37.78825,
-            longitude: -122.4324,
+            latitude: 36.81559,
+            longitude: 5.75108,
             latitudeDelta: 0.015,
             longitudeDelta: 0.0121,
-          }}></MapView>
+          }}>
+          <Marker
+            coordinate={{
+              latitude: 36.81559,
+              longitude: 5.75108,
+              latitudeDelta: 0.015,
+              longitudeDelta: 0.0121,
+            }}>
+            <CustomMarker />
+          </Marker>
+        </MapView>
       </View>
     </View>
   );
@@ -126,13 +150,14 @@ const styles = StyleSheet.create({
     margin: 5,
   },
   mapContainer: {
-    height: 400,
-    width: 400,
+    height: '95%',
+    width: '95%',
     shadowColor: '#000',
     shadowOffset: { width: 1, height: 1 },
     shadowOpacity: 0.3,
     shadowRadius: 1,
     elevation: 2,
+    marginTop: 20,
   },
   titles: {
     fontWeight: 'bold',
@@ -153,6 +178,17 @@ const styles = StyleSheet.create({
   contentText: {
     fontSize: 18,
     alignSelf: 'center',
+  },
+  marker: {
+    height: 70,
+    width: 70,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderTopRightRadius: 100,
+    borderTopLeftRadius: 100,
+    borderBottomRightRadius: 500,
+    borderBottomLeftRadius: 500,
+    backgroundColor: '#7D938A',
   },
 });
 

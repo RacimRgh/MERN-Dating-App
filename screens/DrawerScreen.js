@@ -81,7 +81,7 @@ const DrawerScreen = (props) => {
             />
           )}
         />
-        <DrawerItem
+        {/* <DrawerItem
           label="Filtrer les utilisateurs"
           onPress={() => props.navigation.navigate('Filtre')}
           labelStyle={{ fontSize: 18 }}
@@ -93,7 +93,7 @@ const DrawerScreen = (props) => {
               type="MaterialCommunityIcons"
             />
           )}
-        />
+        /> */}
         <DrawerItem
           label="Se déconnecter"
           onPress={() => {

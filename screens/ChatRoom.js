@@ -23,7 +23,7 @@ import deviceStorage from '../services/deviceStorage';
 import useChat from '../components/useChat';
 
 const ChatRoom = ({ route }) => {
-  const { currentId, otherId, name, photo } = route.params;
+  const { currentId, otherId, name, photo, gender } = route.params;
   const roomId = currentId + otherId;
   const roomId1 = otherId + currentId;
   const [loading, setLoading] = useState(true);
@@ -83,7 +83,11 @@ const ChatRoom = ({ route }) => {
         }}>
         <Image
           source={
-            photo === undefined || photo.length == 0 ? images.userPic3 : photo
+            photo === undefined || photo.length == 0
+              ? gender == 'Homme'
+                ? images.userPic3
+                : images.userPic4
+              : photo
           }
           style={{ height: 50, width: 50, borderRadius: 50 }}
         />

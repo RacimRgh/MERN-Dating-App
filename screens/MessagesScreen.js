@@ -35,19 +35,20 @@ const MessagesScreen = ({ navigation }) => {
           Authorization: 'Bearer ' + user_token,
         },
       }).then((result) => {
-        // console.log('\n\nMatch: ', result.data);
         setState(result.data);
+        // console.log('\n\nMatch: ', result.data);
         const DATA = result.data.map((value) => {
           return {
             otherId: value._id,
             currentId: current.state.initialState.id,
             name: value.prenom,
-            photo: value.avatar,
+            photo: value.avatars,
+            gender: value.Gender,
           };
         });
         setTimeout(() => {
           setState(DATA);
-          // console.log('\n\n matches: ', state);
+          console.log('\n\n matches: ', state);
           setLoading(false);
         }, 2000);
       });
@@ -71,6 +72,7 @@ const MessagesScreen = ({ navigation }) => {
             otherId: item.otherId,
             name: item.name,
             photo: item.photo,
+            gender: item.gender,
           })
         }
         style={styles.userContainer}>
@@ -78,7 +80,9 @@ const MessagesScreen = ({ navigation }) => {
           <Image
             source={
               item.photo === undefined || item.photo.length == 0
-                ? images.userPic3
+                ? item.gender == 'Homme'
+                  ? images.userPic3
+                  : images.userPic4
                 : item.photo
             }
             style={{ height: 50, width: 50, borderRadius: 50 }}

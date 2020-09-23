@@ -15,12 +15,14 @@ import Icon from 'react-native-dynamic-vector-icons';
 import images from '../services/Images';
 import deviceStorage from '../services/deviceStorage';
 import { age } from './ProfileScreen';
+import FilterScreen from './FilterScreen';
 
 // Matches screens
 const MatchesScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
   const [state, setState] = useState([]);
   const [searchValue, setSearchValue] = useState('');
+  const [choice, setChoice] = useState(2);
   useEffect(() => {
     deviceStorage.loadJWT().then((user_token) => {
       axios({
@@ -109,8 +111,26 @@ const MatchesScreen = ({ navigation }) => {
     <View style={styles.container}>
       {state.length == 0 ? (
         <NoMatch />
-      ) : (
+      ) : choice == 1 ? (
         <View>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginTop: 10,
+            }}>
+            <TouchableOpacity
+              style={choice == 1 ? styles.choice1 : styles.choice}
+              onPress={() => setChoice(1)}>
+              <Text style={styles.titles2}>Par nom</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={choice == 2 ? styles.choice1 : styles.choice}
+              onPress={() => setChoice(2)}>
+              <Text style={styles.titles2}>Par région</Text>
+            </TouchableOpacity>
+          </View>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <TextInput
               placeholder="Rechercher un compatible"
@@ -144,6 +164,28 @@ const MatchesScreen = ({ navigation }) => {
             }}
           />
         </View>
+      ) : (
+        <>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginTop: 10,
+            }}>
+            <TouchableOpacity
+              style={choice == 1 ? styles.choice1 : styles.choice}
+              onPress={() => setChoice(1)}>
+              <Text style={styles.titles2}>Par nom</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={choice == 2 ? styles.choice1 : styles.choice}
+              onPress={() => setChoice(2)}>
+              <Text style={styles.titles2}>Par région</Text>
+            </TouchableOpacity>
+          </View>
+          <FilterScreen />
+        </>
       )}
     </View>
   );
@@ -199,6 +241,11 @@ const styles = StyleSheet.create({
     fontSize: 30,
     marginHorizontal: 10,
   },
+  titles2: {
+    fontFamily: 'DancingScript-Bold',
+    fontSize: 23,
+    marginHorizontal: 10,
+  },
   divider: {
     marginVertical: 10,
     borderBottomColor: '#D2CBCB',
@@ -226,6 +273,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#F9E7E7',
     borderWidth: 1,
     borderColor: '#D2CBCB',
+  },
+  choice: {
+    borderWidth: 0.5,
+    borderColor: '#7D938A',
+    padding: 10,
+  },
+  choice1: {
+    borderWidth: 0.5,
+    borderColor: '#7D938A',
+    padding: 10,
+    backgroundColor: '#7D938A',
   },
 });
 

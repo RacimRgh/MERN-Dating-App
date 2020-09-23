@@ -15,7 +15,11 @@ const EditCard = (props) => {
         {dropdown != true ? (
           <>
             <TextInput
-              defaultValue={data !== undefined ? data + '' : 'Non mentionné'}
+              defaultValue={
+                data !== undefined && data !== 0 && data !== ''
+                  ? data + ''
+                  : 'Non mentionné'
+              }
               placeholder={title}
               style={styles.contentText}
               selectionColor="#757575"
@@ -33,7 +37,11 @@ const EditCard = (props) => {
           <View style={styles.dropdown}>
             <ModalDropdown
               options={['Marron', 'Noir', 'Vert', 'Bleu']}
-              defaultValue={data !== undefined ? data + '' : 'Non mentionné'}
+              defaultValue={
+                data !== undefined && data !== 0 && data !== ''
+                  ? data + ''
+                  : 'Non mentionné'
+              }
               textStyle={styles.contentText}
               style={{ width: '90%' }}
               dropdownStyle={{
@@ -88,6 +96,7 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     fontWeight: 'bold',
     fontSize: 17,
+    width: '50%',
   },
   addButton: {
     flexDirection: 'row',

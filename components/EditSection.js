@@ -16,6 +16,11 @@ const EditSection = (props) => {
       <Text style={styles.title}>Physique</Text>
       <View style={styles.divider} />
       <EditCard
+        title="Ma bio (0/250)"
+        onChangeDescription={heightOnChange}
+        num={false}
+      />
+      <EditCard
         title="Taille en CM"
         data={data.height}
         onChangeDescription={heightOnChange}

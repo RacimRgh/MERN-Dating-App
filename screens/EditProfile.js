@@ -15,6 +15,8 @@ import ImagePicker from 'react-native-image-picker';
 import { store } from '../services/store';
 import deviceStorage from '../services/deviceStorage';
 import EditSection from '../components/EditSection';
+import EditCard from '../components/EditCard';
+import EditTastes from '../components/EditTastes';
 import images from '../services/Images';
 
 const EditProfile = () => {
@@ -27,9 +29,11 @@ const EditProfile = () => {
       await dispatch({ type: 'GET_PROFILE' });
     }
     fetchData();
-    // console.log('\n\n\nEditProfile: ', state);
+    console.log('\n\n\nEditProfile: ', state.initialState.description);
     setTimeout(() => {
       setDescription({
+        avatar: state.initialState.avatar,
+        bio: state.initialState.description.phydesc.bio,
         height: state.initialState.description.phydesc.height,
         weight: state.initialState.description.phydesc.weight,
         eyecolor: state.initialState.description.phydesc.eyecolor,
@@ -38,7 +42,6 @@ const EditProfile = () => {
         sports: state.initialState.description.tastes.sports,
         musique: state.initialState.description.tastes.musique,
         movies: state.initialState.description.tastes.movies,
-        avatar: state.initialState.avatar,
         isLoading: false,
       });
     }, 2000);
@@ -206,14 +209,6 @@ const EditProfile = () => {
           }}
         />
         <View style={styles.divider} />
-        {/* <Image
-          source={
-            descriptionData.avatar == undefined
-              ? images.userPic4
-              : descriptionData.avatar
-          }
-          style={{ height: 150, width: 180, alignSelf: 'center' }}
-        /> */}
       </View>
       <View>
         <EditSection
@@ -225,6 +220,77 @@ const EditProfile = () => {
           haircolorOnChange={(val) => haircolorOnChange(val)}
           styleOnChange={(val) => styleOnChange(val)}
         />
+      </View>
+      <View>
+        <TouchableOpacity
+          style={styles.saveButtonStyle}
+          onPress={() => {
+            setLoading(true);
+            setTimeout(() => {
+              onPressSave({
+                height: descriptionData.height,
+                weight: descriptionData.weight,
+                eyecolor: descriptionData.eyecolor,
+                haircolor: descriptionData.haircolor,
+                style: descriptionData.style,
+              });
+            }, 1000);
+            onPressSave({
+              height: descriptionData.height,
+              weight: descriptionData.weight,
+              eyecolor: descriptionData.eyecolor,
+              haircolor: descriptionData.haircolor,
+              style: descriptionData.style,
+            });
+            setLoading(false);
+          }}>
+          {loading ? (
+            <View
+              style={{
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <ActivityIndicator size="large" />
+            </View>
+          ) : (
+            <Text style={styles.title}>Save</Text>
+          )}
+        </TouchableOpacity>
+      </View>
+      <View style={styles.section}>
+        <Text style={styles.title}>Passions et gouts</Text>
+        <View style={styles.divider} />
+        <View style={styles.title}>
+          <Text style={styles.titleStyle}>Sports</Text>
+        </View>
+        {descriptionData.sports.map((elt) => (
+          <EditTastes title="Sports" data={elt} num={false} />
+        ))}
+        <TouchableOpacity style={styles.addButtonStyle}>
+          <Text style={styles.titleStyle}>Ajouter un élément</Text>
+        </TouchableOpacity>
+        <View style={styles.divider} />
+        <View style={styles.title}>
+          <Text style={styles.titleStyle}>Musique</Text>
+        </View>
+        {descriptionData.musique.map((elt) => (
+          <EditTastes title="Sports" data={elt} num={false} />
+        ))}
+        <TouchableOpacity style={styles.addButtonStyle}>
+          <Text style={styles.titleStyle}>Ajouter un élément</Text>
+        </TouchableOpacity>
+        <View style={styles.divider} />
+        <View style={styles.title}>
+          <Text style={styles.titleStyle}>Films et séries</Text>
+        </View>
+        {descriptionData.movies.map((elt) => (
+          <EditTastes title="Sports" data={elt} num={false} />
+        ))}
+        <TouchableOpacity style={styles.addButtonStyle}>
+          <Text style={styles.titleStyle}>Ajouter un élément</Text>
+        </TouchableOpacity>
+        <View style={styles.divider} />
       </View>
       <View>
         <TouchableOpacity
@@ -322,6 +388,21 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 20,
     backgroundColor: '#D2CBCB',
+    marginBottom: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 1, height: 1 },
+    shadowOpacity: 0.3,
+    shadowRadius: 1,
+    elevation: 2,
+  },
+  addButtonStyle: {
+    width: '50%',
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 10,
+    borderRadius: 20,
+    backgroundColor: '#F9E7E7',
     marginBottom: 10,
     shadowColor: '#000',
     shadowOffset: { width: 1, height: 1 },
